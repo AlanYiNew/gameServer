@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="Hellloworld" targetName="Hellloworld" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TCPServer.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TCPServer.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UDPServer.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UDPServer.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server.h" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+    </list>
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TCPServer.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-882">
+              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UDPServer.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="732">
+              <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UDPServer.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UDPServer.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
+              <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+              <folding>
+                <element signature="e#37#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>\#include \&lt;iostream\&gt;\n\#include \&lt;string\.h\&gt;\n\#include \&lt;vector\&gt;\n\#include \&lt;exception\&gt;\n\#include \&lt;unistd\.h\&gt;\n\#include \&lt;cstdlib\&gt;\n\#include \&quot;server\.h\&quot;\n\#include \&lt;pthread\.h\&gt;\n\#include \&lt;cstdio\&gt;\n\#include \&lt;errno\.h\&gt;\n\#include \&lt;sys\/time\.h\&gt;\n\n\#define MAXLINE 4096\n\n\#define TEST_H\nusing namespace\:\:std\;\n\nstatic int timeval_subtract\(struct timeval\* result\, struct timeval\* x\, struct timeval\* y\)\;\n\nServer\:\:Server\(int port\,int event_num\)\{\n    this\-\&gt;port \= port\;\n    this\-\&gt;event_num \= event_num\;\n\}\n\nint Server\:\:init\(\)\{\n    \/\*\* declare a socketaddr_in \*\*\/       \n    this\-\&gt;serv_addr \= new sockaddr_in\;\n       \n    \/\*\* set protocol family ipv4 \*\*\/\n    this\-\&gt;serv_addr\-\&gt;sin_family\=AF_INET\;\n    \n    \/\*\* set address accepting any in_addr using host to network address \n    transalation \*\*\/\n    this\-\&gt;serv_addr\-\&gt;sin_addr\.s_addr\=htonl\(INADDR_ANY\)\;\n    \n    \/\*\* set input port \*\*\/\n    serv_addr\-\&gt;sin_port\=htons\(this\-\&gt;port\)\;\n\n    \/\*\* event listening array \*\*\/\n    this\-\&gt;events \= new epoll_event\[this\-\&gt;event_num\]\;\n\n    \/\*\* init vector to keep track of client fds \*\*\/\n    this\-\&gt;clientfds\.resize\(this\-\&gt;event_num\)\;\n   \n    return 0\;\n\}\n\nint Server\:\:starts\(\)\{\n    \/\*\* create a socket \*\*\/\n    int listenfd \= socket\(AF_INET\,SOCK_STREAM\,0\)\;\n    \n    \/\*\* buff \*\*\/\n    char buff\[MAXLINE\+1\]\;\n   \n    \n \n    try \{\n    \n        int err \= bind\(listenfd\,\(sockaddr\*\)\(serv_addr\)\,sizeof\(sockaddr_in\)\)\;\n        \n        err \=  listen\(listenfd\,event_num\)\;        \n       \n        socklen_t len \= sizeof\(sockaddr_in\)\; \n\n        \/\*\* creates epollfd \*\*\/\n\	int epollfd\;  \n \n\	if \(\(epollfd \= epoll_create\(EPOLL_CLOEXEC\)\) \&lt; 0\)\{\n\	    perror\(\&quot;epollfd creates fails\&quot;\)\;\n\	    \:\:exit\(\-1\)\;\n        \}\n\n        \/\*\* create event for listrener \*\*\/\n        epoll_event event\;\n        event\.data\.fd \= listenfd\;\n        event\.events \= EPOLLIN\; \n\n\	\/\*\* Add it into event list \*\*\/\n        if \(epoll_ctl\(epollfd\, EPOLL_CTL_ADD\,listenfd\,\&amp;event\) \&lt; 0\)\{\n\	    perror\(\&quot;listenfd added fails\&quot;\)\;\n\	    \:\:exit\(\-1\)\;\n        \}\n\n\n\n            for \(int i \= 0\; i \&lt; nready\; i\+\+\)\{\n                if \(events\[i\]\.data\.fd \=\= listenfd\)\{\n\	\	    int connfd \= accept\(listenfd\,\(struct sockaddr\*\)serv_addr\,\&amp;len\)\;\n                    \n                    event\.data\.fd \= connfd\;\n                    event\.events \= EPOLLIN\;\n                    if \(epoll_ctl\(epollfd\, EPOLL_CTL_ADD\,connfd\,\&amp;event\) \&lt; 0\)\{\n\	                perror\(\&quot;clientfd added fails\&quot;\)\;\n\	                \:\:exit\(\-1\)\;\n                    \}\n                    clientfds\.push_back\(connfd\)\;\n                \}   else if \(events\[i\]\.events \&amp; EPOLLIN\)\{\n                    int readsize \= 0\;\n                    if \(\(readsize \= recv\(events\[i\]\.data\.fd\,buff\,MAXLINE\,MSG_WAITALL\)\) \&lt; 0\)\{\n                       if \(errno\=\=ECONNRESET\)  \n                          close\(events\[i\]\.data\.fd\)\;  \n                       else  \n                          perror\(\&quot;read error\&quot;\)\;  \n                          \:\:exit\(\-1\)\;\n                    \}\	else if \(readsize \=\= 0\)\{\n\	\	        shutdown\(events\[i\]\.data\.fd\,SHUT_RDWR\)\;\	\n                        close\(events\[i\]\.data\.fd\)\;\n                        epoll_ctl\(epollfd\, EPOLL_CTL_DEL\,events\[i\]\.data\.fd\,\&amp;events\[i\]\)\;\n                        for \(vector\&lt;int\&gt;\:\:iterator it \= clientfds\.begin\(\)\;it \!\= clientfds\.end\(\)\;\)\{\n                            if \(\*it \=\= events\[i\]\.data\.fd\)\{\n                               clientfds\.erase\(it\)\;\n                               break\;\n                            \}   else\{\n                               it\+\+\;\n                            \}\n                        \}\n\n\n\n                    \}   else \{\n                        buff\[readsize\] \= \'\\0\'\; \n                    \}\n                    \n                \}\n            \}\n\n        \}\n    \}   catch \(exception\&amp; e\)\{\n\n        cout \&lt;\&lt; e\.what\(\) \&lt;\&lt; endl\; \n\n        return \-1\;\n    \}\n    \n    return 0\;\n\}\n\nServer\:\:\~Server\(\)\{\n    if \(serv_addr \!\= NULL\)\{\n       delete\(serv_addr\)\;\n       delete\(events\)\; \n    \}\n\}\n\n\#ifdef TEST_H\nstatic int timeval_subtract\(struct timeval\* result\, struct timeval\* x\, struct timeval\* y\)\{   \n        int   nsec\;   \n    \n        if   \(   x\-\&gt;tv_sec\&gt;y\-\&gt;tv_sec   \)   \n                  return   \-1\;   \n    \n        if   \(   \(x\-\&gt;tv_sec\=\=y\-\&gt;tv_sec\)   \&amp;\&amp;   \(x\-\&gt;tv_usec\&gt;y\-\&gt;tv_usec\)   \)   \n                  return   \-1\;   \n    \n        result\-\&gt;tv_sec   \=   \(   y\-\&gt;tv_sec\-x\-\&gt;tv_sec   \)\;   \n        result\-\&gt;tv_usec   \=   \(   y\-\&gt;tv_usec\-x\-\&gt;tv_usec   \)\;   \n    \n        if   \(result\-\&gt;tv_usec\&lt;0\)   \n        \{   \n                  result\-\&gt;tv_sec\-\-\;   \n                  result\-\&gt;tv_usec\+\=1000000\;   \n        \}   \n    \n        return   0\;   \n\} \n\#endif  \n</find>
+      <find>clientfds</find>
+      <find>event_num</find>
+      <find>epoll_event</find>
+      <find>events</find>
+      <find>epoll_wait</find>
+      <find>Server</find>
+      <find>nready</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>TCPServer</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/server.cpp" />
+        <option value="$PROJECT_DIR$/server.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/TCPServer.h" />
+        <option value="$PROJECT_DIR$/TCPServer.cpp" />
+        <option value="$PROJECT_DIR$/UDPServer.h" />
+        <option value="$PROJECT_DIR$/UDPServer.cpp" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="75" />
+    <option name="y" value="64" />
+    <option name="width" value="1355" />
+    <option name="height" value="836" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Hellloworld" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="gameServer" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="SearchEverywhereHistoryKey" value="keymap&#9;ACTION&#9;ChangeKeymap&#10;refor&#9;ACTION&#9;ReformatCode&#10;format&#9;ACTION&#9;CodeFormatGroup" />
+    <property name="last_opened_file_path" value="/usr/bin/cmake" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Hellloworld">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration name="Hellloworld" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Hellloworld" RUN_TARGET_NAME="Hellloworld" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Hellloworld" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="" />
+      <created>1505638046035</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1505638046035</updated>
+      <workItem from="1505638050701" duration="15493000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="15493000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1375" height="876" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24945454" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39974937" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945454" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="5" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TCPServer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="6" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="732">
+          <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPServer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+          <folding>
+            <element signature="e#37#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-882">
+          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

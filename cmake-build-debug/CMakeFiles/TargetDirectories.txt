@@ -1,0 +1,3 @@
+/home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles/Hellloworld.dir
