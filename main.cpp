@@ -1,31 +1,28 @@
 #include <iostream>
 #include <string>
 #include "TCPServer.h"
+#include <cstring>
 #include "UDPServer.h"
 
 #define MAX_SESSION 65536
+/*
 struct pos_t{
     float x;
     float y;
 };
+*/
 
 struct Player{
-    Player(){pos={0,0};};
-    Player(pos_t pos){this->pos=pos;};
-    int update(pos_t pos){this->pos= pos;};
-    pos_t pos;
+    void * data;
+    int len;
+    Player():data(nullptr),len(0){};
 };
 
 struct chunk{
-    pos_t pos;
-    int sid;//session_id
-    int pid;//0 or 1 at the moment
-    chunk(pos_t pos,int sid, int pid){
-        this->pos = pos;
-        this->sid = sid;
-        this->pid = pid;
-    }
+    int sid;
+    int pid;
 };
+
 
 struct session{
     Player players[2];
@@ -46,10 +43,16 @@ int main(int argc, char * argv[]){
 
 int function_callback(const UDPServer::message_t& message,UDPServer::message_t& message_out){
     chunk recv = *reinterpret_cast<chunk*>(message.content);
-    session_bucket[recv.sid].players[recv.pid].update(recv.pos);
-    pos_t enemy_pos = session_bucket[recv.sid].players[recv.pid^1].pos;
-    chunk *res = new chunk{enemy_pos,recv.sid,recv.pid^1};
-    message_out.content = res;
-    message_out.len = sizeof(chunk);
+    if (session_bucket[recv.sid].players[recv.pid].data == nullptr){
+        session_bucket[recv.sid].players[recv.pid].data = malloc(message.len);
+    }
+
+    memcpy(session_bucket[recv.sid].players[recv.pid].data,message.content,message.len);
+    session_bucket[recv.sid].players[recv.pid].len = message.len;
+
+    message_out.content = session_bucket[recv.sid].players[recv.pid^1].data;
+    message_out.len = session_bucket[recv.sid].players[recv.pid^1].len;
+
+    std::cout << "recving " << message.len << " form "<<recv.pid<< std::endl;
     return 0;
 }
