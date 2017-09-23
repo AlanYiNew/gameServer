@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/gameServer
+CMAKE_SOURCE_DIR = /home/alan/CLionProjects/gameServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/gameServer
+CMAKE_BINARY_DIR = /home/alan/CLionProjects/gameServer
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -78,11 +67,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/gameServer/CMakeFiles /home/ubuntu/gameServer/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/CMakeFiles /home/alan/CLionProjects/gameServer/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/gameServer/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,33 @@ gameServer: cmake_check_build_system
 gameServer/fast:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/build
 .PHONY : gameServer/fast
+
+GameServer.o: GameServer.cpp.o
+
+.PHONY : GameServer.o
+
+# target to build an object file
+GameServer.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.o
+.PHONY : GameServer.cpp.o
+
+GameServer.i: GameServer.cpp.i
+
+.PHONY : GameServer.i
+
+# target to preprocess a source file
+GameServer.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.i
+.PHONY : GameServer.cpp.i
+
+GameServer.s: GameServer.cpp.s
+
+.PHONY : GameServer.s
+
+# target to generate assembly for a file
+GameServer.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.s
+.PHONY : GameServer.cpp.s
 
 TCPServer.o: TCPServer.cpp.o
 
@@ -210,9 +237,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... rebuild_cache"
 	@echo "... gameServer"
+	@echo "... GameServer.o"
+	@echo "... GameServer.i"
+	@echo "... GameServer.s"
 	@echo "... TCPServer.o"
 	@echo "... TCPServer.i"
 	@echo "... TCPServer.s"
