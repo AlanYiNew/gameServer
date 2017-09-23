@@ -3,6 +3,8 @@
 #include "TCPServer.h"
 #include <cstring>
 #include "UDPServer.h"
+#include <ctime>
+#include <chrono>
 
 #define MAX_SESSION 65536
 /*
@@ -53,6 +55,10 @@ int function_callback(const UDPServer::message_t& message,UDPServer::message_t& 
     message_out.content = session_bucket[recv.sid].players[recv.pid^1].data;
     message_out.len = session_bucket[recv.sid].players[recv.pid^1].len;
 
-    std::cout << "recving " << message.len << " form "<<recv.pid<< std::endl;
+    time_t tt;
+    auto now = std::chrono::system_clock::now();
+    tt = std::chrono::system_clock::to_time_t(now);
+
+    std::cout << "recving " << message.len << " from "<<recv.pid << "[" << ctime(&tt) << "]"<< std::endl;
     return 0;
 }
