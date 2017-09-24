@@ -10,7 +10,7 @@
 
 #ifndef __TCPSERVER_H_
 #define __TCPSERVER_H_
-
+#define MAXLINE 4096
 class TCPServer{
     private : 
         int port;
@@ -22,11 +22,19 @@ class TCPServer{
         int epoll_add(int fd);
         int epoll_del(int fd);
 
-        struct _header{
+        struct header_t{
+
             int len;
         };
+        ;
 
 public :
+        struct packet_t{
+            packet_t(int readsize,const char * mess);
+            packet_t() = default;
+            int len;
+            char content[MAXLINE];
+        };
         /** TCPServer class constructor **/
         TCPServer(int port);
         ~TCPServer();
@@ -37,11 +45,12 @@ public :
         /** starts the TCPServer **/
         int starts();
 
+
         /** pure event driven virtual function **/
         virtual void onShutDownConnection(int fd)=0;
         virtual void onRead(int fd, char *, int readsize)=0;
         virtual void onAcceptConnection(int fd)= 0;
-        int send(int fd,char * message,int read_size);
+        int sendPacket(int fd,packet_t* packet);
  
 };
 

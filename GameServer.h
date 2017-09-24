@@ -15,6 +15,10 @@
 #include <iostream>
 #include <thread>
 #include <map>
+#include <algorithm>
+#include <utility>
+#include <iterator>
+#include <sstream>
 
 class GameServer:TCPServer {
 public:

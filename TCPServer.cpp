@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
-#include <string>
+#include <cstring>
 #include <exception>
 #include <unistd.h>
 #include "TCPServer.h"
 #include <algorithm>
 
-#define MAXLINE 4096
+
 
 #define TEST_H
 using namespace ::std;
@@ -29,7 +29,7 @@ int TCPServer::init() {
     /** set input port **/
     serv_addr.sin_port = htons(this->port);
 
-
+    pending_num = 100;
     return 0;
 }
 
@@ -37,7 +37,7 @@ int TCPServer::starts() {
     /** create a socket **/
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
     /** buff **/
-    char buff[MAXLINE + 1];
+    packet_t buf;
 
     int err = bind(listenfd, (sockaddr*)&serv_addr, sizeof(sockaddr_in));
     err = listen(listenfd, pending_num);
@@ -62,7 +62,7 @@ int TCPServer::starts() {
                 onAcceptConnection(connfd);
             } else if (events[i].events & EPOLLIN) {
                 int readsize = 0;
-                if ((readsize = recv(events[i].data.fd, buff, sizeof(_header), MSG_WAITALL)) < 0) {
+                if ((readsize = recv(events[i].data.fd, &buf, sizeof(header_t), MSG_WAITALL)) < 0) {
                     throw std::runtime_error("error during reading packet header from socket");
                 } else if (readsize == 0) {
                     shutdown(events[i].data.fd, SHUT_RDWR);
@@ -71,15 +71,14 @@ int TCPServer::starts() {
                     onShutDownConnection(events[i].data.fd);
 
                 } else {
-                    _header * h = reinterpret_cast<_header*>(buff);
-                    if (readsize = recv(events[i].data.fd, buff+sizeof(_header), h->len, MSG_WAITALL)){
-                        onRead(events[i].data.fd,buff+sizeof(_header),readsize);
+                    header_t * h = reinterpret_cast<header_t*>(&buf);
+                    if (readsize = recv(events[i].data.fd, &buf.content, h->len, MSG_WAITALL)){
+                        buf.content[readsize] = '\0';
+                        onRead(events[i].data.fd,buf.content,readsize);
                     }   else{
                         throw std::runtime_error("error during reading packet content from socket");
                     }
-
                 }
-
             }
         }
     }
@@ -103,6 +102,11 @@ int TCPServer::epoll_add(int fd) {
     return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &event);
 }
 
-int TCPServer::send(int fd,char * message,int size){
-    send(fd,message,size);
+int TCPServer::sendPacket(int fd,packet_t* packet){
+    return send(fd,(char*)packet,packet->len+sizeof(int) ,0);
+}
+
+TCPServer::packet_t::packet_t(int length,const char * mess){
+    len = length;
+    memcpy(content,mess,length);
 }

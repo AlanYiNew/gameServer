@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/Hellloworld.dir/main.cpp.o CMakeFiles/Hellloworld.dir/TCPServer.cpp.o CMakeFiles/Hellloworld.dir/UDPServer.cpp.o  -o Hellloworld 

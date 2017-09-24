@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/gameServer.dir/main.cpp.o"
   "CMakeFiles/gameServer.dir/TCPServer.cpp.o"
   "CMakeFiles/gameServer.dir/UDPServer.cpp.o"
+  "CMakeFiles/gameServer.dir/GameServer.cpp.o"
   "gameServer.pdb"
   "gameServer"
 )
