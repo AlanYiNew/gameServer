@@ -68,13 +68,12 @@ int TCPServer::starts() {
                     shutdown(events[i].data.fd, SHUT_RDWR);
                     close(events[i].data.fd);
                     epoll_del(events[i].data.fd);
-                    onShutDownConnection(events[i].data.fd);
-
+                    onShutDownConnection(events[i].data.fd);//function in GameServer.cpp
                 } else {
                     header_t * h = reinterpret_cast<header_t*>(&buf);
                     if (readsize = recv(events[i].data.fd, &buf.content, h->len, MSG_WAITALL)){
                         buf.content[readsize] = '\0';
-                        onRead(events[i].data.fd,buf.content,readsize);
+                        onRead(events[i].data.fd,buf.content,readsize);//function in GameServer.cpp
                     }   else{
                         throw std::runtime_error("error during reading packet content from socket");
                     }

@@ -4,6 +4,8 @@
 
 #include "GameServer.h"
 #define MAX_SESSION 65536
+#define MAX_PLAYERS 2
+
 struct Player{
     void * data;
     int len;
@@ -92,9 +94,26 @@ bool validSid(int sid){
         && session_bucket[sid].occupied;
 }
 
-//TODO
+//Search the session_bucket and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
-
+	//iteral all session_bucket slots, and check players' fd value
+	//if value is equal to the parrameter 'fd', then remove the player's data
+	for ( int i = 0; i < MAX_SESSION; i++ ){
+		for ( int j = 0; j < MAX_PLAYERS; j++ ){
+			if ( session_bucket[i].players[j].fd == fd ){
+				senssion_bucket[i].players[j].data = nullptr;
+				senssion_bucket[i].players[j].len = 0;
+				senssion_bucket[i].players[j].fd = 0;
+				senssion_bucket[i].players[j].confirmed = false;
+				senssion_bucket[i].players[j].starts = false;
+			}
+		}
+		//if the data of all players' been removed, then room occupied is set to 'false'
+		if ( senssion_bucket[i].players[0].starts = false && 
+		  senssion_bucket[i].players[1].starts = false){
+			senssion_bucket[i].occupied = false;
+		}
+	}
 }
 
 //TODO
