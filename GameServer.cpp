@@ -3,7 +3,7 @@
 //
 
 #include "GameServer.h"
-#define MAX_SESSION 65536
+#define MAX_SESSION 8
 #define MAX_PLAYERS 2
 
 struct Player{
