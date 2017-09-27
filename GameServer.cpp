@@ -110,8 +110,8 @@ void GameServer::onShutDownConnection(int fd){
 " has been cleared!" << std::endl;			}
 		}
 		//if the data of all players' been removed, then room occupied is set to 'false'
-		if ( session_bucket[i].players[0].starts = false && 
-		  session_bucket[i].players[1].starts = false){
+		if ( session_bucket[i].players[0].starts == false && 
+		  session_bucket[i].players[1].starts == false){
 			session_bucket[i].occupied = false;
 			std::cout << "Session: " << i << " has been cleared!" << std::endl;
 		}
