@@ -106,12 +106,14 @@ void GameServer::onShutDownConnection(int fd){
 				senssion_bucket[i].players[j].fd = 0;
 				senssion_bucket[i].players[j].confirmed = false;
 				senssion_bucket[i].players[j].starts = false;
-			}
+				cout << "Session: "<< i << " Player: " << j <<
+" has been cleared!" << std::endl;			}
 		}
 		//if the data of all players' been removed, then room occupied is set to 'false'
 		if ( senssion_bucket[i].players[0].starts = false && 
 		  senssion_bucket[i].players[1].starts = false){
 			senssion_bucket[i].occupied = false;
+			cout << "Session: " << i << " has been cleared!" << std::endl;
 		}
 	}
 }
