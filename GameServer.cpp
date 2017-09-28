@@ -94,7 +94,7 @@ bool validSid(int sid){
         && session_bucket[sid].occupied;
 }
 
-//Search the session_bucket and clr the disconnected fd slot
+//Search the session_bucket[] and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
 	//iteral all session_bucket slots, and check players' fd value
 	//if value is equal to the parrameter 'fd', then remove the player's data
@@ -111,7 +111,8 @@ void GameServer::onShutDownConnection(int fd){
 		}
 		//if the data of all players' been removed, then room occupied is set to 'false'
 		if ( session_bucket[i].players[0].starts == false && 
-		  session_bucket[i].players[1].starts == false){
+		  session_bucket[i].players[1].starts == false && 
+		  session_bucket[i].occupied == true){
 			session_bucket[i].occupied = false;
 			std::cout << "Session: " << i << " has been cleared!" << std::endl;
 		}
