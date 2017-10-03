@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/alan/CLionProjects/gameServer/GameServer.cpp
+/home/ubuntu/gameServer/GameServer.cpp
 GameServer.h
-/home/alan/CLionProjects/gameServer/GameServer.h
+/home/ubuntu/gameServer/GameServer.h
 
-/home/alan/CLionProjects/gameServer/GameServer.h
+/home/ubuntu/gameServer/GameServer.h
 UDPServer.h
-/home/alan/CLionProjects/gameServer/UDPServer.h
+/home/ubuntu/gameServer/UDPServer.h
 string
 -
 TCPServer.h
-/home/alan/CLionProjects/gameServer/TCPServer.h
+/home/ubuntu/gameServer/TCPServer.h
 cstring
 -
 ostream
@@ -40,7 +40,7 @@ iterator
 sstream
 -
 
-/home/alan/CLionProjects/gameServer/TCPServer.cpp
+/home/ubuntu/gameServer/TCPServer.cpp
 iostream
 -
 vector
@@ -52,11 +52,11 @@ exception
 unistd.h
 -
 TCPServer.h
-/home/alan/CLionProjects/gameServer/TCPServer.h
+/home/ubuntu/gameServer/TCPServer.h
 algorithm
 -
 
-/home/alan/CLionProjects/gameServer/TCPServer.h
+/home/ubuntu/gameServer/TCPServer.h
 arpa/inet.h
 -
 sys/socket.h
@@ -70,15 +70,15 @@ sys/epoll.h
 vector
 -
 
-/home/alan/CLionProjects/gameServer/UDPServer.cpp
+/home/ubuntu/gameServer/UDPServer.cpp
 UDPServer.h
-/home/alan/CLionProjects/gameServer/UDPServer.h
+/home/ubuntu/gameServer/UDPServer.h
 iostream
 -
 unistd.h
-/home/alan/CLionProjects/gameServer/unistd.h
+/home/ubuntu/gameServer/unistd.h
 
-/home/alan/CLionProjects/gameServer/UDPServer.h
+/home/ubuntu/gameServer/UDPServer.h
 netinet/in.h
 -
 sys/epoll.h
@@ -86,11 +86,11 @@ sys/epoll.h
 vector
 -
 
-/home/alan/CLionProjects/gameServer/main.cpp
+/home/ubuntu/gameServer/main.cpp
 iostream
 -
 GameServer.h
-/home/alan/CLionProjects/gameServer/GameServer.h
+/home/ubuntu/gameServer/GameServer.h
 exception
 -
 

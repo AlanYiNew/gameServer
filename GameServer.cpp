@@ -81,11 +81,13 @@ int nextfit(int fd){
 }
 
 bool enterSession(int sid,int fd){
+    
+    std::cout << "enter checking" << session_bucket[sid].occupied << std::endl;
     if (sid >= 0 && sid < MAX_SESSION
         && session_bucket[sid].occupied){
         session_bucket[sid].players[1].fd = fd;
         return true;
-    }
+    } 
     return false;
 }
 
@@ -132,13 +134,15 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = nextfit(fd);
         std::string res("created ");
         res+=std::to_string(sid);
-        TCPServer::packet_t respond{res.length(),res.c_str()};
+	std::cout << res << std::endl;
+	TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
 
     }   else if (tokens[0] == "enter" && tokens[1] == "lobby"){
         int sid = std::stoi(tokens[2]);
         std::string res("entered ");
         res+=std::to_string((enterSession(sid,fd)?sid:-1));
+        std::cout << res << std::endl;
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
 

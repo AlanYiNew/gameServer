@@ -55,7 +55,8 @@ int UDPServer::starts() {
                 if (callback_func) {
                     message_t res;
                     callback_func(recv,res);
-                    sendto(fd,res.content,res.len,0,reinterpret_cast<sockaddr*>(&cliaddr),cliaddrlen);
+                    int sentbytes = sendto(fd,res.content,res.len,0,reinterpret_cast<sockaddr*>(&cliaddr),cliaddrlen);
+                    std::cout << "sentbytes = " <<sentbytes << std::endl;
                 }
             }
         }
