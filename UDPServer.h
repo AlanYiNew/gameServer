@@ -33,7 +33,7 @@ public :
     int starts();
 
 private :
-    int port;
+    uint16_t port;
     sockaddr_in serv_addr;
     udp_cb_t callback_func;
 

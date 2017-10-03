@@ -6,6 +6,7 @@
 #define MAX_SESSION 8
 #define MAX_PLAYERS 2
 
+#define SERVER_DEBUG 0
 struct Player{
     void * data;
     int len;
@@ -42,11 +43,13 @@ int udp_callback(const UDPServer::message_t& message,UDPServer::message_t& messa
     message_out.content = session_bucket[recv.sid].players[recv.pid^1].data;
     message_out.len = session_bucket[recv.sid].players[recv.pid^1].len;
 
+#if SERVER_DEBUG
     time_t tt;
     auto now = std::chrono::system_clock::now();
     tt = std::chrono::system_clock::to_time_t(now);
 
     std::cout << "recving " << message.len << " from "<<recv.pid << "[" << ctime(&tt) << "]"<< std::endl;
+#endif
     return 0;
 }
 
@@ -113,9 +116,9 @@ void GameServer::onShutDownConnection(int fd){
 " has been cleared!" << std::endl;			}
 		}
 		//if the data of all players' been removed, then room occupied is set to 'false'
-		if ( session_bucket[i].players[0].starts == false && 
-		  session_bucket[i].players[1].starts == false && 
-		  session_bucket[i].occupied == true){
+		if ( !session_bucket[i].players[0].starts &&
+		  !session_bucket[i].players[1].starts &&
+		  session_bucket[i].occupied){
 			session_bucket[i].occupied = false;
 			std::cout << "Session: " << i << " has been cleared!" << std::endl;
 		}
