@@ -12,6 +12,7 @@ struct Player{
     int fd;//file descriptor
     bool confirmed;
     bool starts;
+    bool score;
     Player():data(nullptr),len(0),confirmed(0),starts(0){};
 };
 
@@ -176,12 +177,30 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             TCPServer::packet_t respond{res.length(),res.c_str()};
             int opponent_fd = session_bucket[sid].players[pid^1].fd;
             sendPacket(opponent_fd,&respond);
-            std::cout << "len" << sendPacket(fd,&respond) << std::endl;
+            sendPacket(fd,&respond);
 
         }   else{
             std::string res("opponent not ready");
             TCPServer::packet_t respond{res.length(),res.c_str()};
             std::cout << "len" <<  sendPacket(fd,&respond) << std::endl;
+        }
+    }   else if (tokens[0] == "dead"){
+        int sid = std::stoi(tokens[1]);
+        int pid = std::stoi(tokens[2]);
+        session_bucket[sid].players[pid^1].score++;
+        if (session_bucket[sid].players[pid^1].score > 5){
+            int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
+            std::string res("win");
+            TCPServer::packet_t respond1{res.length(), res.c_str()};
+            sendPacket(opponent_fd, &respond1);
+            res = "lose";
+            TCPServer::packet_t respond2{res.length(), res.c_str()};
+            sendPacket(opponent_fd, &respond2);
+        }   else {
+            int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
+            std::string res("score");
+            TCPServer::packet_t respond{res.length(), res.c_str()};
+            sendPacket(opponent_fd, &respond);
         }
     }
 }
