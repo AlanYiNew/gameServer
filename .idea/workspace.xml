@@ -43,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="174">
-              <caret line="198" column="57" lean-forward="false" selection-start-line="198" selection-start-column="57" selection-end-line="198" selection-end-column="57" />
+              <caret line="198" column="75" lean-forward="false" selection-start-line="198" selection-start-column="75" selection-end-line="198" selection-end-column="75" />
               <folding>
                 <element signature="e#1144#1362#0" expanded="true" />
               </folding>
@@ -260,7 +260,7 @@
       <workItem from="1506179504779" duration="8033000" />
       <workItem from="1506232808107" duration="19266000" />
       <workItem from="1506833856652" duration="41000" />
-      <workItem from="1507005381954" duration="11025000" />
+      <workItem from="1507005381954" duration="11425000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -332,11 +332,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507033967674</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="&quot;Decrase number of time needed to score&quot;">
+      <created>1507045052772</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1507045052772</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63431000" />
+    <option name="totallyTimeSpent" value="63831000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -401,7 +408,8 @@
     <MESSAGE value="&quot;Comment out debug&quot;" />
     <MESSAGE value="&quot;Added enter show up feature&quot;" />
     <MESSAGE value="&quot;Fix a bug in enter&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix a bug in enter&quot;" />
+    <MESSAGE value="&quot;Decrase number of time needed to score&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Decrase number of time needed to score&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -882,7 +890,7 @@
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
-          <caret line="198" column="57" lean-forward="false" selection-start-line="198" selection-start-column="57" selection-end-line="198" selection-end-column="57" />
+          <caret line="198" column="75" lean-forward="false" selection-start-line="198" selection-start-column="75" selection-end-line="198" selection-end-column="75" />
           <folding>
             <element signature="e#1144#1362#0" expanded="true" />
           </folding>

@@ -138,8 +138,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = nextfit(fd);
         std::string res("created ");
         res+=std::to_string(sid);
-	std::cout << res << std::endl;
-	TCPServer::packet_t respond{res.length(),res.c_str()};
+	    std::cout << res << std::endl;
+	    TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
 
     }   else if (tokens[0] == "enter" && tokens[1] == "lobby"){
@@ -196,6 +196,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
         session_bucket[sid].players[pid^1].score++;
+        std::cout << session_bucket[sid].players[pid^1].score << std::endl;
         if (session_bucket[sid].players[pid^1].score >= 3){
             int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
             std::string res("win");
