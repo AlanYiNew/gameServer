@@ -151,6 +151,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         sendPacket(fd,&respond);
         int opponent_fd = session_bucket[sid].players[0].fd;
         res = "both";
+        respond = {res.length(),res.c_str()};
         sendPacket(opponent_fd,&respond);
 
     }   else if (tokens[0] == "exit" && tokens[1] == "lobby"){
