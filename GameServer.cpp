@@ -13,7 +13,7 @@ struct Player{
     int fd;//file descriptor
     bool confirmed;
     bool starts;
-    bool score;
+    int score;
     Player():data(nullptr),len(0),confirmed(0),starts(0){};
 };
 
@@ -24,7 +24,7 @@ struct chunk{
 
 struct session{
     Player players[2];
-    bool occupied;
+    int occupied;
 };
 
 int nextfree = 0;
@@ -71,7 +71,7 @@ GameServer::GameServer(int udp_port, int tcp_port):TCPServer(tcp_port),_tcp_port
 int nextfit(int fd){
     if (!available) return -1;
 
-    session_bucket[nextfree].occupied=true;
+    session_bucket[nextfree].occupied++;
     session_bucket[nextfree].players[0].fd = fd;
     int result = nextfree;
     available--;
@@ -90,6 +90,7 @@ bool enterSession(int sid,int fd){
     if (sid >= 0 && sid < MAX_SESSION
         && session_bucket[sid].occupied){
         session_bucket[sid].players[1].fd = fd;
+        session_bucket[sid].occupied++;
         return true;
     } 
     return false;
@@ -100,6 +101,18 @@ bool validSid(int sid){
         && session_bucket[sid].occupied;
 }
 
+void clear_player(int i,int j){
+	session_bucket[i].players[j].data = nullptr;
+	session_bucket[i].players[j].len = 0;
+	session_bucket[i].players[j].fd = 0;
+	session_bucket[i].players[j].confirmed = false;
+	session_bucket[i].players[j].starts = false;
+	session_bucket[i].occupied--;
+	std::cout << "Session: "<< i << " Player: " << j <<
+		" has been cleared!" << std::endl;			
+}
+
+
 //Search the session_bucket[] and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
 	//iteral all session_bucket slots, and check players' fd value
@@ -107,21 +120,10 @@ void GameServer::onShutDownConnection(int fd){
 	for ( int i = 0; i < MAX_SESSION; i++ ){
 		for ( int j = 0; j < MAX_PLAYERS; j++ ){
 			if ( session_bucket[i].players[j].fd == fd ){
-				session_bucket[i].players[j].data = nullptr;
-				session_bucket[i].players[j].len = 0;
-				session_bucket[i].players[j].fd = 0;
-				session_bucket[i].players[j].confirmed = false;
-				session_bucket[i].players[j].starts = false;
-				std::cout << "Session: "<< i << " Player: " << j <<
-" has been cleared!" << std::endl;			}
+				clear_player(i,j);
+			}
 		}
-		//if the data of all players' been removed, then room occupied is set to 'false'
-		if ( !session_bucket[i].players[0].starts &&
-		  !session_bucket[i].players[1].starts &&
-		  session_bucket[i].occupied){
-			session_bucket[i].occupied = false;
-			std::cout << "Session: " << i << " has been cleared!" << std::endl;
-		}
+		
 	}
 }
 
@@ -156,8 +158,17 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
     }   else if (tokens[0] == "exit" && tokens[1] == "lobby"){
         int sid = std::stoi(tokens[2]);
+	int pid = std::stoi(tokens[3]);
         std::string res("exited lobby ");
-        res+=std::to_string((validSid(sid)?sid:-1));
+	
+	if (validSid(sid)){
+           clear_player(sid,pid);
+	   session_bucket[sid].occupied--;
+           res+=std::to_string(sid);
+	}	else{
+	   res+="-1";
+	}
+	
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
 
@@ -195,8 +206,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (tokens[0] == "dead"){
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
+
         session_bucket[sid].players[pid^1].score++;
-        std::cout << session_bucket[sid].players[pid^1].score << std::endl;
         if (session_bucket[sid].players[pid^1].score >= 3){
             int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
             std::string res("win");
@@ -204,14 +215,15 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             sendPacket(opponent_fd, &respond1);
             res = "lose";
             TCPServer::packet_t respond2{res.length(), res.c_str()};
-            sendPacket(opponent_fd, &respond2);
-            std::cout << "$$one wins$$" << std::endl;
+            sendPacket(fd, &respond2);
         }   else {
             int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
             std::string res("score");
             TCPServer::packet_t respond{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond);
         }
+
+        std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1].score << std::endl;
     }
 }
 

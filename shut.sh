@@ -1,1 +1,1 @@
-pkill -9 gameServer
+sudo pkill -9 gameServer

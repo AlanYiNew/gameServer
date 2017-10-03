@@ -1,4 +1,4 @@
 #!/bin/bash
 cmake CMakelists.txt
 make
-./gameServer &
+sudo nice -n-20 ./gameServer &
