@@ -13,7 +13,7 @@
 #define MAXLINE 4096
 class TCPServer{
     private : 
-        int port;
+        uint16_t port;
         sockaddr_in serv_addr;
         epoll_event events[65535];
         int epollfd;
@@ -30,7 +30,7 @@ class TCPServer{
 
 public :
         struct packet_t{
-            packet_t(int readsize,const char * mess);
+            packet_t(size_t readsize,const char * mess);
             packet_t() = default;
             int len;
             char content[MAXLINE];

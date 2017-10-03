@@ -1,17 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
-#include <exception>
 #include <unistd.h>
 #include "TCPServer.h"
 #include <algorithm>
 
-
-
-#define TEST_H
 using namespace ::std;
 
-static int timeval_subtract(struct timeval *result, struct timeval *x, struct timeval *y);
+
 
 TCPServer::TCPServer(int port) {
     this->port = port;
@@ -105,7 +101,7 @@ int TCPServer::sendPacket(int fd,packet_t* packet){
     return send(fd,(char*)packet,packet->len+sizeof(int) ,0);
 }
 
-TCPServer::packet_t::packet_t(int length,const char * mess){
+TCPServer::packet_t::packet_t(size_t length,const char * mess){
     len = length;
     memcpy(content,mess,length);
 }
