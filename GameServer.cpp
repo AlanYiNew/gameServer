@@ -149,6 +149,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::cout << res << std::endl;
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
+        int opponent_fd = session_bucket[sid].players[0].fd;
+        res = "both";
+        sendPacket(opponent_fd,&respond);
 
     }   else if (tokens[0] == "exit" && tokens[1] == "lobby"){
         int sid = std::stoi(tokens[2]);
@@ -156,6 +159,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         res+=std::to_string((validSid(sid)?sid:-1));
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
+
 
     }   else if (tokens[0] == "confirm"){
         int sid = std::stoi(tokens[1]);
