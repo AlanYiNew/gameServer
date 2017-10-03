@@ -196,7 +196,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
         session_bucket[sid].players[pid^1].score++;
-        if (session_bucket[sid].players[pid^1].score > 5){
+        if (session_bucket[sid].players[pid^1].score >= 3){
             int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
             std::string res("win");
             TCPServer::packet_t respond1{res.length(), res.c_str()};
@@ -204,6 +204,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             res = "lose";
             TCPServer::packet_t respond2{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond2);
+            std::cout << "$$one wins$$" << std::endl;
         }   else {
             int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
             std::string res("score");

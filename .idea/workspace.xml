@@ -42,8 +42,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-654">
-              <caret line="153" column="8" lean-forward="false" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
+            <state relative-caret-position="174">
+              <caret line="198" column="57" lean-forward="false" selection-start-line="198" selection-start-column="57" selection-end-line="198" selection-end-column="57" />
               <folding>
                 <element signature="e#1144#1362#0" expanded="true" />
               </folding>
@@ -260,7 +260,7 @@
       <workItem from="1506179504779" duration="8033000" />
       <workItem from="1506232808107" duration="19266000" />
       <workItem from="1506833856652" duration="41000" />
-      <workItem from="1507005381954" duration="9748000" />
+      <workItem from="1507005381954" duration="11025000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -325,11 +325,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507032953395</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="&quot;Fix a bug in enter&quot;">
+      <created>1507033967674</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1507033967674</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62154000" />
+    <option name="totallyTimeSpent" value="63431000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -393,7 +400,8 @@
     <MESSAGE value="&quot;Fix warning and ignore&quot;" />
     <MESSAGE value="&quot;Comment out debug&quot;" />
     <MESSAGE value="&quot;Added enter show up feature&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Added enter show up feature&quot;" />
+    <MESSAGE value="&quot;Fix a bug in enter&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix a bug in enter&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,8 +881,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-654">
-          <caret line="153" column="8" lean-forward="false" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
+        <state relative-caret-position="174">
+          <caret line="198" column="57" lean-forward="false" selection-start-line="198" selection-start-column="57" selection-end-line="198" selection-end-column="57" />
           <folding>
             <element signature="e#1144#1362#0" expanded="true" />
           </folding>
