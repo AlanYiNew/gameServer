@@ -37,8 +37,8 @@
             <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="Hellloworld">
-         <Option output="/home/alan/CLionProjects/gameServer/cmake-build-debug/Hellloworld" prefix_auto="0" extension_auto="0" />
+      <Target title="gameServer">
+         <Option output="/home/alan/CLionProjects/gameServer/cmake-build-debug/gameServer" prefix_auto="0" extension_auto="0" />
          <Option working_dir="/home/alan/CLionProjects/gameServer/cmake-build-debug" />
          <Option object_output="./" />
          <Option type="1" />
@@ -54,14 +54,14 @@
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hellloworld" />
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 gameServer" />
             <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="Hellloworld/fast">
-         <Option output="/home/alan/CLionProjects/gameServer/cmake-build-debug/Hellloworld" prefix_auto="0" extension_auto="0" />
+      <Target title="gameServer/fast">
+         <Option output="/home/alan/CLionProjects/gameServer/cmake-build-debug/gameServer" prefix_auto="0" extension_auto="0" />
          <Option working_dir="/home/alan/CLionProjects/gameServer/cmake-build-debug" />
          <Option object_output="./" />
          <Option type="1" />
@@ -77,27 +77,33 @@
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hellloworld/fast" />
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 gameServer/fast" />
             <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       </Build>
+      <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.h">
+         <Option target="gameServer"/>
+      </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.cpp">
-         <Option target="Hellloworld"/>
+         <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.h">
-         <Option target="Hellloworld"/>
+         <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.cpp">
-         <Option target="Hellloworld"/>
+         <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.h">
-         <Option target="Hellloworld"/>
+         <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/main.cpp">
-         <Option target="Hellloworld"/>
+         <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />

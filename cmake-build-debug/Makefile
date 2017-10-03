@@ -111,17 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Hellloworld
+# Target rules for targets named gameServer
 
 # Build rule for target.
-Hellloworld: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Hellloworld
-.PHONY : Hellloworld
+gameServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gameServer
+.PHONY : gameServer
 
 # fast build rule for target.
-Hellloworld/fast:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/build
-.PHONY : Hellloworld/fast
+gameServer/fast:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/build
+.PHONY : gameServer/fast
+
+GameServer.o: GameServer.cpp.o
+
+.PHONY : GameServer.o
+
+# target to build an object file
+GameServer.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.o
+.PHONY : GameServer.cpp.o
+
+GameServer.i: GameServer.cpp.i
+
+.PHONY : GameServer.i
+
+# target to preprocess a source file
+GameServer.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.i
+.PHONY : GameServer.cpp.i
+
+GameServer.s: GameServer.cpp.s
+
+.PHONY : GameServer.s
+
+# target to generate assembly for a file
+GameServer.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.s
+.PHONY : GameServer.cpp.s
 
 TCPServer.o: TCPServer.cpp.o
 
@@ -129,7 +156,7 @@ TCPServer.o: TCPServer.cpp.o
 
 # target to build an object file
 TCPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/TCPServer.cpp.o
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.o
 .PHONY : TCPServer.cpp.o
 
 TCPServer.i: TCPServer.cpp.i
@@ -138,7 +165,7 @@ TCPServer.i: TCPServer.cpp.i
 
 # target to preprocess a source file
 TCPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/TCPServer.cpp.i
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.i
 .PHONY : TCPServer.cpp.i
 
 TCPServer.s: TCPServer.cpp.s
@@ -147,7 +174,7 @@ TCPServer.s: TCPServer.cpp.s
 
 # target to generate assembly for a file
 TCPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/TCPServer.cpp.s
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.s
 .PHONY : TCPServer.cpp.s
 
 UDPServer.o: UDPServer.cpp.o
@@ -156,7 +183,7 @@ UDPServer.o: UDPServer.cpp.o
 
 # target to build an object file
 UDPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/UDPServer.cpp.o
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.o
 .PHONY : UDPServer.cpp.o
 
 UDPServer.i: UDPServer.cpp.i
@@ -165,7 +192,7 @@ UDPServer.i: UDPServer.cpp.i
 
 # target to preprocess a source file
 UDPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/UDPServer.cpp.i
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.i
 .PHONY : UDPServer.cpp.i
 
 UDPServer.s: UDPServer.cpp.s
@@ -174,7 +201,7 @@ UDPServer.s: UDPServer.cpp.s
 
 # target to generate assembly for a file
 UDPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/UDPServer.cpp.s
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
 main.o: main.cpp.o
@@ -183,7 +210,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -192,7 +219,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -201,7 +228,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -212,7 +239,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Hellloworld"
+	@echo "... gameServer"
+	@echo "... GameServer.o"
+	@echo "... GameServer.i"
+	@echo "... GameServer.s"
 	@echo "... TCPServer.o"
 	@echo "... TCPServer.i"
 	@echo "... TCPServer.s"

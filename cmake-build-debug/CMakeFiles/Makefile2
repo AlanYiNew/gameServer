@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/alan/CLionProjects/gameServer
 CMAKE_BINARY_DIR = /home/alan/CLionProjects/gameServer/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/Hellloworld.dir
+# Target rules for target CMakeFiles/gameServer.dir
 
 # All Build rule for target.
-CMakeFiles/Hellloworld.dir/all:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/depend
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Hellloworld"
-.PHONY : CMakeFiles/Hellloworld.dir/all
+CMakeFiles/gameServer.dir/all:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/depend
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target gameServer"
+.PHONY : CMakeFiles/gameServer.dir/all
 
 # Include target in all.
-all: CMakeFiles/Hellloworld.dir/all
+all: CMakeFiles/gameServer.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Hellloworld.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Hellloworld.dir/all
+CMakeFiles/gameServer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gameServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/Hellloworld.dir/rule
+.PHONY : CMakeFiles/gameServer.dir/rule
 
 # Convenience name for target.
-Hellloworld: CMakeFiles/Hellloworld.dir/rule
+gameServer: CMakeFiles/gameServer.dir/rule
 
-.PHONY : Hellloworld
-
-# clean rule for target.
-CMakeFiles/Hellloworld.dir/clean:
-	$(MAKE) -f CMakeFiles/Hellloworld.dir/build.make CMakeFiles/Hellloworld.dir/clean
-.PHONY : CMakeFiles/Hellloworld.dir/clean
+.PHONY : gameServer
 
 # clean rule for target.
-clean: CMakeFiles/Hellloworld.dir/clean
+CMakeFiles/gameServer.dir/clean:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/clean
+.PHONY : CMakeFiles/gameServer.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/gameServer.dir/clean
 
 .PHONY : clean
 
