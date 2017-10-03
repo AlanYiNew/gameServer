@@ -13,16 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Hellloworld.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/Hellloworld.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -47,11 +39,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="358">
               <caret line="200" column="35" lean-forward="false" selection-start-line="200" selection-start-column="35" selection-end-line="200" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,6 +171,7 @@
         <option value="$PROJECT_DIR$/GameServer.cpp" />
         <option value="$PROJECT_DIR$/TCPServer.cpp" />
         <option value="$PROJECT_DIR$/TCPServer.h" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -256,7 +259,7 @@
       <workItem from="1506179504779" duration="8033000" />
       <workItem from="1506232808107" duration="19266000" />
       <workItem from="1506833856652" duration="41000" />
-      <workItem from="1507005381954" duration="4567000" />
+      <workItem from="1507005381954" duration="4644000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -293,11 +296,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507011981835</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&quot;Fix warning&quot;">
+      <created>1507012181051</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1507012181051</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56973000" />
+    <option name="totallyTimeSpent" value="57050000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -357,7 +367,8 @@
     <MESSAGE value="&quot;Added simple Lobby interface and create lobby &quot;" />
     <MESSAGE value="&quot;Added game finish message&quot;" />
     <MESSAGE value="&quot;Change size to type size_t&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Change size to type size_t&quot;" />
+    <MESSAGE value="&quot;Fix warning&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix warning&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -378,14 +389,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GameServer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -842,6 +845,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
           <caret line="200" column="35" lean-forward="false" selection-start-line="200" selection-start-column="35" selection-end-line="200" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
