@@ -1,10 +1,15 @@
 //
 // Created by alan on 9/23/17.
 //
-
+#include <string>
+#include <map>
 #include "GameServer.h"
 #define MAX_SESSION 8
 #define MAX_PLAYERS 2
+
+using namespace std; 
+
+static map <int, string> username_map;
 
 #define SERVER_DEBUG 0
 struct Player{
@@ -118,12 +123,15 @@ void GameServer::onShutDownConnection(int fd){
 	//iteral all session_bucket slots, and check players' fd value
 	//if value is equal to the parrameter 'fd', then remove the player's data
 	for ( int i = 0; i < MAX_SESSION; i++ ){
+		int num_of_empty_players = 0; //not empty initiall
 		for ( int j = 0; j < MAX_PLAYERS; j++ ){
 			if ( session_bucket[i].players[j].fd == fd ){
 				clear_player(i,j);
+				string user = username_map[fd];
+				username_map.erase(fd);// clear the username in the username_map if user leaves
+				cout << "User " << user << "has been removed from username_map" << endl;
 			}
 		}
-		
 	}
 }
 
@@ -224,6 +232,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }
 
         std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1].score << std::endl;
+    }	else if (tokens[0] == "login"){
+    
+    	//add pair<fd, username> to the username_map, suppose tokens[1] is username
+    	username_map[fd] = tokens[1];
+    	cout << "username_map[" << fd << "] = " << tokens[1] << endl;
+    	
     }
 }
 

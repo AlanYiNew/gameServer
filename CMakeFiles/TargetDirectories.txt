@@ -1,3 +1,3 @@
-/home/ubuntu/gameServer/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/gameServer/CMakeFiles/edit_cache.dir
-/home/ubuntu/gameServer/CMakeFiles/gameServer.dir
+/home/comp4920/comp4920/gameServer/CMakeFiles/rebuild_cache.dir
+/home/comp4920/comp4920/gameServer/CMakeFiles/edit_cache.dir
+/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir

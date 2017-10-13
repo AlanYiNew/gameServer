@@ -6,17 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/gameServer/GameServer.cpp
+/home/comp4920/comp4920/gameServer/GameServer.cpp
+string
+-
+map
+-
 GameServer.h
-/home/ubuntu/gameServer/GameServer.h
+/home/comp4920/comp4920/gameServer/GameServer.h
 
-/home/ubuntu/gameServer/GameServer.h
+/home/comp4920/comp4920/gameServer/GameServer.h
 UDPServer.h
-/home/ubuntu/gameServer/UDPServer.h
+/home/comp4920/comp4920/gameServer/UDPServer.h
 string
 -
 TCPServer.h
-/home/ubuntu/gameServer/TCPServer.h
+/home/comp4920/comp4920/gameServer/TCPServer.h
 cstring
 -
 ostream
@@ -40,7 +44,7 @@ iterator
 sstream
 -
 
-/home/ubuntu/gameServer/TCPServer.cpp
+/home/comp4920/comp4920/gameServer/TCPServer.cpp
 iostream
 -
 vector
@@ -50,11 +54,11 @@ cstring
 unistd.h
 -
 TCPServer.h
-/home/ubuntu/gameServer/TCPServer.h
+/home/comp4920/comp4920/gameServer/TCPServer.h
 algorithm
 -
 
-/home/ubuntu/gameServer/TCPServer.h
+/home/comp4920/comp4920/gameServer/TCPServer.h
 arpa/inet.h
 -
 sys/socket.h
@@ -68,15 +72,15 @@ sys/epoll.h
 vector
 -
 
-/home/ubuntu/gameServer/UDPServer.cpp
+/home/comp4920/comp4920/gameServer/UDPServer.cpp
 UDPServer.h
-/home/ubuntu/gameServer/UDPServer.h
+/home/comp4920/comp4920/gameServer/UDPServer.h
 iostream
 -
 unistd.h
-/home/ubuntu/gameServer/unistd.h
+/home/comp4920/comp4920/gameServer/unistd.h
 
-/home/ubuntu/gameServer/UDPServer.h
+/home/comp4920/comp4920/gameServer/UDPServer.h
 netinet/in.h
 -
 sys/epoll.h
@@ -84,11 +88,11 @@ sys/epoll.h
 vector
 -
 
-/home/ubuntu/gameServer/main.cpp
+/home/comp4920/comp4920/gameServer/main.cpp
 iostream
 -
 GameServer.h
-/home/ubuntu/gameServer/GameServer.h
+/home/comp4920/comp4920/gameServer/GameServer.h
 exception
 -
 
