@@ -9,7 +9,7 @@
 
 using namespace std; 
 
-static map <int, string> username_map;
+static map <int, Player> username_map;
 
 #define SERVER_DEBUG 0
 struct Player{
@@ -19,7 +19,9 @@ struct Player{
     bool confirmed;
     bool starts;
     int score;
-    Player():data(nullptr),len(0),confirmed(0),starts(0){};
+    string username;
+    Player():data(nullptr),len(0),confirmed(0),starts(0),username("Noob"){};
+    Player(string u):data(nullptr),len(0),confirmed(0),starts(0),username(u){};
 };
 
 struct chunk{
@@ -28,7 +30,7 @@ struct chunk{
 };
 
 struct session{
-    Player players[2];
+    Player* players[2];
     int occupied;
 };
 
@@ -38,15 +40,15 @@ session session_bucket[MAX_SESSION];
 
 int udp_callback(const UDPServer::message_t& message,UDPServer::message_t& message_out){
     chunk recv = *reinterpret_cast<chunk*>(message.content);
-    if (session_bucket[recv.sid].players[recv.pid].data == nullptr){
-        session_bucket[recv.sid].players[recv.pid].data = malloc(message.len);
+    if (session_bucket[recv.sid].players[recv.pid]->data == nullptr){
+        session_bucket[recv.sid].players[recv.pid]->data = malloc(message.len);
     }
 
-    memcpy(session_bucket[recv.sid].players[recv.pid].data,message.content,message.len);
-    session_bucket[recv.sid].players[recv.pid].len = message.len;
+    memcpy(session_bucket[recv.sid].players[recv.pid]->data,message.content,message.len);
+    session_bucket[recv.sid].players[recv.pid]->len = message.len;
 
-    message_out.content = session_bucket[recv.sid].players[recv.pid^1].data;
-    message_out.len = session_bucket[recv.sid].players[recv.pid^1].len;
+    message_out.content = session_bucket[recv.sid].players[recv.pid^1]->data;
+    message_out.len = session_bucket[recv.sid].players[recv.pid^1]->len;
 
 #if SERVER_DEBUG
     time_t tt;
@@ -77,7 +79,7 @@ int nextfit(int fd){
     if (!available) return -1;
 
     session_bucket[nextfree].occupied++;
-    session_bucket[nextfree].players[0].fd = fd;
+    session_bucket[nextfree].players[0]->fd = fd;
     int result = nextfree;
     available--;
     while (available) {
@@ -94,7 +96,7 @@ bool enterSession(int sid,int fd){
     std::cout << "enter checking" << session_bucket[sid].occupied << std::endl;
     if (sid >= 0 && sid < MAX_SESSION
         && session_bucket[sid].occupied){
-        session_bucket[sid].players[1].fd = fd;
+        session_bucket[sid].players[1]->fd = fd;
         session_bucket[sid].occupied++;
         return true;
     } 
@@ -107,11 +109,11 @@ bool validSid(int sid){
 }
 
 void clear_player(int i,int j){
-	session_bucket[i].players[j].data = nullptr;
-	session_bucket[i].players[j].len = 0;
-	session_bucket[i].players[j].fd = 0;
-	session_bucket[i].players[j].confirmed = false;
-	session_bucket[i].players[j].starts = false;
+	session_bucket[i].players[j]->data = nullptr;
+	session_bucket[i].players[j]->len = 0;
+	session_bucket[i].players[j]->fd = 0;
+	session_bucket[i].players[j]->confirmed = false;
+	session_bucket[i].players[j]->starts = false;
 	session_bucket[i].occupied--;
 	std::cout << "Session: "<< i << " Player: " << j <<
 		" has been cleared!" << std::endl;			
@@ -125,9 +127,9 @@ void GameServer::onShutDownConnection(int fd){
 	for ( int i = 0; i < MAX_SESSION; i++ ){
 		int num_of_empty_players = 0; //not empty initiall
 		for ( int j = 0; j < MAX_PLAYERS; j++ ){
-			if ( session_bucket[i].players[j].fd == fd ){
+			if ( session_bucket[i].players[j]->fd == fd ){
 				clear_player(i,j);
-				string user = username_map[fd];
+				string user = username_map[fd].username;
 				username_map.erase(fd);// clear the username in the username_map if user leaves
 				cout << "User " << user << "has been removed from username_map" << endl;
 			}
@@ -145,64 +147,75 @@ void GameServer::onRead(int fd, char * mess, int readsize){
          back_inserter(tokens));
     std::cout << "##command## " << mess <<std::endl;
     if (tokens[0] == "create" && tokens[1] == "lobby"){
+        //TODO add username
         int sid = nextfit(fd);
-        std::string res("created ");
-        res+=std::to_string(sid);
-	    std::cout << res << std::endl;
-	    TCPServer::packet_t respond{res.length(),res.c_str()};
-        sendPacket(fd,&respond);
+        if (sid >= 0) {
+            session_bucket[sid].players[0] = &username_map[fd];
+        }
 
+        std::string res("created ");
+        res += std::to_string(sid);
+        TCPServer::packet_t respond{res.length(), res.c_str()};
+        sendPacket(fd, &respond);
     }   else if (tokens[0] == "enter" && tokens[1] == "lobby"){
+        //TODO add username and don't user both
         int sid = std::stoi(tokens[2]);
         std::string res("entered ");
-        res+=std::to_string((enterSession(sid,fd)?sid:-1));
-        std::cout << res << std::endl;
+        bool found = enterSession(sid,fd);
+        if (found) session_bucket[sid].players[1] = &username_map[fd];
+        res+=std::to_string(found?sid:-1);
+
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
-        int opponent_fd = session_bucket[sid].players[0].fd;
+        int opponent_fd = session_bucket[sid].players[0]->fd;
         res = "both";
         respond = {res.length(),res.c_str()};
         sendPacket(opponent_fd,&respond);
 
     }   else if (tokens[0] == "exit" && tokens[1] == "lobby"){
         int sid = std::stoi(tokens[2]);
-	int pid = std::stoi(tokens[3]);
+	    int pid = std::stoi(tokens[3]);
         std::string res("exited lobby ");
-	
-	if (validSid(sid)){
-           clear_player(sid,pid);
-	   session_bucket[sid].occupied--;
-           res+=std::to_string(sid);
-	}	else{
-	   res+="-1";
-	}
-	
+
+
+
+        if (validSid(sid)){
+               clear_player(sid,pid);
+               session_bucket[sid].occupied--;
+               session_bucket[sid].players[pid] = NULL;
+               res+=std::to_string(sid);
+        }	else{
+           res+="-1";
+        }
+
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
 
 
     }   else if (tokens[0] == "confirm"){
+        //TODO refractor logic
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
         int cid = std::stoi(tokens[3]);
         int wid = std::stoi(tokens[4]);
-        session_bucket[sid].players[pid].confirmed = true;
+        session_bucket[sid].players[pid]->confirmed = true;
 
         std::string res("opponent confirmed ");
         res+= std::to_string(cid) + " " + std::to_string(wid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
-        int opponent_fd = session_bucket[sid].players[pid^1].fd;
+        int opponent_fd = session_bucket[sid].players[pid^1]->fd;
         sendPacket(opponent_fd,&respond);
 
     }   else if (tokens[0] == "start"){
+        //TODO refractor and reimplement
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
-        session_bucket[sid].players[pid].starts = true;
-        if (session_bucket[sid].players[pid^1].starts){
+        session_bucket[sid].players[pid]->starts = true;
+        if (session_bucket[sid].players[pid^1]->starts){
 
             std::string res("game start");
             TCPServer::packet_t respond{res.length(),res.c_str()};
-            int opponent_fd = session_bucket[sid].players[pid^1].fd;
+            int opponent_fd = session_bucket[sid].players[pid^1]->fd;
             sendPacket(opponent_fd,&respond);
             sendPacket(fd,&respond);
 
@@ -215,9 +228,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = std::stoi(tokens[1]);
         int pid = std::stoi(tokens[2]);
 
-        session_bucket[sid].players[pid^1].score++;
-        if (session_bucket[sid].players[pid^1].score >= 3){
-            int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
+        session_bucket[sid].players[pid^1]->score++;
+        if (session_bucket[sid].players[pid^1]->score >= 3){
+            int opponent_fd = session_bucket[sid].players[pid ^ 1]->fd;
             std::string res("win");
             TCPServer::packet_t respond1{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond1);
@@ -225,15 +238,16 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             TCPServer::packet_t respond2{res.length(), res.c_str()};
             sendPacket(fd, &respond2);
         }   else {
-            int opponent_fd = session_bucket[sid].players[pid ^ 1].fd;
+            int opponent_fd = session_bucket[sid].players[pid ^ 1]->fd;
             std::string res("score");
             TCPServer::packet_t respond{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond);
         }
 
-        std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1].score << std::endl;
+        std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1]->score << std::endl;
     }	else if (tokens[0] == "login"){
-    
+        //TODO change
+        username_map.emplace({fd,{tokens[1]}});
     	//add pair<fd, username> to the username_map, suppose tokens[1] is username
     	username_map[fd] = tokens[1];
     	cout << "username_map[" << fd << "] = " << tokens[1] << endl;
