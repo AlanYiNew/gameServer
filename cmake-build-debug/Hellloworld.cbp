@@ -90,6 +90,12 @@
       <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.h">
          <Option target="gameServer"/>
       </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/Modules.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/Modules.h">
+         <Option target="gameServer"/>
+      </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.cpp">
          <Option target="gameServer"/>
       </Unit>

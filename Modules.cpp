@@ -1,52 +1,103 @@
 #include "Modules.h"
 
-class PlayerModule{
-	public: 
-		int record(int fd, string username);
 
-		int clear(fd);
-
-		Player* getPlayer(int fd);
-	private:
-		map<fd,Player> _map;
-}
-
-class SessionModule{
-	public:
-		int create(string lobbyname, Player* p);
-
-		int enter(int sid,Player* p);
-
-		int exit(int sid, int pid);
-
-		int activated_list(int pageno);
-
-		int confirm(int sid, int pid);
-
-		int start_game(int sid, int pid);
-	
-		int update(int sid, int pid, void * data, int length);
-	
-	private:
-		session _session_bucket[MAX_SESSION];
-}
 
 int PlayerModule::record(int fd, string u){
-	_map.emplace({fd,Player(u)});
+	_map.emplace(fd,Player(u,fd));
 }
 
 int PlayerModule::clear(int fd){
-	if (_map[fd].data != nullptr){
-		free(_map[fd].data);
-	}	
+    auto iter = _map.find(fd);
+    if (iter != _map.end()) {
+        if (iter->second._data != nullptr)
+            free(iter->second._data);
+        return 0;
+    }
+    return -1;
 };
 
+Player * PlayerModule::getPlayer(int fd){
+    return &_map.find(fd)->second;
+}
+
 int SessionModule::create(string lobbyname, Player* p){
-		
+    if (!_available) return -1;
+    _session_bucket[_nextfree]._occupied++;
+    _session_bucket[_nextfree]._players[0] = p;
+    _session_bucket[_nextfree]._lobbyname = lobbyname;
+    _available--;
+    p->_index = 0;
+    while (_available && _session_bucket[_nextfree]._occupied) {
+        _nextfree= (_nextfree+1)%MAX_SESSION;
+    }
 
 }
-SessionModule::update(int sid, int pid, void * data, int length){
-	memcpy(session_bucket[recv.sid].players[recv.pid]->data,data, length);	
+
+void * SessionModule::update(int sid, int index, void * data, int length){
+    if (_session_bucket[sid]._players[index]->_data == nullptr) {
+        _session_bucket[sid]._players[index]->_data = malloc(length);
+    }
+	memcpy(_session_bucket[sid]._players[index]->_data,data, length);
+	return _session_bucket[sid]._players[index^1]->_data;
 }
 
+int SessionModule::enter(int sid,Player* p){
+    if (_session_bucket[sid]._occupied == 1) {
+        _session_bucket[sid]._players[1] = p;
+        _session_bucket[sid]._occupied++;
+        p->_index = 1;
+        return sid;
+    }   else{
+        return -1;
+    }
+}
 
+unsigned int SessionModule::confirm(int sid, int index){
+    _session_bucket[sid]._confirmed |= (1 << index);
+    return _session_bucket[sid]._confirmed;
+}
+
+bool SessionModule::validSid(int sid){
+    return sid >= 0 && sid < MAX_SESSION
+           && _session_bucket[sid]._occupied;
+}
+
+int SessionModule::exit(int sid, int index){
+    if (validSid(sid)) {
+        _session_bucket[sid]._occupied--;
+        _session_bucket[sid]._starts &= ~(1 << index);
+        _session_bucket[sid]._players[index] = nullptr;
+        _session_bucket[sid]._confirmed &= ~(1 << index);
+        return sid;
+    }   else
+        return -1;
+}
+
+vector<pair<int,string>> SessionModule::activatedList(int pagesize, int pageno){
+    auto iter = _activated_session.begin();
+    for (int i = 0; i < pagesize*(pageno-1) && i < _activated_session.size(); ++i)
+        ++iter;
+
+    vector<pair<int,string>> result;
+    for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
+        result.push_back({iter->first,iter->second->_lobbyname});
+    }
+    return result;
+}
+
+const Player* SessionModule::getPlayer(int sid, int index){
+    return _session_bucket[sid]._players[index];
+}
+
+unsigned int SessionModule::startGame(int sid, int index){
+    _session_bucket[sid]._starts |= (1 << index);
+    return _session_bucket[sid]._starts;
+}
+
+unsigned int SessionModule::confirmState(int sid){
+    return _session_bucket[sid]._confirmed;
+}
+
+string SessionModule::getLobbyName(int sid){
+    return _session_bucket[sid]._lobbyname;
+}

@@ -19,9 +19,10 @@ int UDPServer::init(){
     callback_func = nullptr;
 }
 
-int UDPServer::register_cb(udp_cb_t func) {
+int UDPServer::register_cb(udp_cb_t func,void* arg) {
     std::cout << "registering function" << std::endl;
     callback_func = func;
+    callback_arg = arg;
 }
 
 UDPServer::UDPServer(int port){
@@ -54,7 +55,7 @@ int UDPServer::starts() {
                 recv.content = buffer;
                 if (callback_func) {
                     message_t res;
-                    callback_func(recv,res);
+                    callback_func(callback_arg,recv,res);
                     sendto(fd,res.content,res.len,0,reinterpret_cast<sockaddr*>(&cliaddr),cliaddrlen);
                 }
             }

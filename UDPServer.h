@@ -17,14 +17,14 @@ public :
         void* content;
     };
 
-    using udp_cb_t = int (*)(const message_t&,message_t&);
+    using udp_cb_t = int (*)(void* userptr,const message_t&,message_t&);
 
     /** UDPServer class constructor **/
     UDPServer(int port);
     ~UDPServer();
 
     /** Register a udp callback function **/
-    int register_cb(udp_cb_t func);
+    int register_cb(udp_cb_t func, void * arg);
 
     /** Initialize a TCPServer and prepare to set up listening **/
     int init();
@@ -36,7 +36,7 @@ private :
     uint16_t port;
     sockaddr_in serv_addr;
     udp_cb_t callback_func;
-
+    void* callback_arg;
 };
 
 #endif //__UDPSERVER_H_

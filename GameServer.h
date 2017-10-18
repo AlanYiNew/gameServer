@@ -19,8 +19,11 @@
 #include <utility>
 #include <iterator>
 #include <sstream>
+#include "Modules.h"
 
 class GameServer:TCPServer {
+    friend int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out);
+
 public:
     GameServer(int udp_port,int tcp_port);
     //int init(std::ostream st);
@@ -29,10 +32,13 @@ public:
     virtual void onRead(int fd, char *, int readsize);
     virtual void onAcceptConnection(int fd);
 
+
 private:
     //std::ostream log;
     int _udp_port;
     int _tcp_port;
+    PlayerModule _player_module;
+    SessionModule _session_module;
 
 };
 

@@ -150,6 +150,33 @@ GameServer.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.s
 .PHONY : GameServer.cpp.s
 
+Modules.o: Modules.cpp.o
+
+.PHONY : Modules.o
+
+# target to build an object file
+Modules.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/Modules.cpp.o
+.PHONY : Modules.cpp.o
+
+Modules.i: Modules.cpp.i
+
+.PHONY : Modules.i
+
+# target to preprocess a source file
+Modules.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/Modules.cpp.i
+.PHONY : Modules.cpp.i
+
+Modules.s: Modules.cpp.s
+
+.PHONY : Modules.s
+
+# target to generate assembly for a file
+Modules.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/Modules.cpp.s
+.PHONY : Modules.cpp.s
+
 TCPServer.o: TCPServer.cpp.o
 
 .PHONY : TCPServer.o
@@ -243,6 +270,9 @@ help:
 	@echo "... GameServer.o"
 	@echo "... GameServer.i"
 	@echo "... GameServer.s"
+	@echo "... Modules.o"
+	@echo "... Modules.i"
+	@echo "... Modules.s"
 	@echo "... TCPServer.o"
 	@echo "... TCPServer.i"
 	@echo "... TCPServer.s"
