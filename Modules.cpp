@@ -29,10 +29,11 @@ int SessionModule::create(string lobbyname, Player* p){
     _session_bucket[_nextfree]._lobbyname = lobbyname;
     _available--;
     p->_index = 0;
+    int result = _nextfree;
     while (_available && _session_bucket[_nextfree]._occupied) {
         _nextfree= (_nextfree+1)%MAX_SESSION;
     }
-
+    return result;
 }
 
 void * SessionModule::update(int sid, int index, void * data, int length){
