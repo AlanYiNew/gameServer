@@ -54,8 +54,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="189" column="43" lean-forward="true" selection-start-line="189" selection-start-column="43" selection-end-line="189" selection-end-column="43" />
+            <state relative-caret-position="127">
+              <caret line="193" column="39" lean-forward="false" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
                 <element signature="e#930#1148#0" expanded="true" />
@@ -270,7 +270,7 @@
       <workItem from="1507382016140" duration="8000" />
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
-      <workItem from="1508292077063" duration="15175000" />
+      <workItem from="1508292077063" duration="15495000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -398,11 +398,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508332669824</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="&quot;Change lobby list&quot;">
+      <created>1508334383028</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1508334383028</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81035000" />
+    <option name="totallyTimeSpent" value="81355000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1375" height="876" extended-state="6" />
@@ -469,7 +476,8 @@
     <MESSAGE value="&quot;Fix a bug in enter&quot;" />
     <MESSAGE value="&quot;Decrase number of time needed to score&quot;" />
     <MESSAGE value="&quot;Debugging win situation&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Debugging win situation&quot;" />
+    <MESSAGE value="&quot;Change lobby list&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Change lobby list&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -936,8 +944,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="189" column="43" lean-forward="true" selection-start-line="189" selection-start-column="43" selection-end-line="189" selection-end-column="43" />
+        <state relative-caret-position="127">
+          <caret line="193" column="39" lean-forward="false" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
             <element signature="e#930#1148#0" expanded="true" />

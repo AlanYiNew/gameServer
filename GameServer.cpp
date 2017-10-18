@@ -191,7 +191,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /* message type:listlobby <pageno> */
         /* return type: listlobby <list of pair of lobby id and lobbyname> */
 
-        int pageno = std::stoi(tokens[2]);
+        int pageno = std::stoi(tokens[1]);
         auto result = _session_module.activatedList(10,pageno);
         string res = "";
         for (auto iter = result.begin() ; iter != result.end(); ++ iter){
