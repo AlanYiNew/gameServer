@@ -157,11 +157,14 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }
         res+= " " + std::to_string(ocid) + std::to_string(owid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
+        std::cout << "test 1" << std::endl;
         if (oppoent != nullptr) {
             int opponent_fd = oppoent->_fd;
             sendPacket(opponent_fd, &respond);
         }
+        std::cout << "test 2" << std::endl;
         sendPacket(fd,&respond);
+        std::cout << "test 3" << std::endl;
     }   else if (tokens[0] == "start"){
         /*message type: start <sid>*/
         /*return type: start <start status bitmap>*/

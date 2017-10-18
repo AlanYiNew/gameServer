@@ -54,8 +54,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="160" column="43" lean-forward="false" selection-start-line="160" selection-start-column="43" selection-end-line="160" selection-end-column="43" />
+            <state relative-caret-position="288">
+              <caret line="166" column="28" lean-forward="false" selection-start-line="166" selection-start-column="28" selection-end-line="166" selection-end-column="28" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
               </folding>
@@ -271,7 +271,7 @@
       <workItem from="1507382016140" duration="8000" />
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
-      <workItem from="1508292077063" duration="21259000" />
+      <workItem from="1508292077063" duration="21508000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -455,11 +455,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508341285552</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="&quot;Add paramters number checking&quot;">
+      <created>1508341534388</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1508341534388</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87119000" />
+    <option name="totallyTimeSpent" value="87368000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1375" height="876" extended-state="6" />
@@ -995,8 +1002,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="160" column="43" lean-forward="false" selection-start-line="160" selection-start-column="43" selection-end-line="160" selection-end-column="43" />
+        <state relative-caret-position="288">
+          <caret line="166" column="28" lean-forward="false" selection-start-line="166" selection-start-column="28" selection-end-line="166" selection-end-column="28" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
           </folding>
