@@ -187,9 +187,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         TCPServer::packet_t respond{res.length(), res.c_str()};
         sendPacket(fd, &respond);
 
-    }   else if (tokens[0] == "lobby" && tokens[1] == "list"){
-        /* message type:lobby list <pageno> */
-        /* return type: lobby list <list of pair of lobby id and lobbyname> */
+    }   else if (tokens[0] == "listlobby"){
+        /* message type:listlobby <pageno> */
+        /* return type: listlobby <list of pair of lobby id and lobbyname> */
 
         int pageno = std::stoi(tokens[2]);
         auto result = _session_module.activatedList(10,pageno);
