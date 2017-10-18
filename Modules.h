@@ -57,9 +57,9 @@ public:
 
     vector<pair<int,string>> activatedList(int pagesize, int pageno);
 
-	unsigned int confirm(int sid, int index);
+	int confirm(int sid, int index);
 
-	unsigned int startGame(int sid, int index);
+	int startGame(int sid, int index);
 
 	void* update(int sid, int index, void* data, int length);
 

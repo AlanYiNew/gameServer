@@ -139,7 +139,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
     }   else if (tokens[0] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
-        /*return type: confirmed <confirmer's pid/fd> <confirm status bitmap> <cid> <wid> <o's cid> <p's wid>*/
+        /*return type: confirmed <confirmer's pid/fd> <opponent confirmed?> <cid> <wid> <o's cid> <p's wid>*/
         if (tokens.size() < 5) goto paramter_fail;
         int pid = std::stoi(tokens[1]);
         int sid = std::stoi(tokens[2]);
@@ -167,12 +167,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
     }   else if (tokens[0] == "start"){
         /*message type: start <sid>*/
-        /*return type: start <start status bitmap>*/
+        /*return type: start <opponent start?>*/
         /*bitmap usage index 0: host, index1: entered player*/
         if (tokens.size() < 2) goto paramter_fail;
         int sid = std::stoi(tokens[1]);
         const Player* me= _player_module.getPlayer(fd);
-        unsigned int bitmap = _session_module.startGame(sid,me->_index);
+        int bitmap = _session_module.startGame(sid,me->_index);
         string res("start");
         res+= " " + std::to_string(bitmap);
         TCPServer::packet_t respond{res.length(),res.c_str()};

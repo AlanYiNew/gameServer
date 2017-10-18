@@ -55,9 +55,9 @@ int SessionModule::enter(int sid,Player* p){
     }
 }
 
-unsigned int SessionModule::confirm(int sid, int index){
+int SessionModule::confirm(int sid, int index){
     _session_bucket[sid]._confirmed |= (1 << index);
-    return _session_bucket[sid]._confirmed;
+    return _session_bucket[sid]._confirmed & (1 << (index^1))?1:0;
 }
 
 bool SessionModule::validSid(int sid){
@@ -92,9 +92,9 @@ const Player* SessionModule::getPlayer(int sid, int index){
     return _session_bucket[sid]._players[index];
 }
 
-unsigned int SessionModule::startGame(int sid, int index){
+int SessionModule::startGame(int sid, int index){
     _session_bucket[sid]._starts |= (1 << index);
-    return _session_bucket[sid]._starts;
+    return (_session_bucket[sid]._starts & (1 << (1^index)))?1:0;
 }
 
 unsigned int SessionModule::confirmState(int sid){
