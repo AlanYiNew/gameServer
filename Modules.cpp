@@ -3,7 +3,9 @@
 
 
 int PlayerModule::record(int fd, string u){
-	_map.emplace(fd,Player(u,fd));
+    if (_map.find(fd) != _map.end())
+	    _map.emplace(fd,Player(u,fd));
+    return 0;
 }
 
 int PlayerModule::clear(int fd){
