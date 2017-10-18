@@ -122,7 +122,7 @@ void clear_player(int i,int j){
 		" has been cleared!" << std::endl;			
 }
 
-//TODO don't user double iteration
+//TODO don't user double iteration have to change a lot
 //Search the session_bucket[] and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
 	//iteral all session_bucket slots, and check players' fd value
@@ -132,8 +132,8 @@ void GameServer::onShutDownConnection(int fd){
 		for ( int j = 0; j < MAX_PLAYERS; j++ ){
 			if ( session_bucket[i].players[j]->fd == fd ){
 				clear_player(i,j);
+                user_map.erase(fd);// clear the username in the username_map if user leaves
 				string user = user_map[fd].username;
-				user_map.erase(fd);// clear the username in the username_map if user leaves
 				cout << "User " << user << "has been removed from username_map" << endl;
 			}
 		}
