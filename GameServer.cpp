@@ -163,6 +163,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             sendPacket(opponent_fd, &respond);
         }
 
+        std::cout << res << std::endl;
         sendPacket(fd,&respond);
 
     }   else if (tokens[0] == "start"){
