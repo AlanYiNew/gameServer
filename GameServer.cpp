@@ -9,7 +9,6 @@
 
 using namespace std; 
 
-static map <int, Player> username_map;
 
 #define SERVER_DEBUG 0
 struct Player{
@@ -19,7 +18,7 @@ struct Player{
     bool confirmed;
     bool starts;
     int score;
-    string username;
+    string username;//TODO name is here
     Player():data(nullptr),len(0),confirmed(0),starts(0),username("Noob"){};
     Player(string u):data(nullptr),len(0),confirmed(0),starts(0),username(u){};
 };
@@ -37,6 +36,9 @@ struct session{
 int nextfree = 0;
 int available = MAX_SESSION;
 session session_bucket[MAX_SESSION];
+static map <int, Player> user_map;
+//TODO session occupied map used to return a list of activated room
+map <int , session*> activated_room;
 
 int udp_callback(const UDPServer::message_t& message,UDPServer::message_t& message_out){
     chunk recv = *reinterpret_cast<chunk*>(message.content);
@@ -109,6 +111,7 @@ bool validSid(int sid){
 }
 
 void clear_player(int i,int j){
+    free(session_bucket[i].players[j]->data);
 	session_bucket[i].players[j]->data = nullptr;
 	session_bucket[i].players[j]->len = 0;
 	session_bucket[i].players[j]->fd = 0;
@@ -119,7 +122,7 @@ void clear_player(int i,int j){
 		" has been cleared!" << std::endl;			
 }
 
-
+//TODO don't user double iteration
 //Search the session_bucket[] and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
 	//iteral all session_bucket slots, and check players' fd value
@@ -129,8 +132,8 @@ void GameServer::onShutDownConnection(int fd){
 		for ( int j = 0; j < MAX_PLAYERS; j++ ){
 			if ( session_bucket[i].players[j]->fd == fd ){
 				clear_player(i,j);
-				string user = username_map[fd].username;
-				username_map.erase(fd);// clear the username in the username_map if user leaves
+				string user = user_map[fd].username;
+				user_map.erase(fd);// clear the username in the username_map if user leaves
 				cout << "User " << user << "has been removed from username_map" << endl;
 			}
 		}
@@ -150,7 +153,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         //TODO add username
         int sid = nextfit(fd);
         if (sid >= 0) {
-            session_bucket[sid].players[0] = &username_map[fd];
+            session_bucket[sid].players[0] = &user_map[fd];
+            activated_room[sid] = &session_bucket[sid];
         }
 
         std::string res("created ");
@@ -162,7 +166,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = std::stoi(tokens[2]);
         std::string res("entered ");
         bool found = enterSession(sid,fd);
-        if (found) session_bucket[sid].players[1] = &username_map[fd];
+        if (found) session_bucket[sid].players[1] = &user_map[fd];
         res+=std::to_string(found?sid:-1);
 
         TCPServer::packet_t respond{res.length(),res.c_str()};
@@ -183,6 +187,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
                clear_player(sid,pid);
                session_bucket[sid].occupied--;
                session_bucket[sid].players[pid] = NULL;
+               if (session_bucket[sid].occupied==0){
+                   activated_room.erase(sid);
+               }
                res+=std::to_string(sid);
         }	else{
            res+="-1";
@@ -247,11 +254,14 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1]->score << std::endl;
     }	else if (tokens[0] == "login"){
         //TODO change
-        username_map.emplace({fd,{tokens[1]}});
+        user_map.emplace({fd,{tokens[1]}});
     	//add pair<fd, username> to the username_map, suppose tokens[1] is username
-    	username_map[fd] = tokens[1];
+    	user_map[fd] = tokens[1];
     	cout << "username_map[" << fd << "] = " << tokens[1] << endl;
     	
+    }   else if (tokens[0] == "lobby" && tokens[1] == "list"){
+        //TODO return a list of lobby
+        int pageno = std::stoi(tokens[2]);
     }
 }
 
