@@ -56,8 +56,8 @@ int SessionModule::enter(int sid,Player* p){
 }
 
 int SessionModule::confirm(int sid, int index){
-    _session_bucket[sid]._confirmed |= (1 << index);
-    return _session_bucket[sid]._confirmed & (1 << (index^1))?1:0;
+    _session_bucket[sid]._confirmed ^= (1 << index);
+    return _session_bucket[sid]._confirmed & (1 << (index))?1:0;
 }
 
 bool SessionModule::validSid(int sid){
