@@ -4,34 +4,12 @@
 #include <string>
 #include <map>
 #include "GameServer.h"
-#define MAX_SESSION 8
-#define MAX_PLAYERS 2
-
+#include "Modules.h"
 using namespace std; 
 
 
 #define SERVER_DEBUG 0
-struct Player{
-    void * data;
-    int len;
-    int fd;//file descriptor
-    bool confirmed;
-    bool starts;
-    int score;
-    string username;//TODO name is here
-    Player():data(nullptr),len(0),confirmed(0),starts(0),username("Noob"){};
-    Player(string u):data(nullptr),len(0),confirmed(0),starts(0),username(u){};
-};
 
-struct chunk{
-    int sid;
-    int pid;
-};
-
-struct session{
-    Player* players[2];
-    int occupied;
-};
 
 int nextfree = 0;
 int available = MAX_SESSION;
@@ -149,31 +127,24 @@ void GameServer::onRead(int fd, char * mess, int readsize){
          std::istream_iterator<std::string>(),
          back_inserter(tokens));
     std::cout << "##command## " << mess <<std::endl;
-    if (tokens[0] == "create" && tokens[1] == "lobby"){
+    if (tokens[0] == "create"){
         //TODO add username
-        int sid = nextfit(fd);
-        if (sid >= 0) {
-            session_bucket[sid].players[0] = &user_map[fd];
-            activated_room[sid] = &session_bucket[sid];
-        }
-
-        std::string res("created ");
+        int sid = _session_module.create(tokens[1],_player_module.getPlayer(fd)); 	
+	std::string res("created ");
         res += std::to_string(sid);
         TCPServer::packet_t respond{res.length(), res.c_str()};
         sendPacket(fd, &respond);
-    }   else if (tokens[0] == "enter" && tokens[1] == "lobby"){
+    }   else if (tokens[0] == "enter"){
         //TODO add username and don't user both
         int sid = std::stoi(tokens[2]);
-        std::string res("entered ");
-        bool found = enterSession(sid,fd);
-        if (found) session_bucket[sid].players[1] = &user_map[fd];
-        res+=std::to_string(found?sid:-1);
+	sid = _session_module.enter(sid,_player_module.getPlayer(fd));
+	string lobbyname = _session_module.getLobbyName(sid); 
 
+	std::string res("entered ");
+        res+=lobbbyname + " " + std::to_string(sid) +" ";
         TCPServer::packet_t respond{res.length(),res.c_str()};
         sendPacket(fd,&respond);
         int opponent_fd = session_bucket[sid].players[0]->fd;
-        res = "both";
-        respond = {res.length(),res.c_str()};
         sendPacket(opponent_fd,&respond);
 
     }   else if (tokens[0] == "exit" && tokens[1] == "lobby"){
@@ -254,7 +225,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::cout << "after " << sid << " " << pid << " " << session_bucket[sid].players[pid^1]->score << std::endl;
     }	else if (tokens[0] == "login"){
         //TODO change
-        user_map.emplace({fd,{tokens[1]}});
+        user_map.emplace(fd,Player(tokens[1]));
     	//add pair<fd, username> to the username_map, suppose tokens[1] is username
     	user_map[fd] = tokens[1];
     	cout << "username_map[" << fd << "] = " << tokens[1] << endl;

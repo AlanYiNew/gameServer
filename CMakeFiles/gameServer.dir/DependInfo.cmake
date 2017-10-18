@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/comp4920/comp4920/gameServer/GameServer.cpp" "/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir/GameServer.cpp.o"
-  "/home/comp4920/comp4920/gameServer/TCPServer.cpp" "/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir/TCPServer.cpp.o"
-  "/home/comp4920/comp4920/gameServer/UDPServer.cpp" "/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir/UDPServer.cpp.o"
-  "/home/comp4920/comp4920/gameServer/main.cpp" "/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir/main.cpp.o"
+  "/home/alan/gameServer/GameServer.cpp" "/home/alan/gameServer/CMakeFiles/gameServer.dir/GameServer.cpp.o"
+  "/home/alan/gameServer/TCPServer.cpp" "/home/alan/gameServer/CMakeFiles/gameServer.dir/TCPServer.cpp.o"
+  "/home/alan/gameServer/UDPServer.cpp" "/home/alan/gameServer/CMakeFiles/gameServer.dir/UDPServer.cpp.o"
+  "/home/alan/gameServer/main.cpp" "/home/alan/gameServer/CMakeFiles/gameServer.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

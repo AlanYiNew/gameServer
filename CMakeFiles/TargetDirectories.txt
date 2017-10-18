@@ -1,3 +1,3 @@
-/home/comp4920/comp4920/gameServer/CMakeFiles/rebuild_cache.dir
-/home/comp4920/comp4920/gameServer/CMakeFiles/edit_cache.dir
-/home/comp4920/comp4920/gameServer/CMakeFiles/gameServer.dir
+/home/alan/gameServer/CMakeFiles/rebuild_cache.dir
+/home/alan/gameServer/CMakeFiles/edit_cache.dir
+/home/alan/gameServer/CMakeFiles/gameServer.dir
