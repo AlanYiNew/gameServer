@@ -147,10 +147,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int wid = std::stoi(tokens[4]);
         int index = _player_module.getPlayer(pid)->_index;
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
-        string res = "confirmed " + std::to_string(fd) + " " + std::to_string(_session_module.confirm(sid,index));
+        int gameStart = _session_module.confirm(sid,index);
+        string res = "confirmed " + std::to_string(fd) + " " + std::to_string(gameStart);
         res+= " " + std::to_string(cid) + " " + std::to_string(wid);
         int ocid = -1;
         int owid = -1;
+        int opponent_fd = -1;
         if (oppoent != nullptr){
             ocid = oppoent->_cid;
             owid = oppoent->_wid;
@@ -159,12 +161,18 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         TCPServer::packet_t respond{res.length(),res.c_str()};
 
         if (oppoent != nullptr) {
-            int opponent_fd = oppoent->_fd;
+            opponent_fd = oppoent->_fd;
             sendPacket(opponent_fd, &respond);
         }
 
         std::cout << res << std::endl;
         sendPacket(fd,&respond);
+
+        if (gameStart){
+            TCPServer::packet_t respond{res.length(),"game starts"};
+            sendPacket(fd,&respond);
+            sendPacket(opponent_fd,&respond);
+        }
 
     }   else if (tokens[0] == "start"){
         /*message type: start <sid>*/
