@@ -193,7 +193,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         int pageno = std::stoi(tokens[1]);
         auto result = _session_module.activatedList(10,pageno);
-        string res = "";
+        string res = "listlobby";
         for (auto iter = result.begin() ; iter != result.end(); ++ iter){
             res = res + " " + std::to_string(iter->first) + " " + iter->second;
         }

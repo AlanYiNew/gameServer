@@ -54,8 +54,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="193" column="39" lean-forward="false" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
+            <state relative-caret-position="271">
+              <caret line="195" column="31" lean-forward="false" selection-start-line="195" selection-start-column="31" selection-end-line="195" selection-end-column="31" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
                 <element signature="e#930#1148#0" expanded="true" />
@@ -270,7 +270,7 @@
       <workItem from="1507382016140" duration="8000" />
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
-      <workItem from="1508292077063" duration="15495000" />
+      <workItem from="1508292077063" duration="15858000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -405,11 +405,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508334383028</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="&quot;Change lobby list&quot;">
+      <created>1508334694854</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1508334694854</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81355000" />
+    <option name="totallyTimeSpent" value="81718000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1375" height="876" extended-state="6" />
@@ -944,8 +951,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="193" column="39" lean-forward="false" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
+        <state relative-caret-position="271">
+          <caret line="195" column="31" lean-forward="false" selection-start-line="195" selection-start-column="31" selection-end-line="195" selection-end-column="31" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
             <element signature="e#930#1148#0" expanded="true" />
