@@ -7,7 +7,7 @@
 using namespace std; 
 
 
-#define SERVER_DEBUG 0
+#define SERVER_DEBUG 1
 
 
 
@@ -68,6 +68,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     std::copy(std::istream_iterator<std::string>(iss),
          std::istream_iterator<std::string>(),
          back_inserter(tokens));
+#if SERVER_DEBUG
+    time_t tt;
+    auto now = std::chrono::system_clock::now();
+    tt = std::chrono::system_clock::to_time_t(now);
+    std::cout << "[" << ctime(&tt) << "] ";
+#endif
     std::cout << "##command## " << mess <<std::endl;
 
     if (tokens[0] == "create"){
