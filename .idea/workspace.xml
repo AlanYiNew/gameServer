@@ -14,7 +14,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.cpp" afterPath="$PROJECT_DIR$/Modules.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TCPServer.cpp" afterPath="$PROJECT_DIR$/TCPServer.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -54,7 +54,7 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="505">
               <caret line="79" column="35" lean-forward="false" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="35" column="18" lean-forward="false" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+              <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -106,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TCPServer.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TCPServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+            <state relative-caret-position="342">
+              <caret line="72" column="73" lean-forward="false" selection-start-line="72" selection-start-column="73" selection-end-line="72" selection-end-column="73" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -169,7 +169,6 @@
         <option value="$PROJECT_DIR$/server.cpp" />
         <option value="$PROJECT_DIR$/server.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
-        <option value="$PROJECT_DIR$/TCPServer.cpp" />
         <option value="$PROJECT_DIR$/TCPServer.h" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
@@ -179,6 +178,7 @@
         <option value="$PROJECT_DIR$/UDPServer.h" />
         <option value="$PROJECT_DIR$/GameServer.cpp" />
         <option value="$PROJECT_DIR$/Modules.cpp" />
+        <option value="$PROJECT_DIR$/TCPServer.cpp" />
       </list>
     </option>
   </component>
@@ -270,7 +270,7 @@
       <workItem from="1507382016140" duration="8000" />
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
-      <workItem from="1508292077063" duration="16594000" />
+      <workItem from="1508292077063" duration="16711000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -419,11 +419,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508335060570</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="&quot;Change lobby list&quot;">
+      <created>1508336461730</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1508336461730</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82454000" />
+    <option name="totallyTimeSpent" value="82571000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1375" height="876" extended-state="6" />
@@ -880,16 +887,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -928,16 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="64" column="30" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="33" />
-          <folding>
-            <element signature="e#42#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -948,9 +935,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Modules.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="64" column="30" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="33" />
+          <folding>
+            <element signature="e#42#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
+        <state relative-caret-position="505">
           <caret line="79" column="35" lean-forward="false" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
@@ -959,11 +964,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules.cpp">
+    <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="35" column="18" lean-forward="false" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="342">
+          <caret line="72" column="73" lean-forward="false" selection-start-line="72" selection-start-column="73" selection-end-line="72" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
