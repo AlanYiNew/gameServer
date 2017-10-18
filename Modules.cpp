@@ -24,7 +24,7 @@ Player * PlayerModule::getPlayer(int fd){
 
 int SessionModule::create(string lobbyname, Player* p){
     if (!_available) return -1;
-    _session_bucket[_nextfree]._occupied++;
+    _session_bucket[_nextfree]._occupied = 1;
     _session_bucket[_nextfree]._players[0] = p;
     _session_bucket[_nextfree]._lobbyname = lobbyname;
     _available--;

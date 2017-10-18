@@ -32,6 +32,7 @@ struct session{
     unsigned int _starts;
 	int _occupied;
 	string _lobbyname;
+    session():_occupied(0),_confirmed(0),_starts(0),_lobbyname(""){_players[0]=nullptr;_players[1]=nullptr;};
 };
 
 class PlayerModule{

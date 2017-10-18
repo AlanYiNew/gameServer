@@ -79,6 +79,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     if (tokens[0] == "create"){
         /*message type: create <username>*/
         /*return type: create <username> <pid/fd>*/
+        if (tokens.size() < 2) goto paramter_fail;
 
         int sid = _session_module.create(tokens[1],_player_module.getPlayer(fd)); 	
 	    std::string res("created ");
@@ -92,6 +93,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
          *                     <host_player'pid/fd> <host_player's username> <confirm status bitmap>
          *                     <host_player's cid> <host_player's wid>*/
         /*bitmap usage index 0: host, index1: entered player*/
+        if (tokens.size() < 3) goto paramter_fail;
 
         Player *entered_player = _player_module.getPlayer(fd);
 
@@ -125,6 +127,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*message type: exit <sid> */
         /*return type: exitted <result>*/
 
+        if (tokens.size() < 2) goto paramter_fail;
         int sid = std::stoi(tokens[2]);
         int index = _player_module.getPlayer(fd)->_index;
         int result = _session_module.exit(sid,index);
@@ -137,6 +140,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (tokens[0] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
         /*return type: confirmed <confirm status bitmap> <cid> <wid> <o's cid> <p's wid>*/
+        if (tokens.size() < 5) goto paramter_fail;
         int pid = std::stoi(tokens[1]);
         int sid = std::stoi(tokens[2]);
         int cid = std::stoi(tokens[3]);
@@ -155,6 +159,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*message type: start <sid>*/
         /*return type: start <start status bitmap>*/
         /*bitmap usage index 0: host, index1: entered player*/
+        if (tokens.size() < 2) goto paramter_fail;
         int sid = std::stoi(tokens[1]);
         const Player* me= _player_module.getPlayer(fd);
         unsigned int bitmap = _session_module.startGame(sid,me->_index);
@@ -165,7 +170,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (tokens[0] == "dead"){
         /*message type: dead <sid>*/
         /*return type: score <score> or win or lose*/
-
+        if (tokens.size() < 2) goto paramter_fail;
         int sid = std::stoi(tokens[1]);
         Player * me = _player_module.getPlayer(fd);
         me->_score++;
@@ -187,6 +192,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }	else if (tokens[0] == "login"){
         /* message type:login <username> */
         /* return type:login <username> <fd/pid> */
+        if (tokens.size() < 2) goto paramter_fail;
         _player_module.record(fd,tokens[1]);
 
         string res = string(request_mess) + " " + std::to_string(fd);
@@ -196,7 +202,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (tokens[0] == "listlobby"){
         /* message type:listlobby <pageno> */
         /* return type: listlobby <list of pair of lobby id and lobbyname> */
-
+        if (tokens.size() < 2) goto paramter_fail;
         int pageno = std::stoi(tokens[1]);
         auto result = _session_module.activatedList(10,pageno);
         string res = "listlobby";
@@ -204,6 +210,11 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             res = res + " " + std::to_string(iter->first) + " " + iter->second;
         }
         TCPServer::packet_t respond{res.length(), res.c_str()};
+        sendPacket(fd, &respond);
+    }   else{
+paramter_fail:
+        string res("paramter invalid");
+        TCPServer::packet_t respond{res.length(), "paramter invalid"};
         sendPacket(fd, &respond);
     }
 }
