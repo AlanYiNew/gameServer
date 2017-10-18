@@ -7,7 +7,7 @@
 #include <utility>
 using namespace std;
 
-#define MAX_SESSION 8
+#define MAX_SESSION 256
 struct Player{
 	void * _data;
 	int _len;

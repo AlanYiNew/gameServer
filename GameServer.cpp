@@ -149,7 +149,13 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
         string res = "confirmed " + std::to_string(_session_module.confirm(sid,index));
         res+= " " + std::to_string(cid) + " " + std::to_string(wid);
-        res+= " " + std::to_string(oppoent->_cid) + std::to_string(oppoent->_wid);
+        int ocid = -1;
+        int owid = -1;
+        if (oppoent != nullptr){
+            ocid = oppoent->_cid;
+            owid = oppoent->_wid;
+        }
+        res+= " " + std::to_string(ocid) + std::to_string(owid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
         int opponent_fd = oppoent->_fd;
 
