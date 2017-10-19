@@ -23,6 +23,14 @@ Player * PlayerModule::getPlayer(int fd){
     return &_map.find(fd)->second;
 }
 
+int SessionModule::start(int sid){
+    _session_bucket[sid]._starts = true;
+}
+
+int SessionModule::end(int sid){
+    _session_bucket[sid]._starts = false;
+}
+
 int SessionModule::create(string lobbyname, int fd){
     if (!_available) return -1;
     _session_bucket[_nextfree]._occupied = 1;
@@ -81,12 +89,15 @@ int SessionModule::exit(int sid, int fd){
 
 map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     auto iter = _activated_session.begin();
-    for (int i = 0; i < pagesize*(pageno-1) && i < _activated_session.size(); ++i)
+    for (int i = 0; i < pagesize*(pageno-1) && i < _activated_session.size(); ++i) {
+
         ++iter;
+    }
 
     map<int,string>result;
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
-        result[iter->first] = iter->second->_lobbyname;
+        if (!iter->second->_starts)
+            result[iter->first] = iter->second->_lobbyname;
     }
     return result;
 }

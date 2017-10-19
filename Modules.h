@@ -32,10 +32,10 @@ struct chunk{
 
 struct session{
 	int _players[2];
-    unsigned int _starts;
+    bool _starts;
 	int _occupied;
 	string _lobbyname;
-    session():_occupied(0),_starts(0),_lobbyname(""){_players[0]=0;_players[1]=0;};
+    session():_occupied(0),_starts(false),_lobbyname(""){_players[0]=0;_players[1]=0;};
 };
 
 class PlayerModule{
@@ -66,7 +66,9 @@ public:
 
     vector<int> getPlayerPids(int sid);
 
+    int start(int sid);
 
+    int end(int sid);
 
 	const string& getLobbyName(int sid);
 

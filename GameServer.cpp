@@ -167,6 +167,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
                 && _player_module.getPlayer(opponent_fd)->_confirmed) {
                 res["cmd"] = "gamestart";
                 res["success"] = "0";
+                _session_module.start(sid);
                 send_respond(fd, res);
                 send_respond(opponent_fd, res);
             }
@@ -190,6 +191,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             send_respond(opponent_fd,res);
             res["cmd"] = "lose";
             send_respond(fd,res);
+            _session_module.end(sid);
         }   else {
 
             res["cmd"] = "score";
