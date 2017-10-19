@@ -7,6 +7,7 @@
 int GS_LOG::LOG(const std::string& str){
     time_t now = time(0);
     char* dt = ctime(&now);
+    dt[strlen(dt) - 1] = '\0';
     os << "[" << dt << "]: "<< str << std::endl;
     return 0;
 }

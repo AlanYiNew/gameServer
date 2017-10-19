@@ -6,6 +6,7 @@
 #define HELLLOWORLD_GS_LOG_H
 #include <ctime>
 #include <string>
+#include <cstring>
 #include <iostream>
 
 class GS_LOG{
