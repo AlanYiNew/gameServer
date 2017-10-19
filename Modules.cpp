@@ -57,8 +57,6 @@ int SessionModule::enter(int sid,int fd){
     }
 }
 
-
-
 bool SessionModule::validSid(int sid){
     return sid >= 0 && sid < MAX_SESSION
            && _session_bucket[sid]._occupied;

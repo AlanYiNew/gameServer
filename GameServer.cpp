@@ -287,15 +287,17 @@ string res_parse(const std::map<int,string>& map){
 int GameServer::send_respond(int fd, const std::unordered_map<string,string>& map){
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
+    int len = sendPacket(fd, &respond);
     log.LOG("### respond ### "+res_str);
-    sendPacket(fd, &respond);
+    return len;
 }
 
 int GameServer::send_respond(int fd, const std::map<int,string>& map){
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
-    log.LOG("### respond ### "+res_str);
-    return sendPacket(fd, &respond);
+    int len = sendPacket(fd, &respond);
+    log.LOG("### respond ### "+res_str + to_string(len));
+    return len;
 }
 
 bool GameServer::is_alive(int fd){
