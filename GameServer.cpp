@@ -116,7 +116,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         int result = _session_module.exit(sid,fd);
         std::unordered_map<string,string> res;
+        int opponenet_fd =  _session_module.getOpponent(sid,fd);
 
+        res["pid"] = to_string(fd);
         if (result >= 0){
             res["success"] = "0";
         }   else{
@@ -124,7 +126,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }
 
         send_respond(fd,res);
-
+        if (opponenet_fd > 2)
+            send_respond(opponenet_fd,res);
 
     }   else if (req["cmd"] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
