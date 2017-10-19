@@ -62,22 +62,21 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     if (req["cmd"] == "create"){
         /*message type: create <username>*/
         /*return type: create <username> <pid/fd>*/
-
         int sid = _session_module.create(req["lobbyname"],fd);
-	    std::unordered_map<string,string> res;
+
+        std::unordered_map<string,string> res;
+
         res["cmd"] = "create";
         res["username"] = req["username"];
         res["success"] = _session_module.validSid(sid)?0:-1;
+        res["pid"] = fd;
 
         send_respond(fd,res);
 
     }   else if (req["cmd"] == "enter"){
 
-
         int sid = std::stoi(req["sid"]);
-
         Player *entered_player = _player_module.getPlayer(fd);
-
         sid = _session_module.enter(sid,fd);
         std::unordered_map<string,string> res;
 
