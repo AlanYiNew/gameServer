@@ -76,8 +76,8 @@
       <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Modules.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="31" column="41" lean-forward="false" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+            <state relative-caret-position="360">
+              <caret line="29" column="54" lean-forward="false" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -275,7 +275,7 @@
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
-      <workItem from="1508344730366" duration="7432000" />
+      <workItem from="1508344730366" duration="7504000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -585,11 +585,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508389056863</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="&quot;Add paramters number checking&quot;">
+      <created>1508389205541</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1508389205541</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96285000" />
+    <option name="totallyTimeSpent" value="96357000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -1126,8 +1133,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="31" column="41" lean-forward="false" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+        <state relative-caret-position="360">
+          <caret line="29" column="54" lean-forward="false" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>

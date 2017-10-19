@@ -28,7 +28,6 @@ int SessionModule::create(string lobbyname, Player* p){
     _session_bucket[_nextfree]._occupied = 1;
     _session_bucket[_nextfree]._players[0] = p;
     _session_bucket[_nextfree]._lobbyname = lobbyname;
-    _session_bucket[_nextfree]._players[0] = nullptr;
     _session_bucket[_nextfree]._players[1] = nullptr;
     p->_confirmed = 0;
     _available--;
