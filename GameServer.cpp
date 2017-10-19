@@ -164,7 +164,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }
         send_respond(fd,res);
 
-        if (_player_module.getPlayer(opponent_fd)->_confirmed
+        if (_player_module.getPlayer(fd)->_confirmed
             && _player_module.getPlayer(opponent_fd)->_confirmed){
             res["cmd"] = "gamestart";
             res["success"] = "0";
