@@ -11,10 +11,9 @@ using namespace std;
 
 
 
-session session_bucket[MAX_SESSION];
-static map <int, Player> user_map;
-//TODO session occupied map used to return a list of activated room
-map <int , session*> activated_room;
+
+
+
 
 int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out){
     GameServer * server = reinterpret_cast<GameServer*>(userptr);
@@ -146,12 +145,15 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int cid = std::stoi(tokens[3]);
         int wid = std::stoi(tokens[4]);
         const int index = _player_module.getPlayer(pid)->_index;
-
+        std::cout << "1 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
-
+        std::cout << "2 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         int confirm_state = _session_module.confirm(sid,index);
+        std::cout << "3 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         string res = "confirmed " + std::to_string(fd) + " " + std::to_string(confirm_state);
+        std::cout << "4 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         res+= " " + std::to_string(cid) + " " + std::to_string(wid);
+        std::cout << "5 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         int ocid = -1;
         int owid = -1;
         int opponent_fd = -1;
@@ -161,12 +163,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }
         res+= " " + std::to_string(ocid) +" " + std::to_string(owid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
-
+        std::cout << "6 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         if (oppoent != nullptr) {
             opponent_fd = oppoent->_fd;
             sendPacket(opponent_fd, &respond);
         }
-
+        std::cout << "7 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         std::cout << res << std::endl;
         sendPacket(fd,&respond);
 
@@ -175,7 +177,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             sendPacket(fd,&respond);
             sendPacket(opponent_fd,&respond);
         }
-
+        std::cout << "8 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
     }   else if (tokens[0] == "start"){
         /*message type: start <sid>*/
         /*return type: start <opponent start?>*/
