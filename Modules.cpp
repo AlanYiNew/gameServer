@@ -78,14 +78,14 @@ int SessionModule::exit(int sid, int fd){
         return -1;
 }
 
-vector<pair<int,string>> SessionModule::activatedList(int pagesize, int pageno){
+map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     auto iter = _activated_session.begin();
     for (int i = 0; i < pagesize*(pageno-1) && i < _activated_session.size(); ++i)
         ++iter;
 
-    vector<pair<int,string>> result;
+    map<int,string>result;
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
-        result.push_back({iter->first,iter->second->_lobbyname});
+        result.emplace({iter->first,iter->second->_lobbyname});
     }
     return result;
 }
@@ -115,4 +115,21 @@ bool PlayerModule::confirm(int fd, int wid, int cid){
         return iter->second._confirmed;
     }   else
         return false;
+}
+
+vector<int> SessionModule::getPlayerPids(int sid){
+    vector<int> result;
+    for (int i = 0 ; i < 2; i++){
+        if (_session_bucket[sid]._players[i] > 2)
+            result.push_back(_session_bucket[sid]._players[i]);
+    }
+    return result;
+}
+
+int SessionModule::clear(int sid){
+    _session_bucket[sid]._occupied = 0;
+    _session_bucket[sid]._players[0] = 0;
+    _session_bucket[sid]._players[1] = 0;
+    _session_bucket[sid]._lobbyname = "";
+    _activated_session.erase(sid);
 }

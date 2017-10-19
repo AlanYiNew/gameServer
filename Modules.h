@@ -62,15 +62,19 @@ public:
 
 	int exit(int sid, int index);
 
-    vector<pair<int,string>> activatedList(int pagesize, int pageno);
+    map<int,string> activatedList(int pagesize, int pageno);
 
-	int startGame(int sid, int index);
+    vector<int> getPlayerPids(int sid);
+
+
 
 	const string& getLobbyName(int sid);
 
     const int getOpponent(int sid, int fd);
 
     bool validSid(int sid);
+
+    int clear(int sid);
 
 private:
 	std::array<session,MAX_SESSION> _session_bucket;

@@ -12,7 +12,8 @@ using namespace std;
 
 std::unordered_map<string,string> req_parse(const string& mess);
 string res_parse(const std::unordered_map<string,string>& map);
-
+string res_parse(const std::map<string,string>& map);
+int is_alive(int fd);
 
 
 
@@ -204,12 +205,32 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::unordered_map<string,string> res;
         res["cmd"] = "listlobby";
         int pageno = std::stoi(req["pageno"]);
-        auto result = _session_module.activatedList(10,pageno);
 
-        for (auto iter = result.begin() ; iter != result.end(); ++ iter){
-            res[std::to_string(iter->first)] = iter->second;
+        int count =0;
+        map<int,string> result;
+        map<int,string> prev;
+        while (result.size() < 10) {
+            result = _session_module.activatedList(10, pageno);
+            if (result.size() == prev.size()) break;
+            for (auto iter = result.begin(); iter != result.end(); ++iter) {
+                if (prev.find(iter->first) == prev.end()) {
+                    bool active = false;
+                    for (int fd:_session_module.getPlayerPids(iter->first)) {
+                        active = is_alive(fd);
+                        if (active) break;
+                    }
+
+                    if (!active) {
+                        _session_module.clear(iter->first);
+                        result.erase(iter->first);
+                    }
+                }
+            }
+            prev = result;
+            count++;
         }
-        send_respond(fd,res);
+
+        send_respond(fd,result);
     }   else{
 paramter_fail:
         std::unordered_map<string,string> res;
@@ -250,9 +271,35 @@ string res_parse(const std::unordered_map<string,string>& map){
     return result;
 };
 
+string res_parse(const std::map<int,string>& map){
+    string result = "";
+
+    for (auto iter = map.begin() ; iter != map.end(); ++iter){
+        if (iter == map.begin())
+            result += to_string(iter->first);
+        else
+            result += " " + to_string(iter->first);
+        result+= " " + iter->second;
+    }
+    return result;
+};
+
 int GameServer::send_respond(int fd, const std::unordered_map<string,string>& map){
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     log.LOG("### respond ### "+res_str);
     sendPacket(fd, &respond);
+}
+
+int GameServer::send_respond(int fd, const std::map<int,string>& map){
+    auto res_str = res_parse(map);
+    TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
+    log.LOG("### respond ### "+res_str);
+    return sendPacket(fd, &respond);
+}
+
+int GameServer::is_alive(int fd){
+    std::unordered_map<string,string> res;
+    res["isalive"] = "test";
+    return send_respond(fd,res);
 }
