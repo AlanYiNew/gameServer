@@ -117,7 +117,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int result = _session_module.exit(sid,fd);
         std::unordered_map<string,string> res;
 
-        if (_session_module.validSid(sid)){
+        if (result > 0){
             res["success"] = "0";
         }   else{
             res["success"] = "-1";
