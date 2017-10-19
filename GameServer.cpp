@@ -202,8 +202,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (req["cmd"] == "listlobby"){
         /* message type:listlobby <pageno> */
         /* return type: listlobby <list of pair of lobby id and lobbyname> */
-        std::unordered_map<string,string> res;
-        res["cmd"] = "listlobby";
+
         int pageno = std::stoi(req["pageno"]);
 
         int count =0;
@@ -281,6 +280,7 @@ string res_parse(const std::map<int,string>& map){
             result += " " + to_string(iter->first);
         result+= " " + iter->second;
     }
+    result += " cmd listlobby";
     return result;
 };
 
