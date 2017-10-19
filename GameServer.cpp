@@ -93,15 +93,15 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             const int host_player_fd = _session_module.getOpponent(sid,fd);
             const Player *host_player = _player_module.getPlayer(host_player_fd);
 
-            res += std::to_string(sid) + " " +
+            res += to_string(sid) + " " +
                    lobbyname + " " +
-                   std::to_string(fd) + " " +
+                   to_string(fd) + " " +
                    entered_player->_username + " " +
-                   std::to_string(host_player->_fd) + " "+
+                   to_string(host_player->_fd) + " "+
                    host_player->_username + " " +
-                   std::to_string(host_player->_confirmed) +" "+
-                   std::to_string(host_player->_cid) + " " +
-                   std::to_string(host_player->_wid);
+                   to_string(host_player->_confirmed) +" "+
+                   to_string(host_player->_cid) + " " +
+                   to_string(host_player->_wid);
 
             TCPServer::packet_t respond{res.length(),res.c_str()};
             sendPacket(fd,&respond);
