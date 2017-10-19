@@ -298,8 +298,8 @@ int GameServer::send_respond(int fd, const std::map<int,string>& map){
     return sendPacket(fd, &respond);
 }
 
-int GameServer::is_alive(int fd){
+bool GameServer::is_alive(int fd){
     std::unordered_map<string,string> res;
     res["isalive"] = "test";
-    return send_respond(fd,res);
+    return send_respond(fd,res)>0;
 }

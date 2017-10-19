@@ -43,7 +43,7 @@ private:
     GS_LOG log;
     int send_respond(int fd, const std::unordered_map<string,string>& map);
     int send_respond(int fd, const std::map<int,string>& map);
-    int is_alive(int fd);
+    bool is_alive(int fd);
 
 
 };
