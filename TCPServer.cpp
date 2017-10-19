@@ -100,7 +100,6 @@ int TCPServer::epoll_add(int fd) {
 }
 
 int TCPServer::sendPacket(int fd,packet_t* packet){
-    std::cout << "done " << packet->content << std::endl;
     return send(fd,(char*)packet,packet->len+sizeof(int) ,0);
 }
 

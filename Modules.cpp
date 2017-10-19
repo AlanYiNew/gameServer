@@ -100,14 +100,16 @@ int SessionModule::startGame(int sid, int index){
 }
 
 
-string SessionModule::getLobbyName(int sid){
+const string& SessionModule::getLobbyName(int sid){
     return _session_bucket[sid]._lobbyname;
 }
 
-bool PlayerModule::confirm(int fd){
+bool PlayerModule::confirm(int fd, int wid, int cid){
     auto iter = _map.find(fd);
     if (iter != _map.end()) {
         iter->second._confirmed = !iter->second._confirmed;
+        iter->second._cid = cid;
+        iter->second._wid = wid;
         return iter->second._confirmed;
     }   else
         return false;

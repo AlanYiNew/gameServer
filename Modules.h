@@ -21,8 +21,8 @@ struct Player{
     int _cid; //character id
 	string _username;
     bool _confirmed;
-	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0){};
-	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0){};
+	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0){};
+	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0){};
 };
 
 struct chunk{
@@ -48,7 +48,7 @@ public:
 
 	Player * getPlayer(int fd);
 
-    bool confirm(int fd);
+    bool confirm(int fd,int wid, int cid);
 
 private:
 	map<int,Player> _map;
@@ -66,16 +66,18 @@ public:
 
 	int startGame(int sid, int index);
 
-	string getLobbyName(int sid);
+	const string& getLobbyName(int sid);
 
     const int getOpponent(int sid, int fd);
+
+    bool validSid(int sid);
 
 private:
 	std::array<session,MAX_SESSION> _session_bucket;
     int _nextfree = 0;
     int _available = MAX_SESSION;
     std::map<int , session*> _activated_session;
-    bool validSid(int sid);
+
 };
 
 #endif

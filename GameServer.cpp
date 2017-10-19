@@ -10,7 +10,8 @@ using namespace std;
 
 #define SERVER_DEBUG 1
 
-
+std::unordered_map<string,string> req_parse(const string& mess);
+string res_parse(const std::unordered_map<string,string>& map);
 
 
 
@@ -45,193 +46,213 @@ void GameServer::starts() {
 
 GameServer::GameServer(int udp_port, int tcp_port):TCPServer(tcp_port),_tcp_port(tcp_port),_udp_port(udp_port),log(std::cout){};
 
-//TODO don't user double iteration have to change a lot
-//Search the session_bucket[] and clr the disconnected fd slot
 void GameServer::onShutDownConnection(int fd){
 	_player_module.clear(fd);
 }
 
-//TODO
 void GameServer::onRead(int fd, char * mess, int readsize){
-    std::vector<std::string> tokens;
+
     std::string request_mess(mess,readsize);
-    std::istringstream iss(request_mess);
-    std::copy(std::istream_iterator<std::string>(iss),
-         std::istream_iterator<std::string>(),
-         back_inserter(tokens));
+
 #if SERVER_DEBUG
-    log.LOG("### command ###" + request_mess);
+    log.LOG("### command ### " + request_mess);
 #endif
+    auto req = req_parse(request_mess);
 
-
-    if (tokens[0] == "create"){
+    if (req["cmd"] == "create"){
         /*message type: create <username>*/
         /*return type: create <username> <pid/fd>*/
-        if (tokens.size() < 2) goto paramter_fail;
 
-        int sid = _session_module.create(tokens[1],fd);
-	    std::string res("created ");
-        res += tokens[1] + " " + std::to_string(sid);
-        TCPServer::packet_t respond{res.length(), res.c_str()};
-        sendPacket(fd, &respond);
+        int sid = _session_module.create(req["lobbyname"],fd);
+	    std::unordered_map<string,string> res;
+        res["cmd"] = "create";
+        res["username"] = req["username"];
+        res["success"] = _session_module.validSid(sid)?0:-1;
 
-    }   else if (tokens[0] == "enter"){
-        /*message type: enter <sid> <fd/pid> */
-        /*return type: entered <sid> <lobbyname> <entered_player's pid/fd> <etnered_player's username>
-         *                     <host_player'pid/fd> <host_player's username> <opponent's confirm?>
-         *                     <host_player's cid> <host_player's wid>*/
-        /*bitmap usage index 0: host, index1: entered player*/
-        if (tokens.size() < 3) goto paramter_fail;
+        send_respond(fd,res);
+
+    }   else if (req["cmd"] == "enter"){
+
+
+        int sid = std::stoi(req["sid"]);
 
         Player *entered_player = _player_module.getPlayer(fd);
 
-        int sid = std::stoi(tokens[1]);
         sid = _session_module.enter(sid,fd);
-        std::string res("entered ");
-        if (sid >= 0) {
-            string lobbyname = _session_module.getLobbyName(sid);
+        std::unordered_map<string,string> res;
+
+        if (_session_module.validSid(sid)) {
+            const string &lobbyname = _session_module.getLobbyName(sid);
             const int host_player_fd = _session_module.getOpponent(sid,fd);
             const Player *host_player = _player_module.getPlayer(host_player_fd);
 
-            res += to_string(sid) + " " +
-                   lobbyname + " " +
-                   to_string(fd) + " " +
-                   entered_player->_username + " " +
-                   to_string(host_player->_fd) + " "+
-                   host_player->_username + " " +
-                   to_string(host_player->_confirmed) +" "+
-                   to_string(host_player->_cid) + " " +
-                   to_string(host_player->_wid);
+            res["cmd"] = "enter";
+            res["sid"] = std::to_string(sid);
+            res["lobbyname"] = lobbyname;
+            res["pid1"] = host_player_fd;
+            res["username1"] = host_player->_username;
+            res["cid1"] = host_player->_cid;
+            res["wid1"] = host_player->_wid;
+            res["pid2"] = fd;
+            res["username2"] = entered_player->_username;
+            res["cid2"] = entered_player->_cid;
+            res["wid2"] = entered_player->_wid;
+            res["success"] = "0";
 
-            TCPServer::packet_t respond{res.length(),res.c_str()};
-            sendPacket(fd,&respond);
-            sendPacket(host_player->_fd,&respond);
+            auto res_str =res_parse(res);
+            TCPServer::packet_t respond{res_str.length(),res_str.c_str()};
+            send_respond(fd,res);
+            send_respond(host_player_fd,res);
         }   else{
-            res += std::to_string(sid);
-            TCPServer::packet_t respond{res.length(),res.c_str()};
-            sendPacket(fd,&respond);
+
+            res["success"] = "-1";
+            send_respond(fd,res);
         }
 
-    }   else if (tokens[0] == "exit"){
+    }   else if (req["cmd"] == "exit"){
         /*message type: exit <sid> */
         /*return type: exitted <result>*/
 
-        if (tokens.size() < 2) goto paramter_fail;
-        int sid = std::stoi(tokens[2]);
+        int sid = std::stoi(req["sid"]);
         int index = _player_module.getPlayer(fd)->_index;
         int result = _session_module.exit(sid,index);
-        std::string res("exited ");
-        res += std::to_string(result);
-        TCPServer::packet_t respond{res.length(),res.c_str()};
-        sendPacket(fd,&respond);
+        std::unordered_map<string,string> res;
+
+        if (_session_module.validSid(sid)){
+            res["success"] = "0";
+        }   else{
+            res["success"] = "-1";
+        }
+
+        send_respond(fd,res);
 
 
-    }   else if (tokens[0] == "confirm"){
+    }   else if (req["cmd"] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
-        /*return type: confirmed <confirmer's pid/fd> <confirm state> <cid> <wid> <o's cid> <p's wid>*/
-        if (tokens.size() < 5) goto paramter_fail;
-        int pid = std::stoi(tokens[1]);
-        int sid = std::stoi(tokens[2]);
-        int cid = std::stoi(tokens[3]);
-        int wid = std::stoi(tokens[4]);
-        const int oppoent_fd = _session_module.getOpponent(sid,fd);
+        /*return type: confirmed <confirmer's pid/fd> <ready state> <cid> <wid> <o's cid> <p's wid>*/
 
-        bool confirm_state = _player_module.confirm(fd);
+        int pid = fd;
+        int sid = std::stoi(req["sid"]);
+        int cid = std::stoi(req["cid"]);
+        int wid = std::stoi(req["wid"]);
+        const int opponent_fd = _session_module.getOpponent(sid,fd);
+        std::unordered_map<string,string> res;
 
-        string res = "confirmed " + std::to_string(fd) + " " + std::to_string(confirm_state);
-        res+= " " + std::to_string(cid) + " " + std::to_string(wid);
 
-        int ocid = -1;
-        int owid = -1;
-        int opponent_fd = -1;
-        if (oppoent_fd > 0){
-            ocid = _player_module.getPlayer(oppoent_fd)->_cid;
-            owid = _player_module.getPlayer(oppoent_fd)->_wid;
+        bool ready_state = _player_module.confirm(fd,wid,cid);
+
+        res["cmd"] = "confirm";
+        res["pid"] = fd;
+        res["readystate"] = ready_state;
+        res["cid"] = wid;
+        res["wid"] = cid;
+        res["success"] = "0";
+
+
+        auto res_str =res_parse(res);
+        TCPServer::packet_t respond{res_str.length(),res_str.c_str()};
+        if (opponent_fd > 0) {
+            send_respond(opponent_fd,res);
         }
-        res+= " " + std::to_string(ocid) +" " + std::to_string(owid);
-        TCPServer::packet_t respond{res.length(),res.c_str()};
-
-        if (oppoent_fd > 0) {
-            sendPacket(opponent_fd, &respond);
-        }
-
-        std::cout << res << std::endl;
-        sendPacket(fd,&respond);
+        send_respond(fd,res);
 
         if (_player_module.getPlayer(fd)->_confirmed
-            && _player_module.getPlayer(oppoent_fd)->_confirmed){
-            TCPServer::packet_t respond{res.length(),"gamestart"};
-            sendPacket(fd,&respond);
-            sendPacket(opponent_fd,&respond);
+            && _player_module.getPlayer(opponent_fd)->_confirmed){
+            res["cmd"] = "cmd gamestart";
+            res["success"] = "0";
+            send_respond(fd,res);
+            send_respond(opponent_fd,res);
         }
 
-    }   else if (tokens[0] == "start"){
-        /*message type: start <sid>*/
-        /*return type: start <opponent start?>*/
-        /*bitmap usage index 0: host, index1: entered player*/
-        if (tokens.size() < 2) goto paramter_fail;
-        int sid = std::stoi(tokens[1]);
-        const Player* me= _player_module.getPlayer(fd);
-        int bitmap = _session_module.startGame(sid,me->_index);
-        string res("start");
-        res+= " " + std::to_string(bitmap);
-        TCPServer::packet_t respond{res.length(),res.c_str()};
-        sendPacket(fd,&respond);
-    }   else if (tokens[0] == "dead"){
+    }   else if (req["cmd"] == "dead"){
         /*message type: dead <sid>*/
         /*return type: score <score> or win or lose*/
-        if (tokens.size() < 2) goto paramter_fail;
-        int sid = std::stoi(tokens[1]);
+
+        std::unordered_map<string,string> res;
+        int sid = std::stoi(req["sid"]);
         int opponent_fd = _session_module.getOpponent(sid,fd);
         Player * p = _player_module.getPlayer(opponent_fd);
         p->_score++;
+        res["success"] = "0";
         if (p->_score >= 3){
-
-            std::string res("win");
-            TCPServer::packet_t respond1{res.length(), res.c_str()};
-            sendPacket(opponent_fd, &respond1);
-            res = "lose";
-            TCPServer::packet_t respond2{res.length(), res.c_str()};
-            sendPacket(fd, &respond2);
+            res["cmd"] = "win";
+            send_respond(opponent_fd,res);
+            res["cmd"] = "lose";
+            send_respond(fd,res);
         }   else {
 
-            std::string res("score ");
-            res+=std::to_string(p->_score);
-            TCPServer::packet_t respond{res.length(), res.c_str()};
-            sendPacket(opponent_fd, &respond);
+            res["cmd"] = "score";
+            res["score"] = p->_score;
+            send_respond(opponent_fd,res);
         }
 
-    }	else if (tokens[0] == "login"){
+    }	else if (req["cmd"] == "login"){
         /* message type:login <username> */
         /* return type:login <username> <fd/pid> */
-        if (tokens.size() < 2) goto paramter_fail;
-        _player_module.record(fd,tokens[1]);
 
-        string res = string(request_mess) + " " + std::to_string(fd);
-        TCPServer::packet_t respond{res.length(), res.c_str()};
-        sendPacket(fd, &respond);
+        _player_module.record(fd,req["username"]);
+        std::unordered_map<string,string> res;
 
-    }   else if (tokens[0] == "listlobby"){
+        res["success"] = "0";
+        res["pid"] = fd;
+        res["username"] = req["username"];
+        res["cmd"] = "login";
+        send_respond(fd,res);
+
+    }   else if (req["cmd"] == "listlobby"){
         /* message type:listlobby <pageno> */
         /* return type: listlobby <list of pair of lobby id and lobbyname> */
-        if (tokens.size() < 2) goto paramter_fail;
-        int pageno = std::stoi(tokens[1]);
+        std::unordered_map<string,string> res;
+        res["cmd"] = "listlobby";
+        int pageno = std::stoi(req["pageno"]);
         auto result = _session_module.activatedList(10,pageno);
-        string res = "listlobby";
+
         for (auto iter = result.begin() ; iter != result.end(); ++ iter){
-            res = res + " " + std::to_string(iter->first) + " " + iter->second;
+            res[std::to_string(iter->first)] = iter->second;
         }
-        TCPServer::packet_t respond{res.length(), res.c_str()};
-        sendPacket(fd, &respond);
+        send_respond(fd,res);
     }   else{
 paramter_fail:
-        string res("paramter invalid");
-        TCPServer::packet_t respond{res.length(), "paramter invalid"};
-        sendPacket(fd, &respond);
+        std::unordered_map<string,string> res;
+        res["success"] = "0";
+        send_respond(fd,res);
     }
 }
 
 //TODO
 void GameServer::onAcceptConnection(int fd){
     std::cout << "accept connection" << std::endl;
+}
+
+std::unordered_map<string,string> req_parse(const string& mess){
+    std::vector<std::string> tokens;
+    std::istringstream iss(mess);
+    std::copy(std::istream_iterator<std::string>(iss),
+              std::istream_iterator<std::string>(),
+              back_inserter(tokens));
+
+    std::unordered_map<string,string> temp;
+    for (auto iter = tokens.begin() ; iter != tokens.end(); iter+=2){
+        temp[*iter] = *(iter+1);
+    }
+    return temp;
+};
+
+string res_parse(const std::unordered_map<string,string>& map){
+    string result = "";
+
+    for (auto iter = map.begin() ; iter != map.end(); ++iter){
+        if (iter == map.begin())
+            result += iter->first;
+        else
+            result += " " + iter->first;
+        result+= " " + iter->second;
+    }
+    return result;
+};
+
+int GameServer::send_respond(int fd, const std::unordered_map<string,string>& map){
+    auto res_str = res_parse(map);
+    TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
+    sendPacket(fd, &respond);
 }

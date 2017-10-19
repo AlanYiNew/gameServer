@@ -20,6 +20,7 @@
 #include <sstream>
 #include "Modules.h"
 #include "gs_log.h"
+#include <unordered_map>
 
 class GameServer:TCPServer {
     friend int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out);
@@ -40,6 +41,7 @@ private:
     PlayerModule _player_module;
     SessionModule _session_module;
     GS_LOG log;
+    int send_respond(int fd, const std::unordered_map<string,string>& map);
 
 };
 
