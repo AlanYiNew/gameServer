@@ -71,7 +71,7 @@ public:
     int confirmState(int sid,int index);
 
 private:
-	session _session_bucket[MAX_SESSION];
+	std::array<session,MAX_SESSION> _session_bucket;
     int _nextfree = 0;
     int _available = MAX_SESSION;
     std::map<int , session*> _activated_session;
