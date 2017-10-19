@@ -25,11 +25,12 @@ Player * PlayerModule::getPlayer(int fd){
 
 int SessionModule::create(string lobbyname, int fd){
     if (!_available) return -1;
-        _session_bucket[_nextfree]._occupied = 1;
-        _session_bucket[_nextfree]._players[0] = fd;
-        _session_bucket[_nextfree]._lobbyname = lobbyname;
-        _session_bucket[_nextfree]._players[1] = 0;
-        _available--;
+    _session_bucket[_nextfree]._occupied = 1;
+    _session_bucket[_nextfree]._players[0] = fd;
+    _session_bucket[_nextfree]._lobbyname = lobbyname;
+    _session_bucket[_nextfree]._players[1] = 0;
+    _available--;
+    _activated_session[_nextfree] = &_session_bucket[_nextfree];
     int result = _nextfree;
     while (_available && _session_bucket[_nextfree]._occupied) {
         _nextfree= (_nextfree+1)%MAX_SESSION;
@@ -68,6 +69,8 @@ int SessionModule::exit(int sid, int index){
         _session_bucket[sid]._occupied--;
         _session_bucket[sid]._starts &= ~(1 << index);
         _session_bucket[sid]._players[index] = 0;
+        if (_session_bucket[sid]._occupied == 0)
+            _activated_session.erase(sid);
         return sid;
     }   else
         return -1;
