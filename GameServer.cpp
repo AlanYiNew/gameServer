@@ -68,8 +68,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         res["cmd"] = "create";
         res["username"] = req["username"];
-        res["success"] = _session_module.validSid(sid)?0:-1;
-        res["pid"] = fd;
+        res["success"] = to_string(_session_module.validSid(sid)?0:-1);
+        res["pid"] = to_string(fd);
 
         send_respond(fd,res);
 
@@ -88,14 +88,14 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             res["cmd"] = "enter";
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
-            res["pid1"] = host_player_fd;
+            res["pid1"] = to_string(host_player_fd);
             res["username1"] = host_player->_username;
-            res["cid1"] = host_player->_cid;
-            res["wid1"] = host_player->_wid;
-            res["pid2"] = fd;
+            res["cid1"] = to_string(host_player->_cid);
+            res["wid1"] = to_string(host_player->_wid);
+            res["pid2"] = to_string(fd);
             res["username2"] = entered_player->_username;
-            res["cid2"] = entered_player->_cid;
-            res["wid2"] = entered_player->_wid;
+            res["cid2"] = to_string(entered_player->_cid);
+            res["wid2"] = to_string(entered_player->_wid);
             res["success"] = "0";
 
             auto res_str =res_parse(res);
@@ -141,10 +141,10 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         bool ready_state = _player_module.confirm(fd,wid,cid);
 
         res["cmd"] = "confirm";
-        res["pid"] = fd;
-        res["readystate"] = ready_state;
-        res["cid"] = wid;
-        res["wid"] = cid;
+        res["pid"] = to_string(fd);
+        res["readystate"] = to_string(ready_state);
+        res["cid"] = to_string(wid);
+        res["wid"] = to_string(cid);
         res["success"] = "0";
 
 
@@ -181,7 +181,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }   else {
 
             res["cmd"] = "score";
-            res["score"] = p->_score;
+            res["score"] = to_string(p->_score);
             send_respond(opponent_fd,res);
         }
 
@@ -193,7 +193,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::unordered_map<string,string> res;
 
         res["success"] = "0";
-        res["pid"] = fd;
+        res["pid"] = to_string(fd);
         res["username"] = req["username"];
         res["cmd"] = "login";
         send_respond(fd,res);
