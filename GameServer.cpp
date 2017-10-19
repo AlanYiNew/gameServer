@@ -119,6 +119,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int opponenet_fd =  _session_module.getOpponent(sid,fd);
 
         res["pid"] = to_string(fd);
+        res["cmd"] = "exit";
         if (result >= 0){
             res["success"] = "0";
         }   else{
