@@ -113,8 +113,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*return type: exitted <result>*/
 
         int sid = std::stoi(req["sid"]);
-        int index = _player_module.getPlayer(fd)->_index;
-        int result = _session_module.exit(sid,index);
+
+        int result = _session_module.exit(sid,fd);
         std::unordered_map<string,string> res;
 
         if (_session_module.validSid(sid)){

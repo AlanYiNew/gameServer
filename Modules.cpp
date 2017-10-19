@@ -64,11 +64,13 @@ bool SessionModule::validSid(int sid){
            && _session_bucket[sid]._occupied;
 }
 
-int SessionModule::exit(int sid, int index){
+int SessionModule::exit(int sid, int fd){
     if (validSid(sid)) {
         _session_bucket[sid]._occupied--;
-        _session_bucket[sid]._starts &= ~(1 << index);
-        _session_bucket[sid]._players[index] = 0;
+        for (int i = 0; i < 2 ;++i)
+            if (_session_bucket[sid]._players[i] == fd)
+                _session_bucket[sid]._players[i] = 0;
+
         if (_session_bucket[sid]._occupied == 0)
             _activated_session.erase(sid);
         return sid;
