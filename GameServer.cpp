@@ -106,8 +106,8 @@ void GameServer::onRead(int fd, char * mess, int readsize){
                    lobbyname + " " +
                    std::to_string(fd) + " " +
                    entered_player->_username + " " +
-                   std::to_string(host_player->_fd) +
-                   host_player->_username + " ";
+                   std::to_string(host_player->_fd) + " "+
+                   host_player->_username + " " +
                    std::to_string(host_player->_confirmed) +" "+
                    std::to_string(host_player->_cid) + " " +
                    std::to_string(host_player->_wid);
@@ -116,7 +116,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             sendPacket(fd,&respond);
             sendPacket(host_player->_fd,&respond);
         }   else{
-            res += " " + std::to_string(sid);
+            res += std::to_string(sid);
             TCPServer::packet_t respond{res.length(),res.c_str()};
             sendPacket(fd,&respond);
         }
