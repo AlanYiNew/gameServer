@@ -68,6 +68,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         res["cmd"] = "create";
         res["username"] = req["username"];
+        res["sid"] = to_string(sid);
         res["success"] = to_string(_session_module.validSid(sid)?0:-1);
         res["pid"] = to_string(fd);
 
