@@ -28,7 +28,7 @@ int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::me
     auto now = std::chrono::system_clock::now();
     tt = std::chrono::system_clock::to_time_t(now);
 
-    std::cout << "recving " << message.len << " from "<<recv.pid << "[" << ctime(&tt) << "]"<< std::endl;
+    std::cout << "recving " << message.len << " from "<< recv.pid << "[" << ctime(&tt) << "]"<< std::endl;
 #endif
     return 0;
 }
@@ -95,7 +95,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         Player *entered_player = _player_module.getPlayer(fd);
 
-        int sid = std::stoi(tokens[2]);
+        int sid = std::stoi(tokens[1]);
         sid = _session_module.enter(sid,fd);
         std::string res("entered ");
         if (sid) {
