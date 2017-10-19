@@ -142,7 +142,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (req["cmd"] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
         /*return type: confirmed <confirmer's pid/fd> <ready state> <cid> <wid> <o's cid> <p's wid>*/
-        
+
         int sid = std::stoi(req["sid"]);
         int cid = std::stoi(req["cid"]);
         int wid = std::stoi(req["wid"]);
