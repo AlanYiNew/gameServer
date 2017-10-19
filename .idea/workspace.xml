@@ -54,8 +54,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="108" column="58" lean-forward="false" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
+            <state relative-caret-position="234">
+              <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
               </folding>
@@ -277,14 +277,7 @@
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
-      <workItem from="1508344730366" duration="14512000" />
-    </task>
-    <task id="LOCAL-00005" summary="&quot;Change size to type size_t&quot;">
-      <created>1507011981835</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1507011981835</updated>
+      <workItem from="1508344730366" duration="14585000" />
     </task>
     <task id="LOCAL-00006" summary="&quot;Fix warning&quot;">
       <created>1507012181051</created>
@@ -622,11 +615,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508413803976</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="&quot;Fix the enter again&quot;">
+      <created>1508414080831</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1508414080831</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103365000" />
+    <option name="totallyTimeSpent" value="103438000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -698,7 +698,8 @@
     <MESSAGE value="&quot;Fix the fucking weird problem&quot;" />
     <MESSAGE value="&quot;Fix the lobby list&quot;" />
     <MESSAGE value="&quot;Fix the enter&#10;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix the enter&#10;&quot;" />
+    <MESSAGE value="&quot;Fix the enter again&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix the enter again&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1166,8 +1167,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="108" column="58" lean-forward="false" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
+        <state relative-caret-position="234">
+          <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
           </folding>

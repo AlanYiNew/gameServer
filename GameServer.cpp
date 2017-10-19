@@ -66,10 +66,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
          std::istream_iterator<std::string>(),
          back_inserter(tokens));
 #if SERVER_DEBUG
-    time_t tt;
-    auto now = std::chrono::system_clock::now();
-    tt = std::chrono::system_clock::to_time_t(now);
-    std::cout << "[" << ctime(&tt) << "] ";
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    std::cout << "[" << dt << "] ";
 #endif
     std::cout << "##command## " << mess <<std::endl;
 
