@@ -85,7 +85,7 @@ map<int,string> SessionModule::activatedList(int pagesize, int pageno){
 
     map<int,string>result;
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
-        result.emplace({iter->first,iter->second->_lobbyname});
+        result[iter->first] = iter->second->_lobbyname;
     }
     return result;
 }
@@ -94,11 +94,6 @@ const int SessionModule::getOpponent(int sid, int fd){
     for (int i = 0; i < 2 ;++i){
         if (_session_bucket[sid]._players[i] != fd) return _session_bucket[sid]._players[i];
     }
-}
-
-int SessionModule::startGame(int sid, int index){
-    _session_bucket[sid]._starts |= (1 << index);
-    return (_session_bucket[sid]._starts & (1 << (1^index)))?1:0;
 }
 
 
