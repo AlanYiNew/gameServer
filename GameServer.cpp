@@ -157,7 +157,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             ocid = oppoent->_cid;
             owid = oppoent->_wid;
         }
-        res+= " " + std::to_string(ocid) + std::to_string(owid);
+        res+= " " + std::to_string(ocid) +" " + std::to_string(owid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
 
         if (oppoent != nullptr) {
