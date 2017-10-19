@@ -27,7 +27,7 @@ int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::me
     message_out.content = server->_player_module.getPlayer(opponent_fd)->_data;
     message_out.len = message.len;
 #if SERVER_DEBUG
-    server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
+    //server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
 #endif
     return 0;
 }
@@ -79,10 +79,6 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         }   else{
             res["success"] = "-0";
         }
-
-
-
-
 
         send_respond(fd,res);
 
