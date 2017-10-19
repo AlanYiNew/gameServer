@@ -54,8 +54,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="172" column="49" lean-forward="false" selection-start-line="172" selection-start-column="49" selection-end-line="172" selection-end-column="49" />
+            <state relative-caret-position="420">
+              <caret line="172" column="48" lean-forward="true" selection-start-line="172" selection-start-column="48" selection-end-line="172" selection-end-column="48" />
               <folding>
                 <element signature="e#37#54#0" expanded="true" />
               </folding>
@@ -76,9 +76,11 @@
       <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Modules.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="104" column="17" lean-forward="false" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="235">
+              <caret line="102" column="83" lean-forward="false" selection-start-line="102" selection-start-column="83" selection-end-line="102" selection-end-column="83" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,7 +88,7 @@
       <file leaf-file-name="Modules.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
+            <state relative-caret-position="217">
               <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
               <folding>
                 <element signature="e#42#56#0" expanded="true" />
@@ -273,7 +275,7 @@
       <workItem from="1507441685977" duration="639000" />
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
-      <workItem from="1508344730366" duration="6515000" />
+      <workItem from="1508344730366" duration="6911000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Kind of working&quot;">
       <created>1506100068961</created>
@@ -562,11 +564,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508388091590</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="&quot;Add paramters number checking&quot;">
+      <created>1508388288996</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1508388288996</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95368000" />
+    <option name="totallyTimeSpent" value="95764000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="64" width="1375" height="876" extended-state="6" />
@@ -1083,7 +1092,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
+        <state relative-caret-position="217">
           <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
           <folding>
             <element signature="e#42#56#0" expanded="true" />
@@ -1093,8 +1102,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="172" column="49" lean-forward="false" selection-start-line="172" selection-start-column="49" selection-end-line="172" selection-end-column="49" />
+        <state relative-caret-position="420">
+          <caret line="172" column="48" lean-forward="true" selection-start-line="172" selection-start-column="48" selection-end-line="172" selection-end-column="48" />
           <folding>
             <element signature="e#37#54#0" expanded="true" />
           </folding>
@@ -1103,9 +1112,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="104" column="17" lean-forward="false" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="235">
+          <caret line="102" column="83" lean-forward="false" selection-start-line="102" selection-start-column="83" selection-end-line="102" selection-end-column="83" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

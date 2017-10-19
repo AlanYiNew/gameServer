@@ -1,4 +1,5 @@
 #include "Modules.h"
+#include <iostream>
 
 
 
@@ -99,6 +100,7 @@ int SessionModule::startGame(int sid, int index){
 }
 
 int SessionModule::confirmState(int sid,int index){
+    std::cout << index << " " << _session_bucket[sid]._players[index] << std::endl;
     if (_session_bucket[sid]._players[index] != nullptr)
         return _session_bucket[sid]._players[index]->_confirmed;
     else
