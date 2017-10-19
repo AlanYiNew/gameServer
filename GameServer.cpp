@@ -146,7 +146,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int cid = std::stoi(tokens[3]);
         int wid = std::stoi(tokens[4]);
         int index = _player_module.getPlayer(pid)->_index;
+        std::cout << sid << " " << index <<  " "<< (index^1) << std::endl;
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
+        std::cout << oppoent << std::endl;
         int confirm_state = _session_module.confirm(sid,index);
         string res = "confirmed " + std::to_string(fd) + " " + std::to_string(confirm_state);
         res+= " " + std::to_string(cid) + " " + std::to_string(wid);
@@ -169,7 +171,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         sendPacket(fd,&respond);
 
         if (_session_module.confirmState(sid) == 3){
-            TCPServer::packet_t respond{res.length(),"game starts"};
+            TCPServer::packet_t respond{res.length(),"gamestart"};
             sendPacket(fd,&respond);
             sendPacket(opponent_fd,&respond);
         }
