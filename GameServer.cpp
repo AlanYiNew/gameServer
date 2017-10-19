@@ -148,6 +148,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::cout << "1 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
         std::cout << "2 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
+        std::cout << "index " << index << std::endl;
         int confirm_state = _session_module.confirm(sid,index);
         std::cout << "3 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         string res = "confirmed " + std::to_string(fd) + " " + std::to_string(confirm_state);
