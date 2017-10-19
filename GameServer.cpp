@@ -146,7 +146,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int cid = std::stoi(tokens[3]);
         int wid = std::stoi(tokens[4]);
         const int index = _player_module.getPlayer(pid)->_index;
-  
+
         const Player * oppoent = _session_module.getPlayer(sid,index^1);
 
         int confirm_state = _session_module.confirm(sid,index);
