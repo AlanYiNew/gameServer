@@ -108,7 +108,6 @@ bool PlayerModule::confirm(int fd){
     auto iter = _map.find(fd);
     if (iter != _map.end()) {
         iter->second._confirmed = !iter->second._confirmed;
-        std::cout << "confirming" << std::endl;
         return iter->second._confirmed;
     }   else
         return false;

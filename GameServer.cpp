@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "GameServer.h"
+
 using namespace std; 
 
 
@@ -24,10 +25,7 @@ int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::me
     message_out.content = server->_player_module.getPlayer(opponent_fd)->_data;
     message_out.len = message.len;
 #if SERVER_DEBUG
-    time_t now = time(0);
-    char* dt = ctime(&now);
-
-    std::cout << "recving " << message.len << " from "<< recv.pid << "[" << dt << "]"<< std::endl;
+    server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
 #endif
     return 0;
 }
@@ -45,11 +43,7 @@ void GameServer::starts() {
     TCPServer::starts();
 }
 
-GameServer::GameServer(int udp_port, int tcp_port):TCPServer(tcp_port),_tcp_port(tcp_port),_udp_port(udp_port){};
-
-
-
-
+GameServer::GameServer(int udp_port, int tcp_port):TCPServer(tcp_port),_tcp_port(tcp_port),_udp_port(udp_port),log(std::cout){};
 
 //TODO don't user double iteration have to change a lot
 //Search the session_bucket[] and clr the disconnected fd slot
@@ -66,11 +60,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
          std::istream_iterator<std::string>(),
          back_inserter(tokens));
 #if SERVER_DEBUG
-    time_t now = time(0);
-    char* dt = ctime(&now);
-    std::cout << "[" << dt << "] ";
+    log.LOG("### command ###" + request_mess);
 #endif
-    std::cout << "##command## " << mess <<std::endl;
+
 
     if (tokens[0] == "create"){
         /*message type: create <username>*/

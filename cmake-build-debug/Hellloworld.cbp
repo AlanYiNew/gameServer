@@ -108,6 +108,12 @@
       <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.h">
          <Option target="gameServer"/>
       </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/gs_log.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/gs_log.h">
+         <Option target="gameServer"/>
+      </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/main.cpp">
          <Option target="gameServer"/>
       </Unit>

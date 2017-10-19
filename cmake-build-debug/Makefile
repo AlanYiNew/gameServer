@@ -231,6 +231,33 @@ UDPServer.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
+gs_log.o: gs_log.cpp.o
+
+.PHONY : gs_log.o
+
+# target to build an object file
+gs_log.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/gs_log.cpp.o
+.PHONY : gs_log.cpp.o
+
+gs_log.i: gs_log.cpp.i
+
+.PHONY : gs_log.i
+
+# target to preprocess a source file
+gs_log.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/gs_log.cpp.i
+.PHONY : gs_log.cpp.i
+
+gs_log.s: gs_log.cpp.s
+
+.PHONY : gs_log.s
+
+# target to generate assembly for a file
+gs_log.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/gs_log.cpp.s
+.PHONY : gs_log.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -279,6 +306,9 @@ help:
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
+	@echo "... gs_log.o"
+	@echo "... gs_log.i"
+	@echo "... gs_log.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

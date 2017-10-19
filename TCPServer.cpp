@@ -70,7 +70,7 @@ int TCPServer::starts() {
                     if (readsize = recv(events[i].data.fd, &buf.content, h->len, MSG_WAITALL)){
                         buf.content[readsize] = '\0';
                         onRead(events[i].data.fd,buf.content,readsize);//function in GameServer.cpp
-                        std::cout << "done " << buf.content << std::endl;
+
                     }   else{
                         throw std::runtime_error("error during reading packet content from socket");
                     }
@@ -100,6 +100,7 @@ int TCPServer::epoll_add(int fd) {
 }
 
 int TCPServer::sendPacket(int fd,packet_t* packet){
+    std::cout << "done " << packet->content << std::endl;
     return send(fd,(char*)packet,packet->len+sizeof(int) ,0);
 }
 

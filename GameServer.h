@@ -10,7 +10,7 @@
 #include "TCPServer.h"
 #include <cstring>
 #include <ostream>
-#include <ctime>
+
 #include <iostream>
 #include <thread>
 #include <map>
@@ -19,6 +19,7 @@
 #include <iterator>
 #include <sstream>
 #include "Modules.h"
+#include "gs_log.h"
 
 class GameServer:TCPServer {
     friend int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out);
@@ -38,6 +39,7 @@ private:
     int _tcp_port;
     PlayerModule _player_module;
     SessionModule _session_module;
+    GS_LOG log;
 
 };
 
