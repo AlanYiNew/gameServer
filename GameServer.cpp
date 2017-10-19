@@ -18,11 +18,10 @@ using namespace std;
 int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out){
     GameServer * server = reinterpret_cast<GameServer*>(userptr);
     chunk recv = *reinterpret_cast<chunk*>(message.content);
-    int player = server->_player_module.getPlayer(recv.pid)->_index;
-    message_out.content = server->_session_module.update(recv.sid,
-                                                 player,
-                                                 message.content,
-                                                 message.len);
+    server->_player_module.update(recv.pid,message.content,message.len);
+    int opponent_fd = server->_session_module.getOpponent(recv.sid,recv.pid);
+
+    message_out.content = server->_player_module.getPlayer(opponent_fd)->_data;
     message_out.len = message.len;
 #if SERVER_DEBUG
     time_t tt;
@@ -80,7 +79,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*return type: create <username> <pid/fd>*/
         if (tokens.size() < 2) goto paramter_fail;
 
-        int sid = _session_module.create(tokens[1],_player_module.getPlayer(fd)); 	
+        int sid = _session_module.create(tokens[1],fd);
 	    std::string res("created ");
         res += tokens[1] + " " + std::to_string(sid);
         TCPServer::packet_t respond{res.length(), res.c_str()};
@@ -97,11 +96,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         Player *entered_player = _player_module.getPlayer(fd);
 
         int sid = std::stoi(tokens[2]);
-        sid = _session_module.enter(sid,entered_player);
+        sid = _session_module.enter(sid,fd);
         std::string res("entered ");
         if (sid) {
             string lobbyname = _session_module.getLobbyName(sid);
-            const Player *host_player = _session_module.getPlayer(sid,0);
+            const int host_player_fd = _session_module.getOpponent(sid,fd);
+            const Player *host_player = _player_module.getPlayer(host_player_fd);
 
             res += std::to_string(sid) + " " +
                    lobbyname + " " +
@@ -109,7 +109,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
                    entered_player->_username + " " +
                    std::to_string(host_player->_fd) +
                    host_player->_username + " ";
-                   std::to_string(_session_module.confirmState(sid,0)) +" "+
+                   std::to_string(host_player->_confirmed) +" "+
                    std::to_string(host_player->_cid) + " " +
                    std::to_string(host_player->_wid);
 
@@ -144,41 +144,37 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int sid = std::stoi(tokens[2]);
         int cid = std::stoi(tokens[3]);
         int wid = std::stoi(tokens[4]);
-        const int index = _player_module.getPlayer(pid)->_index;
-        std::cout << "1 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
-        const Player * oppoent = _session_module.getPlayer(sid,index^1);
-        std::cout << "2 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
-        std::cout << "index " << index << std::endl;
-        int confirm_state = _session_module.confirm(sid,index);
-        std::cout << "3 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
+        const int oppoent_fd = _session_module.getOpponent(sid,fd);
+
+        bool confirm_state = _player_module.confirm(fd);
+
         string res = "confirmed " + std::to_string(fd) + " " + std::to_string(confirm_state);
-        std::cout << "4 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
         res+= " " + std::to_string(cid) + " " + std::to_string(wid);
-        std::cout << "5 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
+
         int ocid = -1;
         int owid = -1;
         int opponent_fd = -1;
-        if (oppoent != nullptr){
-            ocid = oppoent->_cid;
-            owid = oppoent->_wid;
+        if (oppoent_fd > 0){
+            ocid = _player_module.getPlayer(oppoent_fd)->_cid;
+            owid = _player_module.getPlayer(oppoent_fd)->_wid;
         }
         res+= " " + std::to_string(ocid) +" " + std::to_string(owid);
         TCPServer::packet_t respond{res.length(),res.c_str()};
-        std::cout << "6 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
-        if (oppoent != nullptr) {
-            opponent_fd = oppoent->_fd;
+
+        if (oppoent_fd > 0) {
             sendPacket(opponent_fd, &respond);
         }
-        std::cout << "7 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
+
         std::cout << res << std::endl;
         sendPacket(fd,&respond);
 
-        if (_session_module.confirmState(sid,0) && _session_module.confirmState(sid,1)){
+        if (_player_module.getPlayer(fd)->_confirmed
+            && _player_module.getPlayer(oppoent_fd)->_confirmed){
             TCPServer::packet_t respond{res.length(),"gamestart"};
             sendPacket(fd,&respond);
             sendPacket(opponent_fd,&respond);
         }
-        std::cout << "8 " <<_session_module.confirmState(sid,0) <<  _session_module.confirmState(sid,1) << std::endl;
+
     }   else if (tokens[0] == "start"){
         /*message type: start <sid>*/
         /*return type: start <opponent start?>*/
@@ -196,10 +192,11 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*return type: score <score> or win or lose*/
         if (tokens.size() < 2) goto paramter_fail;
         int sid = std::stoi(tokens[1]);
-        Player * me = _player_module.getPlayer(fd);
-        me->_score++;
-        if (me->_score >= 3){
-            int opponent_fd = _session_module.getPlayer(sid,1^me->_index)->_fd;
+        int opponent_fd = _session_module.getOpponent(sid,fd);
+        Player * p = _player_module.getPlayer(opponent_fd);
+        p->_score++;
+        if (p->_score >= 3){
+
             std::string res("win");
             TCPServer::packet_t respond1{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond1);
@@ -207,8 +204,9 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             TCPServer::packet_t respond2{res.length(), res.c_str()};
             sendPacket(fd, &respond2);
         }   else {
-            int opponent_fd = _session_module.getPlayer(sid,1^me->_index)->_fd;
-            std::string res("score");
+
+            std::string res("score ");
+            res+=std::to_string(p->_score);
             TCPServer::packet_t respond{res.length(), res.c_str()};
             sendPacket(opponent_fd, &respond);
         }

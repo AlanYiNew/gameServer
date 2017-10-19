@@ -45,7 +45,6 @@ int UDPServer::starts() {
 
     char buffer[256];
 
-
     try {
         while (true) {
             message_t recv;

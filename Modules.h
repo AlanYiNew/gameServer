@@ -5,6 +5,9 @@
 #include <vector>
 #include <cstring>
 #include <utility>
+
+
+
 using namespace std;
 
 #define MAX_SESSION 256
@@ -16,8 +19,8 @@ struct Player{
 	int _score;
     int _wid; //Weapon id
     int _cid; //character id
-	string _username;//TODO name is here
-    int _confirmed;
+	string _username;
+    bool _confirmed;
 	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0){};
 	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0){};
 };
@@ -28,12 +31,11 @@ struct chunk{
 };
 
 struct session{
-	Player* _players[2];
-
+	int _players[2];
     unsigned int _starts;
 	int _occupied;
 	string _lobbyname;
-    session():_occupied(0),_starts(0),_lobbyname(""){_players[0]=nullptr;_players[1]=nullptr;};
+    session():_occupied(0),_starts(0),_lobbyname(""){_players[0]=0;_players[1]=0;};
 };
 
 class PlayerModule{
@@ -42,7 +44,11 @@ public:
 
 	int clear(int fd);
 
+    int update(int fd, void * data, int length);
+
 	Player * getPlayer(int fd);
+
+    bool confirm(int fd);
 
 private:
 	map<int,Player> _map;
@@ -50,25 +56,19 @@ private:
 
 class SessionModule{
 public:
-	int create(string lobbyname, Player* p);
+	int create(string lobbyname, int fd);
 
-	int enter(int sid,Player* p);
+	int enter(int sid,int fd);
 
 	int exit(int sid, int index);
 
     vector<pair<int,string>> activatedList(int pagesize, int pageno);
 
-	int confirm(int sid, int index);
-
 	int startGame(int sid, int index);
-
-	void* update(int sid, int index, void* data, int length);
 
 	string getLobbyName(int sid);
 
-    const Player* getPlayer(int sid, int index);
-
-    int confirmState(int sid,int index);
+    const int getOpponent(int sid, int fd);
 
 private:
 	std::array<session,MAX_SESSION> _session_bucket;

@@ -4,7 +4,7 @@
 
 
 int PlayerModule::record(int fd, string u){
-    if (_map.find(fd) != _map.end())
+    if (_map.find(fd) == _map.end())
 	    _map.emplace(fd,Player(u,fd));
     return 0;
 }
@@ -23,15 +23,13 @@ Player * PlayerModule::getPlayer(int fd){
     return &_map.find(fd)->second;
 }
 
-int SessionModule::create(string lobbyname, Player* p){
+int SessionModule::create(string lobbyname, int fd){
     if (!_available) return -1;
-    _session_bucket[_nextfree]._occupied = 1;
-    _session_bucket[_nextfree]._players[0] = p;
-    _session_bucket[_nextfree]._lobbyname = lobbyname;
-    _session_bucket[_nextfree]._players[1] = nullptr;
-    p->_confirmed = 0;
-    _available--;
-    p->_index = 0;
+        _session_bucket[_nextfree]._occupied = 1;
+        _session_bucket[_nextfree]._players[0] = fd;
+        _session_bucket[_nextfree]._lobbyname = lobbyname;
+        _session_bucket[_nextfree]._players[1] = 0;
+        _available--;
     int result = _nextfree;
     while (_available && _session_bucket[_nextfree]._occupied) {
         _nextfree= (_nextfree+1)%MAX_SESSION;
@@ -39,31 +37,26 @@ int SessionModule::create(string lobbyname, Player* p){
     return result;
 }
 
-void * SessionModule::update(int sid, int index, void * data, int length){
-    if (_session_bucket[sid]._players[index]->_data == nullptr) {
-        _session_bucket[sid]._players[index]->_data = malloc(length);
+int PlayerModule::update(int fd, void * data, int length){
+    auto iter =_map.find(fd);
+    if (iter != _map.end()) {
+        iter->second._data = malloc(length);
     }
-	memcpy(_session_bucket[sid]._players[index]->_data,data, length);
-	return _session_bucket[sid]._players[index^1]->_data;
+	memcpy(iter->second._data,data, length);
+	return 0;
 }
 
-int SessionModule::enter(int sid,Player* p){
+int SessionModule::enter(int sid,int fd){
     if (_session_bucket[sid]._occupied == 1) {
-        _session_bucket[sid]._players[1] = p;
+        _session_bucket[sid]._players[1] = fd;
         _session_bucket[sid]._occupied++;
-        p->_index = 1;
-        p->_confirmed =0;
         return sid;
     }   else{
         return -1;
     }
 }
 
-int SessionModule::confirm(int sid, int index){
-    _session_bucket[sid]._players[index]->_confirmed ^=1;
-    std::cout << "other pointer" << _session_bucket[sid]._players[index^1] << std::endl;
-    return  _session_bucket[sid]._players[index]->_confirmed;
-}
+
 
 bool SessionModule::validSid(int sid){
     return sid >= 0 && sid < MAX_SESSION
@@ -74,7 +67,7 @@ int SessionModule::exit(int sid, int index){
     if (validSid(sid)) {
         _session_bucket[sid]._occupied--;
         _session_bucket[sid]._starts &= ~(1 << index);
-        _session_bucket[sid]._players[index] = nullptr;
+        _session_bucket[sid]._players[index] = 0;
         return sid;
     }   else
         return -1;
@@ -92,8 +85,10 @@ vector<pair<int,string>> SessionModule::activatedList(int pagesize, int pageno){
     return result;
 }
 
-const Player* SessionModule::getPlayer(int sid, int index){
-    return _session_bucket[sid]._players[index];
+const int SessionModule::getOpponent(int sid, int fd){
+    for (int i = 0; i < 2 ;++i){
+        if (_session_bucket[sid]._players[i] != fd) return _session_bucket[sid]._players[i];
+    }
 }
 
 int SessionModule::startGame(int sid, int index){
@@ -101,14 +96,17 @@ int SessionModule::startGame(int sid, int index){
     return (_session_bucket[sid]._starts & (1 << (1^index)))?1:0;
 }
 
-int SessionModule::confirmState(int sid,int index){
-    std::cout << index << " " << _session_bucket[sid]._players[index] << std::endl;
-    if (_session_bucket[sid]._players[index] != nullptr)
-        return _session_bucket[sid]._players[index]->_confirmed;
-    else
-        return 0;
-}
 
 string SessionModule::getLobbyName(int sid){
     return _session_bucket[sid]._lobbyname;
+}
+
+bool PlayerModule::confirm(int fd){
+    auto iter = _map.find(fd);
+    if (iter != _map.end()) {
+        iter->second._confirmed = !iter->second._confirmed;
+        std::cout << "confirming" << std::endl;
+        return iter->second._confirmed;
+    }   else
+        return false;
 }
