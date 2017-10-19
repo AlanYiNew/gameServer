@@ -61,6 +61,7 @@ int SessionModule::enter(int sid,Player* p){
 
 int SessionModule::confirm(int sid, int index){
     _session_bucket[sid]._players[index]->_confirmed ^=1;
+    std::cout << "other pointer" << _session_bucket[sid]._players[index^1] << std::endl;
     return  _session_bucket[sid]._players[index]->_confirmed;
 }
 
