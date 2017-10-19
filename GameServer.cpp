@@ -90,14 +90,14 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             res["cmd"] = "enter";
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
-            res["pid1"] = to_string(host_player_fd);
-            res["username1"] = host_player->_username;
-            res["cid1"] = to_string(host_player->_cid);
-            res["wid1"] = to_string(host_player->_wid);
-            res["pid2"] = to_string(fd);
-            res["username2"] = entered_player->_username;
-            res["cid2"] = to_string(entered_player->_cid);
-            res["wid2"] = to_string(entered_player->_wid);
+            res["pid2"] = to_string(host_player_fd);
+            res["username2"] = host_player->_username;
+            res["cid2"] = to_string(host_player->_cid);
+            res["wid2"] = to_string(host_player->_wid);
+            res["pid1"] = to_string(fd);
+            res["username1"] = entered_player->_username;
+            res["cid1"] = to_string(entered_player->_cid);
+            res["wid1"] = to_string(entered_player->_wid);
             res["success"] = "0";
 
 
