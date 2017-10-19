@@ -13,7 +13,7 @@ using namespace std;
 std::unordered_map<string,string> req_parse(const string& mess);
 string res_parse(const std::unordered_map<string,string>& map);
 string res_parse(const std::map<string,string>& map);
-int is_alive(int fd);
+
 
 
 
@@ -48,6 +48,8 @@ void GameServer::starts() {
 GameServer::GameServer(int udp_port, int tcp_port):TCPServer(tcp_port),_tcp_port(tcp_port),_udp_port(udp_port),log(std::cout){};
 
 void GameServer::onShutDownConnection(int fd){
+    const Player* p = _player_module.getPlayer(fd);
+    _session_module.exit(p->_session,fd);
 	_player_module.clear(fd);
 }
 
@@ -64,14 +66,23 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         /*message type: create <lobbyname>*/
         /*return type: create <lobbyname> <pid/fd>*/
         int sid = _session_module.create(req["lobbyname"],fd);
-
+        Player* p = _player_module.getPlayer(fd);
         std::unordered_map<string,string> res;
-
         res["cmd"] = "create";
         res["lobbyname"] = req["lobbyname"];
         res["sid"] = to_string(sid);
-        res["success"] = to_string(_session_module.validSid(sid)?0:-1);
         res["pid"] = to_string(fd);
+        if (_session_module.validSid(sid)){
+            p->_session = sid;
+            res["success"] = "0";
+
+        }   else{
+            res["success"] = "-0";
+        }
+
+
+
+
 
         send_respond(fd,res);
 
@@ -86,7 +97,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             const string &lobbyname = _session_module.getLobbyName(sid);
             const int host_player_fd = _session_module.getOpponent(sid,fd);
             const Player *host_player = _player_module.getPlayer(host_player_fd);
-
+            entered_player->_session = sid;
             res["cmd"] = "enter";
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
@@ -118,11 +129,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         int result = _session_module.exit(sid,fd);
         std::unordered_map<string,string> res;
         int opponenet_fd =  _session_module.getOpponent(sid,fd);
-
+        Player* p = _player_module.getPlayer(fd);
         res["pid"] = to_string(fd);
         res["cmd"] = "exit";
         if (result >= 0){
             res["success"] = "0";
+            p->_session = -1;
         }   else{
             res["success"] = "-1";
         }

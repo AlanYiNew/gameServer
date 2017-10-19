@@ -15,14 +15,14 @@ struct Player{
 	void * _data;
 	int _len;
 	int _fd;//file descriptor
-    int _index;
+    int _session;
 	int _score;
     int _wid; //Weapon id
     int _cid; //character id
 	string _username;
     bool _confirmed;
-	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0){};
-	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0){};
+	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){};
+	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){};
 };
 
 struct chunk{
