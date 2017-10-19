@@ -270,6 +270,7 @@ string res_parse(const std::unordered_map<string,string>& map){
     return result;
 };
 
+//specialize for list
 string res_parse(const std::map<int,string>& map){
     string result = "";
 
@@ -305,6 +306,6 @@ int GameServer::send_respond(int fd, const std::map<int,string>& map){
 
 bool GameServer::is_alive(int fd){
     std::unordered_map<string,string> res;
-    res["isalive"] = "test";
+    res["cmd"] = "isalive";
     return send_respond(fd,res)>0;
 }

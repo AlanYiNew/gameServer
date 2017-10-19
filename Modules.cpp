@@ -49,7 +49,10 @@ int PlayerModule::update(int fd, void * data, int length){
 
 int SessionModule::enter(int sid,int fd){
     if (_session_bucket[sid]._occupied == 1) {
-        _session_bucket[sid]._players[1] = fd;
+        for (int i = 0;i < 2; ++i) {
+            if (_session_bucket[sid]._players[i] == 0)
+                _session_bucket[sid]._players[i] = fd;
+        }
         _session_bucket[sid]._occupied++;
         return sid;
     }   else{
