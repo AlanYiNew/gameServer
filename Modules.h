@@ -17,8 +17,9 @@ struct Player{
     int _wid; //Weapon id
     int _cid; //character id
 	string _username;//TODO name is here
-	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd){};
-	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd){};
+    int _confirmed;
+	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0){};
+	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0){};
 };
 
 struct chunk{
@@ -28,11 +29,11 @@ struct chunk{
 
 struct session{
 	Player* _players[2];
-    unsigned int _confirmed;
+
     unsigned int _starts;
 	int _occupied;
 	string _lobbyname;
-    session():_occupied(0),_confirmed(0),_starts(0),_lobbyname(""){_players[0]=nullptr;_players[1]=nullptr;};
+    session():_occupied(0),_starts(0),_lobbyname(""){_players[0]=nullptr;_players[1]=nullptr;};
 };
 
 class PlayerModule{
@@ -67,7 +68,7 @@ public:
 
     const Player* getPlayer(int sid, int index);
 
-    unsigned int confirmState(int sid);
+    int confirmState(int sid,int index);
 
 private:
 	session _session_bucket[MAX_SESSION];

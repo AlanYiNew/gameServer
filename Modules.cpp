@@ -27,6 +27,7 @@ int SessionModule::create(string lobbyname, Player* p){
     _session_bucket[_nextfree]._occupied = 1;
     _session_bucket[_nextfree]._players[0] = p;
     _session_bucket[_nextfree]._lobbyname = lobbyname;
+    p->_confirmed = 0;
     _available--;
     p->_index = 0;
     int result = _nextfree;
@@ -49,6 +50,7 @@ int SessionModule::enter(int sid,Player* p){
         _session_bucket[sid]._players[1] = p;
         _session_bucket[sid]._occupied++;
         p->_index = 1;
+        p->_confirmed =0;
         return sid;
     }   else{
         return -1;
@@ -56,8 +58,8 @@ int SessionModule::enter(int sid,Player* p){
 }
 
 int SessionModule::confirm(int sid, int index){
-    _session_bucket[sid]._confirmed ^= (1 << index);
-    return _session_bucket[sid]._confirmed & (1 << (index))?1:0;
+    _session_bucket[sid]._players[index]->_confirmed ^=1;
+    return  _session_bucket[sid]._players[index]->_confirmed;
 }
 
 bool SessionModule::validSid(int sid){
@@ -70,7 +72,6 @@ int SessionModule::exit(int sid, int index){
         _session_bucket[sid]._occupied--;
         _session_bucket[sid]._starts &= ~(1 << index);
         _session_bucket[sid]._players[index] = nullptr;
-        _session_bucket[sid]._confirmed &= ~(1 << index);
         return sid;
     }   else
         return -1;
@@ -97,8 +98,8 @@ int SessionModule::startGame(int sid, int index){
     return (_session_bucket[sid]._starts & (1 << (1^index)))?1:0;
 }
 
-unsigned int SessionModule::confirmState(int sid){
-    return _session_bucket[sid]._confirmed;
+int SessionModule::confirmState(int sid,int index){
+    return _session_bucket[sid]._players[index]->_confirmed;
 }
 
 string SessionModule::getLobbyName(int sid){

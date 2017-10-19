@@ -90,7 +90,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (tokens[0] == "enter"){
         /*message type: enter <sid> <fd/pid> */
         /*return type: entered <sid> <lobbyname> <entered_player's pid/fd> <etnered_player's username>
-         *                     <host_player'pid/fd> <host_player's username> <confirm status bitmap>
+         *                     <host_player'pid/fd> <host_player's username> <opponent's confirm?>
          *                     <host_player's cid> <host_player's wid>*/
         /*bitmap usage index 0: host, index1: entered player*/
         if (tokens.size() < 3) goto paramter_fail;
@@ -110,7 +110,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
                    entered_player->_username + " " +
                    std::to_string(host_player->_fd) +
                    host_player->_username + " ";
-                   std::to_string(_session_module.confirmState(sid)) +" "+
+                   std::to_string(_session_module.confirmState(sid,0)) +" "+
                    std::to_string(host_player->_cid) + " " +
                    std::to_string(host_player->_wid);
 
@@ -170,7 +170,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         std::cout << res << std::endl;
         sendPacket(fd,&respond);
 
-        if (_session_module.confirmState(sid) == 3){
+        if (_session_module.confirmState(sid,0) && _session_module.confirmState(sid,1)){
             TCPServer::packet_t respond{res.length(),"gamestart"};
             sendPacket(fd,&respond);
             sendPacket(opponent_fd,&respond);
