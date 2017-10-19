@@ -98,8 +98,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
             res["wid2"] = to_string(entered_player->_wid);
             res["success"] = "0";
 
-            auto res_str =res_parse(res);
-            TCPServer::packet_t respond{res_str.length(),res_str.c_str()};
+
             send_respond(fd,res);
             send_respond(host_player_fd,res);
         }   else{
@@ -137,7 +136,6 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         const int opponent_fd = _session_module.getOpponent(sid,fd);
         std::unordered_map<string,string> res;
 
-
         bool ready_state = _player_module.confirm(fd,wid,cid);
 
         res["cmd"] = "confirm";
@@ -147,9 +145,6 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         res["wid"] = to_string(cid);
         res["success"] = "0";
 
-
-        auto res_str =res_parse(res);
-        TCPServer::packet_t respond{res_str.length(),res_str.c_str()};
         if (opponent_fd > 0) {
             send_respond(opponent_fd,res);
         }
