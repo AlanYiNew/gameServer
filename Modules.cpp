@@ -99,7 +99,10 @@ int SessionModule::startGame(int sid, int index){
 }
 
 int SessionModule::confirmState(int sid,int index){
-    return _session_bucket[sid]._players[index]->_confirmed;
+    if (_session_bucket[sid]._players[index] != nullptr)
+        return _session_bucket[sid]._players[index]->_confirmed;
+    else
+        return 0;
 }
 
 string SessionModule::getLobbyName(int sid){
