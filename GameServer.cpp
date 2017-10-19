@@ -142,36 +142,39 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     }   else if (req["cmd"] == "confirm"){
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
         /*return type: confirmed <confirmer's pid/fd> <ready state> <cid> <wid> <o's cid> <p's wid>*/
-
-        int pid = fd;
+        
         int sid = std::stoi(req["sid"]);
         int cid = std::stoi(req["cid"]);
         int wid = std::stoi(req["wid"]);
-        const int opponent_fd = _session_module.getOpponent(sid,fd);
-        std::unordered_map<string,string> res;
+        std::unordered_map<string, string> res;
+        if (_session_module.validSid(sid)) {
+            const int opponent_fd = _session_module.getOpponent(sid, fd);
+            bool ready_state = _player_module.confirm(fd, wid, cid);
 
-        bool ready_state = _player_module.confirm(fd,wid,cid);
-
-        res["cmd"] = "confirm";
-        res["pid"] = to_string(fd);
-        res["readystate"] = to_string(ready_state);
-        res["cid"] = to_string(wid);
-        res["wid"] = to_string(cid);
-        res["success"] = "0";
-
-        if (opponent_fd > 0) {
-            send_respond(opponent_fd,res);
-        }
-        send_respond(fd,res);
-
-        if (_player_module.getPlayer(fd)->_confirmed
-            && _player_module.getPlayer(opponent_fd)->_confirmed){
-            res["cmd"] = "gamestart";
+            res["cmd"] = "confirm";
+            res["pid"] = to_string(fd);
+            res["readystate"] = to_string(ready_state);
+            res["cid"] = to_string(wid);
+            res["wid"] = to_string(cid);
             res["success"] = "0";
-            send_respond(fd,res);
-            send_respond(opponent_fd,res);
-        }
 
+            if (opponent_fd > 0) {
+                send_respond(opponent_fd, res);
+            }
+            send_respond(fd, res);
+
+            if (_player_module.getPlayer(fd)->_confirmed
+                && _player_module.getPlayer(opponent_fd)->_confirmed) {
+                res["cmd"] = "gamestart";
+                res["success"] = "0";
+                send_respond(fd, res);
+                send_respond(opponent_fd, res);
+            }
+        }   else{
+            res["cmd"] = "confirm";
+            res["success"] = "-1";
+            send_respond(fd, res);
+        }
     }   else if (req["cmd"] == "dead"){
         /*message type: dead <sid>*/
         /*return type: score <score> or win or lose*/
