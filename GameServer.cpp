@@ -280,7 +280,10 @@ string res_parse(const std::map<int,string>& map){
             result += " " + to_string(iter->first);
         result+= " " + iter->second;
     }
-    result += " cmd listlobby";
+    if (result.size() == 0)
+        result += "cmd listlobby";
+    else
+        result += " cmd listlobby";
     return result;
 };
 
