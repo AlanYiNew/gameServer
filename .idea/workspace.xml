@@ -14,11 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer.cpp" afterPath="$PROJECT_DIR$/GameServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.cpp" afterPath="$PROJECT_DIR$/Modules.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.h" afterPath="$PROJECT_DIR$/Modules.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UDPServer.cpp" afterPath="$PROJECT_DIR$/UDPServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UDPServer.h" afterPath="$PROJECT_DIR$/UDPServer.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -55,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="158" column="33" lean-forward="true" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
+            <state relative-caret-position="287">
+              <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Modules.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1387">
-              <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+            <state relative-caret-position="233">
+              <caret line="142" column="44" lean-forward="false" selection-start-line="142" selection-start-column="44" selection-end-line="142" selection-end-column="44" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -126,8 +121,8 @@
       <file leaf-file-name="Modules.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9">
-              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="207">
+              <caret line="83" column="29" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="34" />
               <folding>
                 <element signature="e#42#56#0" expanded="true" />
               </folding>
@@ -301,14 +296,7 @@
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
       <workItem from="1508344730366" duration="36605000" />
-      <workItem from="1508484511383" duration="4183000" />
-    </task>
-    <task id="LOCAL-00042" summary="&quot;Add paramters number checking&quot;">
-      <created>1508388288996</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1508388288996</updated>
+      <workItem from="1508484511383" duration="4309000" />
     </task>
     <task id="LOCAL-00043" summary="&quot;Add paramters number checking&quot;">
       <created>1508388684510</created>
@@ -646,11 +634,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508486950060</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Clean up a whole bunch of stuff and use smart pointer">
+      <created>1508488719226</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1508488719226</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129641000" />
+    <option name="totallyTimeSpent" value="129767000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="95" y="62" width="1375" height="876" extended-state="6" />
@@ -662,7 +657,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34586465" sideWeight="0.6029091" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12907268" sideWeight="0.48872727" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34586465" sideWeight="0.3970909" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34586465" sideWeight="0.3970909" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -705,7 +700,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;Change lobby list&quot;" />
     <MESSAGE value="&quot;Add paramters number checking&quot;" />
     <MESSAGE value="&quot;Fix the fucking weird problem&quot;" />
     <MESSAGE value="&quot;Fix the lobby list&quot;" />
@@ -730,7 +724,8 @@
     <MESSAGE value="add udp debug" />
     <MESSAGE value="don't return lobby that starts game in lobby list" />
     <MESSAGE value="Clean up a whole bunch of stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean up a whole bunch of stuff" />
+    <MESSAGE value="Clean up a whole bunch of stuff and use smart pointer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up a whole bunch of stuff and use smart pointer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1152,26 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding>
-            <element signature="e#42#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1387">
-          <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-324">
@@ -1184,9 +1159,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="158" column="33" lean-forward="true" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
+        <state relative-caret-position="287">
+          <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="83" column="29" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="34" />
+          <folding>
+            <element signature="e#42#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="142" column="44" lean-forward="false" selection-start-line="142" selection-start-column="44" selection-end-line="142" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
