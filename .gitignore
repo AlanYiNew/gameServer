@@ -1,7 +1,9 @@
 CMakeCache.txt
 cmake_install.txt
+cmake_install.cmake
 CMakeFiles/*
 cmake-build-debug/*
+nohup.out
 .idea/*
 *.swp
 *.o
