@@ -65,7 +65,7 @@ void GameServer::onRead(int fd, char * mess, int readsize){
     if (req["cmd"] == "create"){
         /*message type: create <lobbyname>*/
         /*return type: create <lobbyname> <pid/fd>*/
-        int sid = _session_module.create(req["lobbyname"],fd);
+        int sid = _session_module.create(req["lobbyname"]);
         Player* p = _player_module.getPlayer(fd);
         std::unordered_map<string,string> res;
         res["cmd"] = "create";
@@ -73,11 +73,12 @@ void GameServer::onRead(int fd, char * mess, int readsize){
         res["sid"] = to_string(sid);
         res["pid"] = to_string(fd);
         if (_session_module.validSid(sid)){
+            _session_module.enter(sid,fd);
             p->_session = sid;
             res["success"] = "0";
 
         }   else{
-            res["success"] = "-0";
+            res["success"] = "-1";
         }
 
         send_respond(fd,res);
@@ -86,10 +87,10 @@ void GameServer::onRead(int fd, char * mess, int readsize){
 
         int sid = std::stoi(req["sid"]);
         Player *entered_player = _player_module.getPlayer(fd);
-        sid = _session_module.enter(sid,fd);
+
         std::unordered_map<string,string> res;
 
-        if (_session_module.validSid(sid)) {
+        if (_session_module.enter(sid,fd)) {
             const string &lobbyname = _session_module.getLobbyName(sid);
             const int host_player_fd = _session_module.getOpponent(sid,fd);
             const Player *host_player = _player_module.getPlayer(host_player_fd);
@@ -254,6 +255,11 @@ paramter_fail:
 //TODO
 void GameServer::onAcceptConnection(int fd){
     std::cout << "accept connection" << std::endl;
+    Player* p = _player_module.getPlayer(fd);
+    if (p != nullptr){
+        _session_module.exit(p->_session,fd);
+        _player_module.clear(fd);
+    }
 }
 
 std::unordered_map<string,string> req_parse(const string& mess){

@@ -20,7 +20,10 @@ int PlayerModule::clear(int fd){
 };
 
 Player * PlayerModule::getPlayer(int fd){
-    return &_map.find(fd)->second;
+    if (_map.find(fd) != _map.end())
+        return &_map.find(fd)->second;
+    else
+        return nullptr;
 }
 
 int SessionModule::start(int sid){
@@ -31,18 +34,19 @@ int SessionModule::end(int sid){
     _session_bucket[sid]._starts = false;
 }
 
-int SessionModule::create(string lobbyname, int fd){
+int SessionModule::create(string lobbyname){
     if (!_available) return -1;
-    _session_bucket[_nextfree]._occupied = 1;
-    _session_bucket[_nextfree]._players[0] = fd;
-    _session_bucket[_nextfree]._lobbyname = lobbyname;
+    _session_bucket[_nextfree]._occupied = 0;
+    _session_bucket[_nextfree]._players[0] = 0;
     _session_bucket[_nextfree]._players[1] = 0;
+    _session_bucket[_nextfree]._lobbyname = lobbyname;
     _available--;
     _activated_session[_nextfree] = &_session_bucket[_nextfree];
     int result = _nextfree;
-    while (_available && _session_bucket[_nextfree]._occupied) {
+
+    do  {
         _nextfree= (_nextfree+1)%MAX_SESSION;
-    }
+    }   while (_available && !isEmpty(_nextfree));
     return result;
 }
 
@@ -55,22 +59,19 @@ int PlayerModule::update(int fd, void * data, int length){
 	return 0;
 }
 
-int SessionModule::enter(int sid,int fd){
-    if (_session_bucket[sid]._occupied == 1) {
+bool SessionModule::enter(int sid,int fd){
+    if (!isFull(sid)) {
         for (int i = 0;i < 2; ++i) {
-            if (_session_bucket[sid]._players[i] == 0)
+            if (_session_bucket[sid]._players[i] == 0) {
                 _session_bucket[sid]._players[i] = fd;
+                break;
+            }
         }
         _session_bucket[sid]._occupied++;
-        return sid;
+        return true;
     }   else{
-        return -1;
+        return false;
     }
-}
-
-bool SessionModule::validSid(int sid){
-    return sid >= 0 && sid < MAX_SESSION
-           && _session_bucket[sid]._occupied;
 }
 
 int SessionModule::exit(int sid, int fd){
@@ -80,7 +81,7 @@ int SessionModule::exit(int sid, int fd){
             if (_session_bucket[sid]._players[i] == fd)
                 _session_bucket[sid]._players[i] = 0;
 
-        if (_session_bucket[sid]._occupied == 0)
+        if (isEmpty(sid))
             _activated_session.erase(sid);
         return sid;
     }   else
@@ -89,12 +90,12 @@ int SessionModule::exit(int sid, int fd){
 
 map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     auto iter = _activated_session.begin();
-    for (int i = 0; i < pagesize*(pageno-1) && i < _activated_session.size(); ++i) {
-
+    map<int,string>result;
+    for (int i = 0; i < pagesize*(pageno-1) && iter != _activated_session.end(); ) {
+        if (!isStarted(i)) ++i;
         ++iter;
     }
 
-    map<int,string>result;
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
         if (!iter->second->_starts)
             result[iter->first] = iter->second->_lobbyname;
@@ -107,7 +108,6 @@ const int SessionModule::getOpponent(int sid, int fd){
         if (_session_bucket[sid]._players[i] != fd) return _session_bucket[sid]._players[i];
     }
 }
-
 
 const string& SessionModule::getLobbyName(int sid){
     return _session_bucket[sid]._lobbyname;
@@ -139,4 +139,20 @@ int SessionModule::clear(int sid){
     _session_bucket[sid]._players[1] = 0;
     _session_bucket[sid]._lobbyname = "";
     _activated_session.erase(sid);
+}
+
+inline bool SessionModule::validSid(int sid){
+    return sid >= 0 && sid < MAX_SESSION;
+}
+
+inline bool SessionModule::isFull(int sid){
+    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 2;
+}
+
+inline bool SessionModule::isEmpty(int sid){
+    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 0;
+}
+
+inline bool SessionModule::isStarted(int sid){
+    return _session_bucket[sid]._starts;
 }

@@ -56,9 +56,9 @@ private:
 
 class SessionModule{
 public:
-	int create(string lobbyname, int fd);
+	int create(string lobbyname);
 
-	int enter(int sid,int fd);
+	bool enter(int sid,int fd);
 
 	int exit(int sid, int index);
 
@@ -74,9 +74,16 @@ public:
 
     const int getOpponent(int sid, int fd);
 
-    bool validSid(int sid);
+    inline bool validSid(int sid);
 
     int clear(int sid);
+
+    inline bool isFull(int sid);
+
+    inline bool isEmpty(int sid);
+
+    inline bool isStarted(int sid);
+
 
 private:
 	std::array<session,MAX_SESSION> _session_bucket;
