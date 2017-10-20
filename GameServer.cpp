@@ -181,10 +181,11 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         /*return type: score <score> or win or lose*/
 
         std::unordered_map<string, string> res;
-        int sid = std::stoi(req["sid"]);
+        Player *player = _player_module.getPlayer(fd);
+        int sid = player->_session;
         int opponent_fd = _session_module.getOpponent(sid, fd);
         Player *opponent = _player_module.getPlayer(opponent_fd);
-        Player *player = _player_module.getPlayer(fd);
+
         opponent->_score++;
         res["success"] = "0";
         if (opponent->_score >= 3) {

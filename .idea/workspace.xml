@@ -15,8 +15,6 @@
     <list default="true" id="ea6beb88-70ff-411e-acce-01ed13379360" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer.cpp" afterPath="$PROJECT_DIR$/GameServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.cpp" afterPath="$PROJECT_DIR$/Modules.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.h" afterPath="$PROJECT_DIR$/Modules.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -53,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="73" column="35" lean-forward="false" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="35" />
+            <state relative-caret-position="-180">
+              <caret line="223" column="32" lean-forward="true" selection-start-line="223" selection-start-column="32" selection-end-line="223" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -121,11 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Modules.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Modules.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="1890">
+              <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
               <folding>
                 <element signature="e#42#56#0" expanded="true" />
               </folding>
@@ -191,9 +189,9 @@
         <option value="$PROJECT_DIR$/GameServer.h" />
         <option value="$PROJECT_DIR$/UDPServer.h" />
         <option value="$PROJECT_DIR$/UDPServer.cpp" />
-        <option value="$PROJECT_DIR$/GameServer.cpp" />
         <option value="$PROJECT_DIR$/Modules.cpp" />
         <option value="$PROJECT_DIR$/Modules.h" />
+        <option value="$PROJECT_DIR$/GameServer.cpp" />
       </list>
     </option>
   </component>
@@ -299,14 +297,7 @@
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
       <workItem from="1508344730366" duration="36605000" />
-      <workItem from="1508484511383" duration="6294000" />
-    </task>
-    <task id="LOCAL-00045" summary="&quot;Add paramters number checking&quot;">
-      <created>1508389205541</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1508389205541</updated>
+      <workItem from="1508484511383" duration="8343000" />
     </task>
     <task id="LOCAL-00046" summary="&quot;Add paramters number checking&quot;">
       <created>1508389278070</created>
@@ -644,11 +635,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508488933880</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Restructuring the protocol">
+      <created>1508490841021</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1508490841021</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131752000" />
+    <option name="totallyTimeSpent" value="133801000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="95" y="62" width="1375" height="876" extended-state="6" />
@@ -703,7 +701,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;Fix the lobby list&quot;" />
     <MESSAGE value="&quot;Fix the enter&#10;&quot;" />
     <MESSAGE value="&quot;Fix the enter again&quot;" />
     <MESSAGE value="&quot;Use new time&quot;" />
@@ -728,7 +725,8 @@
     <MESSAGE value="Clean up a whole bunch of stuff and use smart pointer" />
     <MESSAGE value="sync" />
     <MESSAGE value="sync again" />
-    <option name="LAST_COMMIT_MESSAGE" value="sync again" />
+    <MESSAGE value="Restructuring the protocol" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restructuring the protocol" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1160,14 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameServer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="73" column="35" lean-forward="false" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -1180,11 +1170,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        <state relative-caret-position="1890">
+          <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <element signature="e#42#56#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180">
+          <caret line="223" column="32" lean-forward="true" selection-start-line="223" selection-start-column="32" selection-end-line="223" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
