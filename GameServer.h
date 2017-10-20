@@ -31,7 +31,7 @@ private:
 
 public:
     SCChecker(const string &sc_path);
-    bool isValid(std::unordered_map<string,string> &req);
+    bool isValid(const std::unordered_map<string,string> &req);
 };
 
 class GameServer:TCPServer {

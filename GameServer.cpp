@@ -68,12 +68,7 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
     log.LOG("### command ### " + request_mess);
 #endif
     auto req = req_parse(request_mess);
-    if (!_sanity_check.isValid(req)) {
-        std::unordered_map<string, string> res;
-        res["success"] = "-1";
-        res["hint"] = "invalid arguments";
-        send_respond(fd, res);
-    }   else if (req["cmd"] == "create") {
+    if (req["cmd"] == "create") {
         /*message type: create <lobbyname>*/
         /*return type: create <lobbyname> <pid/fd>*/
         int sid = _session_module.create(req["lobbyname"]);
@@ -257,6 +252,11 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         }
 
         send_respond(fd, result);
+    }   else{
+        std::unordered_map<string, string> res;
+        res["success"] = "-1";
+        res["hint"] = "invalid arguments";
+        send_respond(fd, res);
     }
 }
 
@@ -316,6 +316,7 @@ string res_parse(const std::map<int, string> &map) {
 };
 
 int GameServer::send_respond(int fd, const std::unordered_map<string, string> &map) {
+    assert(_sanity_check.isValid(map) && "invalid respond");
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);
@@ -361,15 +362,21 @@ SCChecker::SCChecker(const string& str){
         std::cout << ex.what() << std::endl;
     }
 }
-bool SCChecker::isValid(std::unordered_map<string,string> &req){
-    auto iter = sc.find(req["cmd"]);
-    if (iter != sc.end()){
-        for (const string& key: iter->second){
-            if (req.find(key) == req.end()) {
-                return false;
+bool SCChecker::isValid(const std::unordered_map<string,string> &req){
+    auto const_iter = req.find("cmd");
+    if (const_iter != req.end()) {
+
+        auto iter = sc.find(const_iter->first);
+        if (iter != sc.end()) {
+            for (const string &key: iter->second) {
+                if (req.find(key) == req.end()) {
+                    return false;
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }   else{
         return false;
     }
