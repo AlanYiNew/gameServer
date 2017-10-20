@@ -1,0 +1,3 @@
+[submodule "gameServerProto"]
+	path = gameServerProto
+	url = https://github.com/AlanYiNew/gameServerProto.git

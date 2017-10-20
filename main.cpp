@@ -14,7 +14,8 @@ struct pos_t{
 
 int main(int argc, char * argv[]){
     try {
-        GameServer gs(8666, 8655);//Right now I configure aws to open 8666 for udp 855 for TCP
+        const string sc_path = "gameServerProto/proto/client.txt";
+        GameServer gs(8666, 8655,sc_path);//Right now I configure aws to open 8666 for udp 855 for TCP
         gs.starts();
         return 0;
     }   catch(std::exception& ex){
