@@ -66,8 +66,12 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
     log.LOG("### command ### " + request_mess);
 #endif
     auto req = req_parse(request_mess);
-
-    if (req["cmd"] == "create") {
+    if (!_sanity_check.isValid(req)) {
+        std::unordered_map<string, string> res;
+        res["success"] = "-1";
+        res["hint"] = "invalid arguments";
+        send_respond(fd, res);
+    }   else if (req["cmd"] == "create") {
         /*message type: create <lobbyname>*/
         /*return type: create <lobbyname> <pid/fd>*/
         int sid = _session_module.create(req["lobbyname"]);
@@ -251,11 +255,6 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         }
 
         send_respond(fd, result);
-    } else {
-        paramter_fail:
-        std::unordered_map<string, string> res;
-        res["success"] = "0";
-        send_respond(fd, res);
     }
 }
 
