@@ -38,7 +38,7 @@ class GameServer:TCPServer {
     friend int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out);
 
 public:
-    GameServer(int udp_port,int tcp_port,const string & sc_url);
+    GameServer(int udp_port,int tcp_port,const string & sc_path_res,const string & sc_path_req);
     //int init(ostream st);
     void starts();
     virtual void onShutDownConnection(int fd);
@@ -56,7 +56,8 @@ private:
     int send_respond(int fd, const unordered_map<string,string>& map);
     int send_respond(int fd, const std::map<int,std::string>& map);
     bool is_alive(int fd);
-    SCChecker _sanity_check;
+    SCChecker _sanity_check_respond;
+    SCChecker _sanity_check_request;
 
 };
 
