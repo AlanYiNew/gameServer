@@ -20,9 +20,9 @@
 #include <utility>
 #include <iterator>
 #include <sstream>
-#include "Modules.h"
+#include "modules/Modules.h"
 #include <exception>
-#include "gs_log.h"
+#include "logsys/gs_log.h"
 #include <cassert>
 
 class SCChecker{
@@ -39,7 +39,7 @@ class GameServer:TCPServer {
 
 public:
     GameServer(int udp_port,int tcp_port,const string & sc_url);
-    //int init(std::ostream st);
+    //int init(ostream st);
     void starts();
     virtual void onShutDownConnection(int fd);
     virtual void onRead(int fd, char *, int readsize);
@@ -47,14 +47,14 @@ public:
 
 
 private:
-    //std::ostream log;
+    //ostream log;
     int _udp_port;
     int _tcp_port;
     PlayerModule _player_module;
     SessionModule _session_module;
     GS_LOG log;
-    int send_respond(int fd, const std::unordered_map<string,string>& map);
-    int send_respond(int fd, const std::map<int,string>& map);
+    int send_respond(int fd, const unordered_map<string,string>& map);
+    int send_respond(int fd, const std::map<int,std::string>& map);
     bool is_alive(int fd);
     SCChecker _sanity_check;
 

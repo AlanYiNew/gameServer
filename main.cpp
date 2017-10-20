@@ -1,6 +1,6 @@
 #include <iostream>
 #include "GameServer.h"
-#include <exception>
+
 
 
 /*
@@ -18,8 +18,8 @@ int main(int argc, char * argv[]){
         GameServer gs(8666, 8655,sc_path);//Right now I configure aws to open 8666 for udp 855 for TCP
         gs.starts();
         return 0;
-    }   catch(std::exception& ex){
-        std::cout << ex.what() << std::endl;
+    }   catch(exception& ex){
+        cout << ex.what() << endl;
     }
 }
 

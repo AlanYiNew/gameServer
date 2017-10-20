@@ -153,10 +153,10 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         /*message type: confirm <pid/fd> <sid> <cid> <wid>*/
         /*return type: confirmed <confirmer's pid/fd> <ready state> <cid> <wid> <o's cid> <p's wid>*/
 
-        int sid = std::stoi(req["sid"]);
-        int cid = std::stoi(req["cid"]);
-        int wid = std::stoi(req["wid"]);
-        std::unordered_map<string, string> res;
+        int sid = stoi(req["sid"]);
+        int cid = stoi(req["cid"]);
+        int wid = stoi(req["wid"]);
+        unordered_map<string, string> res;
         if (_session_module.validSid(sid)) {
             const int opponent_fd = _session_module.getOpponent(sid, fd);
             bool ready_state = _player_module.confirm(fd, wid, cid);
@@ -231,8 +231,8 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         int pageno = std::stoi(req["pageno"]);
 
         int count = 0;
-        map<int, string> result;
-        map<int, string> prev;
+        std::map<int, string> result;
+        std::map<int, string> prev;
         while (result.size() < 10) {
             result = _session_module.activatedList(10, pageno);
             if (result.size() == prev.size()) break;
