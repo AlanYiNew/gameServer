@@ -140,18 +140,4 @@ int SessionModule::clear(int sid){
     _activated_session.erase(sid);
 }
 
-inline bool SessionModule::validSid(int sid){
-    return sid >= 0 && sid < MAX_SESSION;
-}
 
-inline bool SessionModule::isFull(int sid){
-    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 2;
-}
-
-inline bool SessionModule::isEmpty(int sid){
-    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 0;
-}
-
-inline bool SessionModule::isStarted(int sid){
-    return _session_bucket[sid]._starts;
-}

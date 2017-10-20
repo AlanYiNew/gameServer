@@ -29,6 +29,13 @@ struct Player{
 	Player(string u,int fd,size_t buffer_size):_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){
         _data = make_unique<char[]>(buffer_size);
     };
+
+    void reset(){
+        _score = 0;
+        _wid = 0;
+        _cid = 0;
+        _confirmed = 0;
+    }
 };
 
 struct chunk{
@@ -81,8 +88,6 @@ public:
 
     const int getOpponent(int sid, int fd);
 
-    inline bool validSid(int sid);
-
     int clear(int sid);
 
     inline bool isFull(int sid);
@@ -91,6 +96,7 @@ public:
 
     inline bool isStarted(int sid);
 
+    inline bool validSid(int sid);
 
 private:
 	std::array<session,MAX_SESSION> _session_bucket;
@@ -100,5 +106,21 @@ private:
 
 
 };
+
+inline bool SessionModule::isFull(int sid){
+    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 2;
+}
+
+inline bool SessionModule::isEmpty(int sid){
+    return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 0;
+}
+
+inline bool SessionModule::isStarted(int sid){
+    return _session_bucket[sid]._starts;
+}
+
+inline bool SessionModule::validSid(int sid){
+    return sid >= 0 && sid < MAX_SESSION;
+}
 
 #endif

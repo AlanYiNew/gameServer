@@ -97,14 +97,14 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
             res["cmd"] = "enter";
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
-            res["pid2"] = to_string(host_player_fd);
-            res["username2"] = host_player->_username;
-            res["cid2"] = to_string(host_player->_cid);
-            res["wid2"] = to_string(host_player->_wid);
-            res["pid1"] = to_string(fd);
-            res["username1"] = entered_player->_username;
-            res["cid1"] = to_string(entered_player->_cid);
-            res["wid1"] = to_string(entered_player->_wid);
+            res["hostpid"] = to_string(host_player_fd);
+            res["hostname"] = host_player->_username;
+            res["hostcid"] = to_string(host_player->_cid);
+            res["hostwid"] = to_string(host_player->_wid);
+            res["enterpid"] = to_string(fd);
+            res["entername"] = entered_player->_username;
+            res["entercid"] = to_string(entered_player->_cid);
+            res["enterwid"] = to_string(entered_player->_wid);
             res["success"] = "0";
 
 
@@ -183,21 +183,22 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         std::unordered_map<string, string> res;
         int sid = std::stoi(req["sid"]);
         int opponent_fd = _session_module.getOpponent(sid, fd);
-        Player *p = _player_module.getPlayer(opponent_fd);
-        p->_score++;
+        Player *opponent = _player_module.getPlayer(opponent_fd);
+        Player *player = _player_module.getPlayer(fd);
+        opponent->_score++;
         res["success"] = "0";
-        if (p->_score >= 3) {
-            res["cmd"] = "win";
-            send_respond(opponent_fd, res);
-            res["cmd"] = "lose";
-            send_respond(fd, res);
+        if (opponent->_score >= 3) {
+            opponent->reset();
+            player->reset();
             _session_module.end(sid);
-        } else {
-
-            res["cmd"] = "score";
-            res["score"] = to_string(p->_score);
-            send_respond(opponent_fd, res);
+            res["status"] = "gameover";
         }
+        res["cmd"] = "score";
+        res["opponentscore"] = to_string(opponent->_score);
+        res["playerscore"] = to_string(player->_score);
+
+        send_respond(opponent_fd, res);
+        send_respond(fd, res);
 
     } else if (req["cmd"] == "login") {
         /* message type:login <username> */
