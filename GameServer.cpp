@@ -48,7 +48,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
         _tcp_port(tcp_port),
         _udp_port(udp_port),
         log(std::cout),
-        _sanity_check(ifstream(sc_path)) {
+        _sanity_check(sc_path) {
 
 };
 
@@ -336,21 +336,41 @@ bool GameServer::is_alive(int fd) {
     return send_respond(fd, res) > 0;
 }
 
-SCChecker::SCChecker(ifstream & ifs){
-    string line;
-    while(std::getline(ifs, line)) {
-        std::vector<std::string> tokens;
-        std::istringstream iss(line);
-        std::copy(std::istream_iterator<std::string>(iss),
-                  std::istream_iterator<std::string>(),
-                  back_inserter(tokens));
-        sc[tokens[0]] = unordered_set<string>();
-        for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
-           if (iter != tokens.begin())
-                sc[tokens[0]].insert(*iter);
+SCChecker::SCChecker(const string& str){
+    try {
+        std::ifstream ifs(str);
+        string line;
+        assert(!ifs.fail() && "Fail to open sanity check file");
+
+        while (std::getline(ifs, line)) {
+
+            std::vector<std::string> tokens;
+            std::istringstream iss(line);
+            std::copy(std::istream_iterator<std::string>(iss),
+                      std::istream_iterator<std::string>(),
+                      back_inserter(tokens));
+            sc[tokens[0]] = unordered_set<string>();
+            for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
+                if (iter != tokens.begin()) {
+                    sc[tokens[0]].insert(*iter);
+                }
+            }
         }
+    } catch (exception &ex) {
+        std::cout << ex.what() << std::endl;
     }
 }
 bool SCChecker::isValid(std::unordered_map<string,string> &req){
-
+    auto iter = sc.find(req["cmd"]);
+    if (iter != sc.end()){
+        for (const string& key: iter->second){
+            if (req.find(key) == req.end()) {
+                return false;
+            }
+        }
+        return true;
+    }   else{
+        return false;
+    }
 }
+

@@ -21,7 +21,18 @@
 #include <iterator>
 #include <sstream>
 #include "Modules.h"
+#include <exception>
 #include "gs_log.h"
+#include <cassert>
+
+class SCChecker{
+private:
+    std::unordered_map<string,std::unordered_set<string>> sc;
+
+public:
+    SCChecker(const string &sc_path);
+    bool isValid(std::unordered_map<string,string> &req);
+};
 
 class GameServer:TCPServer {
     friend int udp_callback(void* userptr,const UDPServer::message_t& message,UDPServer::message_t& message_out);
@@ -49,12 +60,6 @@ private:
 
 };
 
-class SCChecker{
-private:
-    std::unordered_map<string,std::unordered_set<string>> sc;
-public:
-    SCChecker(ifstream & ifs);
-    bool isValid(std::unordered_map<string,string> &req);
-};
+
 
 #endif //HELLLOWORLD_GAMESERVER_H
