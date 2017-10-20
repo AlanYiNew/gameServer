@@ -43,13 +43,12 @@ void GameServer::starts() {
     TCPServer::starts();
 }
 
-GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path_res,const string& sc_path_req) :
+GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
         TCPServer(tcp_port),
         _tcp_port(tcp_port),
         _udp_port(udp_port),
         log(std::cout),
-        _sanity_check_respond(sc_path_res),
-        _sanity_check_request(sc_path_req){
+        _sanity_check(sc_path) {
 
 };
 
@@ -69,12 +68,7 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
     log.LOG("### command ### " + request_mess);
 #endif
     auto req = req_parse(request_mess);
-    if (!_sanity_check_request.isValid(req)){
-        std::unordered_map<string, string> res;
-        res["success"] = "-1";
-        res["hint"] = "invalidreq";
-        send_respond(fd, res);
-    }   else if (req["cmd"] == "create") {
+    if (req["cmd"] == "create") {
         /*message type: create <lobbyname>*/
         /*return type: create <lobbyname> <pid/fd>*/
         int sid = _session_module.create(req["lobbyname"]);
@@ -258,6 +252,11 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
         }
 
         send_respond(fd, result);
+    }   else{
+        std::unordered_map<string, string> res;
+        res["success"] = "-1";
+        res["hint"] = "invalid arguments";
+        send_respond(fd, res);
     }
 }
 
@@ -317,8 +316,8 @@ string res_parse(const std::map<int, string> &map) {
 };
 
 int GameServer::send_respond(int fd, const std::unordered_map<string, string> &map) {
-    auto temp = !_sanity_check_respond.isValid(map)?"hint invalidres ":"";
-    auto res_str = temp+res_parse(map);
+    assert(!_sanity_check.isValid(map) && "invalid respond");
+    auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);
     log.LOG("### respond ### " + res_str + " " + to_string(len));
