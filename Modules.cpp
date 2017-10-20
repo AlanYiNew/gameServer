@@ -5,15 +5,14 @@
 
 int PlayerModule::record(int fd, string u){
     if (_map.find(fd) == _map.end())
-	    _map.emplace(fd,Player(u,fd));
+	    _map.emplace(fd,Player(u,fd,_player_buffer_size));
     return 0;
 }
 
 int PlayerModule::clear(int fd){
     auto iter = _map.find(fd);
     if (iter != _map.end()) {
-        if (iter->second._data != nullptr)
-            free(iter->second._data);
+        _map.erase(iter);
         return 0;
     }
     return -1;
@@ -53,9 +52,9 @@ int SessionModule::create(string lobbyname){
 int PlayerModule::update(int fd, void * data, int length){
     auto iter =_map.find(fd);
     if (iter != _map.end()) {
-        iter->second._data = malloc(length);
+        memcpy(iter->second._data.get(),data, length);
     }
-	memcpy(iter->second._data,data, length);
+
 	return 0;
 }
 

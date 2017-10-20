@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstring>
 #include <utility>
+#include <memory>
 
 
 
@@ -12,7 +13,7 @@ using namespace std;
 
 #define MAX_SESSION 256
 struct Player{
-	void * _data;
+	std::unique_ptr<char[]> _data;
 	int _len;
 	int _fd;//file descriptor
     int _session;
@@ -21,8 +22,13 @@ struct Player{
     int _cid; //character id
 	string _username;
     bool _confirmed;
-	Player(int fd):_data(nullptr),_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){};
-	Player(string u,int fd):_data(nullptr),_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){};
+	Player(int fd,size_t buffer_size):_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){
+        _data = make_unique<char[]>(buffer_size);
+
+    };
+	Player(string u,int fd,size_t buffer_size):_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){
+        _data = make_unique<char[]>(buffer_size);
+    };
 };
 
 struct chunk{
@@ -52,6 +58,7 @@ public:
 
 private:
 	map<int,Player> _map;
+    size_t _player_buffer_size = 128;
 };
 
 class SessionModule{
@@ -90,6 +97,7 @@ private:
     int _nextfree = 0;
     int _available = MAX_SESSION;
     std::map<int , session*> _activated_session;
+
 
 };
 

@@ -17,6 +17,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer.cpp" afterPath="$PROJECT_DIR$/GameServer.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.cpp" afterPath="$PROJECT_DIR$/Modules.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules.h" afterPath="$PROJECT_DIR$/Modules.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UDPServer.cpp" afterPath="$PROJECT_DIR$/UDPServer.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UDPServer.h" afterPath="$PROJECT_DIR$/UDPServer.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -56,8 +58,8 @@
       <file leaf-file-name="GameServer.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3603">
-              <caret line="253" column="0" lean-forward="true" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+            <state relative-caret-position="269">
+              <caret line="158" column="33" lean-forward="true" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -76,8 +78,8 @@
       <file leaf-file-name="Modules.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+            <state relative-caret-position="-1387">
+              <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -88,7 +90,7 @@
       <file leaf-file-name="TCPServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
+            <state relative-caret-position="275">
               <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -100,10 +102,22 @@
       <file leaf-file-name="UDPServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="55" column="34" lean-forward="false" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
+            <state relative-caret-position="-324">
+              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UDPServer.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UDPServer.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="41" column="11" lean-forward="false" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+              <folding>
+                <element signature="e#37#59#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,8 +126,8 @@
       <file leaf-file-name="Modules.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
+            <state relative-caret-position="-9">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="e#42#56#0" expanded="true" />
               </folding>
@@ -125,7 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>\#include \&lt;iostream\&gt;\n\#include \&lt;string\.h\&gt;\n\#include \&lt;vector\&gt;\n\#include \&lt;exception\&gt;\n\#include \&lt;unistd\.h\&gt;\n\#include \&lt;cstdlib\&gt;\n\#include \&quot;server\.h\&quot;\n\#include \&lt;pthread\.h\&gt;\n\#include \&lt;cstdio\&gt;\n\#include \&lt;errno\.h\&gt;\n\#include \&lt;sys\/time\.h\&gt;\n\n\#define MAXLINE 4096\n\n\#define TEST_H\nusing namespace\:\:std\;\n\nstatic int timeval_subtract\(struct timeval\* result\, struct timeval\* x\, struct timeval\* y\)\;\n\nServer\:\:Server\(int port\,int event_num\)\{\n    this\-\&gt;port \= port\;\n    this\-\&gt;event_num \= event_num\;\n\}\n\nint Server\:\:init\(\)\{\n    \/\*\* declare a socketaddr_in \*\*\/       \n    this\-\&gt;serv_addr \= new sockaddr_in\;\n       \n    \/\*\* set protocol family ipv4 \*\*\/\n    this\-\&gt;serv_addr\-\&gt;sin_family\=AF_INET\;\n    \n    \/\*\* set address accepting any in_addr using host to network address \n    transalation \*\*\/\n    this\-\&gt;serv_addr\-\&gt;sin_addr\.s_addr\=htonl\(INADDR_ANY\)\;\n    \n    \/\*\* set input port \*\*\/\n    serv_addr\-\&gt;sin_port\=htons\(this\-\&gt;port\)\;\n\n    \/\*\* event listening array \*\*\/\n    this\-\&gt;events \= new epoll_event\[this\-\&gt;event_num\]\;\n\n    \/\*\* init vector to keep track of client fds \*\*\/\n    this\-\&gt;clientfds\.resize\(this\-\&gt;event_num\)\;\n   \n    return 0\;\n\}\n\nint Server\:\:starts\(\)\{\n    \/\*\* create a socket \*\*\/\n    int listenfd \= socket\(AF_INET\,SOCK_STREAM\,0\)\;\n    \n    \/\*\* buff \*\*\/\n    char buff\[MAXLINE\+1\]\;\n   \n    \n \n    try \{\n    \n        int err \= bind\(listenfd\,\(sockaddr\*\)\(serv_addr\)\,sizeof\(sockaddr_in\)\)\;\n        \n        err \=  listen\(listenfd\,event_num\)\;        \n       \n        socklen_t len \= sizeof\(sockaddr_in\)\; \n\n        \/\*\* creates epollfd \*\*\/\n\	int epollfd\;  \n \n\	if \(\(epollfd \= epoll_create\(EPOLL_CLOEXEC\)\) \&lt; 0\)\{\n\	    perror\(\&quot;epollfd creates fails\&quot;\)\;\n\	    \:\:exit\(\-1\)\;\n        \}\n\n        \/\*\* create event for listrener \*\*\/\n        epoll_event event\;\n        event\.data\.fd \= listenfd\;\n        event\.events \= EPOLLIN\; \n\n\	\/\*\* Add it into event list \*\*\/\n        if \(epoll_ctl\(epollfd\, EPOLL_CTL_ADD\,listenfd\,\&amp;event\) \&lt; 0\)\{\n\	    perror\(\&quot;listenfd added fails\&quot;\)\;\n\	    \:\:exit\(\-1\)\;\n        \}\n\n\n\n            for \(int i \= 0\; i \&lt; nready\; i\+\+\)\{\n                if \(events\[i\]\.data\.fd \=\= listenfd\)\{\n\	\	    int connfd \= accept\(listenfd\,\(struct sockaddr\*\)serv_addr\,\&amp;len\)\;\n                    \n                    event\.data\.fd \= connfd\;\n                    event\.events \= EPOLLIN\;\n                    if \(epoll_ctl\(epollfd\, EPOLL_CTL_ADD\,connfd\,\&amp;event\) \&lt; 0\)\{\n\	                perror\(\&quot;clientfd added fails\&quot;\)\;\n\	                \:\:exit\(\-1\)\;\n                    \}\n                    clientfds\.push_back\(connfd\)\;\n                \}   else if \(events\[i\]\.events \&amp; EPOLLIN\)\{\n                    int readsize \= 0\;\n                    if \(\(readsize \= recv\(events\[i\]\.data\.fd\,buff\,MAXLINE\,MSG_WAITALL\)\) \&lt; 0\)\{\n                       if \(errno\=\=ECONNRESET\)  \n                          close\(events\[i\]\.data\.fd\)\;  \n                       else  \n                          perror\(\&quot;read error\&quot;\)\;  \n                          \:\:exit\(\-1\)\;\n                    \}\	else if \(readsize \=\= 0\)\{\n\	\	        shutdown\(events\[i\]\.data\.fd\,SHUT_RDWR\)\;\	\n                        close\(events\[i\]\.data\.fd\)\;\n                        epoll_ctl\(epollfd\, EPOLL_CTL_DEL\,events\[i\]\.data\.fd\,\&amp;events\[i\]\)\;\n                        for \(vector\&lt;int\&gt;\:\:iterator it \= clientfds\.begin\(\)\;it \!\= clientfds\.end\(\)\;\)\{\n                            if \(\*it \=\= events\[i\]\.data\.fd\)\{\n                               clientfds\.erase\(it\)\;\n                               break\;\n                            \}   else\{\n                               it\+\+\;\n                            \}\n                        \}\n\n\n\n                    \}   else \{\n                        buff\[readsize\] \= \'\\0\'\; \n                    \}\n                    \n                \}\n            \}\n\n        \}\n    \}   catch \(exception\&amp; e\)\{\n\n        cout \&lt;\&lt; e\.what\(\) \&lt;\&lt; endl\; \n\n        return \-1\;\n    \}\n    \n    return 0\;\n\}\n\nServer\:\:\~Server\(\)\{\n    if \(serv_addr \!\= NULL\)\{\n       delete\(serv_addr\)\;\n       delete\(events\)\; \n    \}\n\}\n\n\#ifdef TEST_H\nstatic int timeval_subtract\(struct timeval\* result\, struct timeval\* x\, struct timeval\* y\)\{   \n        int   nsec\;   \n    \n        if   \(   x\-\&gt;tv_sec\&gt;y\-\&gt;tv_sec   \)   \n                  return   \-1\;   \n    \n        if   \(   \(x\-\&gt;tv_sec\=\=y\-\&gt;tv_sec\)   \&amp;\&amp;   \(x\-\&gt;tv_usec\&gt;y\-\&gt;tv_usec\)   \)   \n                  return   \-1\;   \n    \n        result\-\&gt;tv_sec   \=   \(   y\-\&gt;tv_sec\-x\-\&gt;tv_sec   \)\;   \n        result\-\&gt;tv_usec   \=   \(   y\-\&gt;tv_usec\-x\-\&gt;tv_usec   \)\;   \n    \n        if   \(result\-\&gt;tv_usec\&lt;0\)   \n        \{   \n                  result\-\&gt;tv_sec\-\-\;   \n                  result\-\&gt;tv_usec\+\=1000000\;   \n        \}   \n    \n        return   0\;   \n\} \n\#endif  \n</find>
       <find>clientfds</find>
       <find>event_num</find>
       <find>epoll_event</find>
@@ -153,8 +166,9 @@
       <find>crea</find>
       <find>win</find>
       <find>valid</find>
-      <find>occupied</find>
       <find>exit</find>
+      <find>malloc</find>
+      <find>occupied</find>
     </findStrings>
     <replaceStrings>
       <replace>TCPServer</replace>
@@ -173,15 +187,15 @@
         <option value="$PROJECT_DIR$/TCPServer.h" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/UDPServer.h" />
         <option value="$PROJECT_DIR$/gs_log.cpp" />
         <option value="$PROJECT_DIR$/gs_log.h" />
         <option value="$PROJECT_DIR$/TCPServer.cpp" />
         <option value="$PROJECT_DIR$/GameServer.h" />
-        <option value="$PROJECT_DIR$/UDPServer.cpp" />
-        <option value="$PROJECT_DIR$/Modules.h" />
-        <option value="$PROJECT_DIR$/Modules.cpp" />
         <option value="$PROJECT_DIR$/GameServer.cpp" />
+        <option value="$PROJECT_DIR$/Modules.h" />
+        <option value="$PROJECT_DIR$/UDPServer.h" />
+        <option value="$PROJECT_DIR$/UDPServer.cpp" />
+        <option value="$PROJECT_DIR$/Modules.cpp" />
       </list>
     </option>
   </component>
@@ -287,14 +301,7 @@
       <workItem from="1508038918759" duration="607000" />
       <workItem from="1508292077063" duration="22993000" />
       <workItem from="1508344730366" duration="36605000" />
-      <workItem from="1508484511383" duration="2408000" />
-    </task>
-    <task id="LOCAL-00041" summary="&quot;Add paramters number checking&quot;">
-      <created>1508388091590</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1508388091590</updated>
+      <workItem from="1508484511383" duration="4183000" />
     </task>
     <task id="LOCAL-00042" summary="&quot;Add paramters number checking&quot;">
       <created>1508388288996</created>
@@ -632,11 +639,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508436275130</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Clean up a whole bunch of stuff">
+      <created>1508486950058</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1508486950060</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127866000" />
+    <option name="totallyTimeSpent" value="129641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="95" y="62" width="1375" height="876" extended-state="6" />
@@ -644,11 +658,11 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945454" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.39927274" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32456142" sideWeight="0.3970909" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33208022" sideWeight="0.60072726" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34586465" sideWeight="0.6029091" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12907268" sideWeight="0.48872727" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33208022" sideWeight="0.39927274" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34586465" sideWeight="0.3970909" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -691,7 +705,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;Debugging win situation&quot;" />
     <MESSAGE value="&quot;Change lobby list&quot;" />
     <MESSAGE value="&quot;Add paramters number checking&quot;" />
     <MESSAGE value="&quot;Fix the fucking weird problem&quot;" />
@@ -716,7 +729,8 @@
     <MESSAGE value="reteurn error number when enter sid = -1" />
     <MESSAGE value="add udp debug" />
     <MESSAGE value="don't return lobby that starts game in lobby list" />
-    <option name="LAST_COMMIT_MESSAGE" value="don't return lobby that starts game in lobby list" />
+    <MESSAGE value="Clean up a whole bunch of stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up a whole bunch of stuff" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -774,6 +788,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -792,7 +809,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
-            <element signature="e#37#59#0" expanded="false" />
+            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -843,6 +860,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -861,7 +881,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
-            <element signature="e#37#59#0" expanded="false" />
+            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -909,7 +929,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
-            <element signature="e#37#59#0" expanded="false" />
+            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -967,7 +987,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
-            <element signature="e#37#59#0" expanded="false" />
+            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1015,7 +1035,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
           <folding>
-            <element signature="e#37#59#0" expanded="false" />
+            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1039,6 +1059,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1054,16 +1077,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UDPServer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding>
-            <element signature="e#37#59#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1099,42 +1112,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="55" column="34" lean-forward="false" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-          <folding>
-            <element signature="e#42#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1149,20 +1132,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TCPServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPServer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="41" column="11" lean-forward="false" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+          <folding>
+            <element signature="e#37#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="e#42#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Modules.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+        <state relative-caret-position="-1387">
+          <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GameServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3603">
-          <caret line="253" column="0" lean-forward="true" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+        <state relative-caret-position="269">
+          <caret line="158" column="33" lean-forward="true" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
           <folding />
         </state>
       </provider>

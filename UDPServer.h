@@ -4,6 +4,7 @@
 #include<netinet/in.h>
 #include<sys/epoll.h>
 #include<vector>
+#include<memory>
 
 
 #ifndef __UDPSERVER_H_
@@ -20,7 +21,7 @@ public :
     using udp_cb_t = int (*)(void* userptr,const message_t&,message_t&);
 
     /** UDPServer class constructor **/
-    UDPServer(int port);
+    UDPServer(int port,size_t buffer_size);
     ~UDPServer();
 
     /** Register a udp callback function **/
@@ -33,10 +34,12 @@ public :
     int starts();
 
 private :
-    uint16_t port;
-    sockaddr_in serv_addr;
-    udp_cb_t callback_func;
-    void* callback_arg;
+    uint16_t _port;
+    sockaddr_in _serv_addr;
+    udp_cb_t _callback_func;
+    std::unique_ptr<char[]> _buffer;
+    size_t _buffer_size;
+    void* _callback_arg;
 };
 
 #endif //__UDPSERVER_H_
