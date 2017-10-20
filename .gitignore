@@ -1,3 +1,5 @@
 CMakeCache.txt
 cmake_install.txt
+CMakeFiles/*
+cmake-build-debug/*
 *.o

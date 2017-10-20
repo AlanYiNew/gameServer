@@ -1,3 +1,0 @@
-/home/alan/gameServer/CMakeFiles/rebuild_cache.dir
-/home/alan/gameServer/CMakeFiles/edit_cache.dir
-/home/alan/gameServer/CMakeFiles/gameServer.dir
