@@ -2,4 +2,6 @@ CMakeCache.txt
 cmake_install.txt
 CMakeFiles/*
 cmake-build-debug/*
+.idea/*
+*.swp
 *.o
