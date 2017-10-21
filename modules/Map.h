@@ -16,6 +16,7 @@ private:
 public:
     int getRandomMap();
     std::pair<int,int> randomSpawns(int mapid);
+    int randomSpawn(int mapid);
 };
 
 #endif //GAMESERVER_MAP_H

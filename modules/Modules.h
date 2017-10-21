@@ -46,6 +46,7 @@ struct chunk{
 struct session{
 	int _players[2];
     bool _starts;
+	int _lid;
 	int _occupied;
 	string _lobbyname;
     session():_occupied(0),_starts(false),_lobbyname(""){_players[0]=0;_players[1]=0;};
@@ -82,13 +83,15 @@ public:
 
     vector<int> getPlayerPids(int sid);
 
-    int start(int sid);
+    int start(int sid,int mapid);
 
     int end(int sid);
 
 	const string& getLobbyName(int sid);
 
     const int getOpponent(int sid, int fd);
+
+	int getLid(int sid);
 
     int clear(int sid);
 

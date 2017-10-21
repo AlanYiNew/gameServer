@@ -25,12 +25,17 @@ Player * PlayerModule::getPlayer(int fd){
         return nullptr;
 }
 
-int SessionModule::start(int sid){
+int SessionModule::start(int sid,int mapid){
     _session_bucket[sid]._starts = true;
+    _session_bucket[sid]._lid = mapid;
 }
 
 int SessionModule::end(int sid){
     _session_bucket[sid]._starts = false;
+}
+
+int SessionModule::getLid(int sid){
+    return _session_bucket[sid]._lid;
 }
 
 int SessionModule::create(string lobbyname){

@@ -129,10 +129,10 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         /*return type: exitted <result>*/
 
         int sid = std::stoi(req["sid"]);
-
+        int opponenet_fd = _session_module.getOpponent(sid, fd);
         int result = _session_module.exit(sid, fd);
         std::unordered_map<string, string> res;
-        int opponenet_fd = _session_module.getOpponent(sid, fd);
+
         Player *p = _player_module.getPlayer(fd);
         res["pid"] = to_string(fd);
         res["cmd"] = "exit";
@@ -144,7 +144,8 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         }
 
         send_respond(fd, res);
-        if (opponenet_fd > 2)
+
+        if (_player_module.validPid(opponenet_fd))
             send_respond(opponenet_fd, res);
 
     } else if (req["cmd"] == "confirm") {
@@ -184,7 +185,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["opponentcid"] = to_string(opponent->_cid);
                 res["opponentwid"] = to_string(opponent->_wid);
                 res["success"] = "0";
-                _session_module.start(sid);
+                _session_module.start(sid,lid);
                 send_respond(fd, res);
                 send_respond(opponent_fd, res);
             }
@@ -208,6 +209,11 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         res["cmd"] = "score";
         res["score"] = opponent->_score;
         send_respond(opponent_fd, res);
+
+        res["cmd"] = "dead";
+        res["playerspawnpoint"] = std::to_string(_map_module.randomSpawn(_session_module.getLid(sid)));
+        send_respond(fd,res);
+
         if (opponent->_score >= 3) {
             opponent->reset();
             player->reset();
@@ -281,7 +287,7 @@ void GameServer::onAcceptConnection(int fd) {
 
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
-        std::string cmd = "cmd exit";
+        std::string cmd = "cmd exit sid " + to_string(p->_session);
         onRead(fd,cmd.c_str(),cmd.size());
         _player_module.clear(fd);
     }

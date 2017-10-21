@@ -14,3 +14,8 @@ std::pair<int,int> MapModule::randomSpawns(int mapid) {
 
     return temp.randomPairInRange(0,_maps[mapid]-1);
 }
+
+int MapModule::randomSpawn(int mapid) {
+    Util temp;
+    return temp.randomRange(0,_maps[mapid]-1);
+}
