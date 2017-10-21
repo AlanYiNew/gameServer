@@ -75,6 +75,7 @@ bool SessionModule::enter(int sid,int fd){
 
 int SessionModule::exit(int sid, int fd){
     if (validSid(sid)) {
+        _session_bucket[sid]._starts = 0;
         _session_bucket[sid]._occupied--;
         for (int i = 0; i < 2 ;++i)
             if (_session_bucket[sid]._players[i] == fd)
