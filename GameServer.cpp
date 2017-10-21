@@ -222,14 +222,14 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         send_respond(fd,res);
 
         if (opponent->_score >= 3) {
-            opponent->reset();
-            player->reset();
             _session_module.end(sid);
             res["opponentscore"] = to_string(opponent->_score);
             res["playerscore"] = to_string(player->_score);
             res["cmd"] = "gameover";
             send_respond(fd,res);
             send_respond(opponent_fd,res);
+            opponent->reset();
+            player->reset();
         }
 
     } else if (req["cmd"] == "login") {
