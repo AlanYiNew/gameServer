@@ -48,7 +48,7 @@ int SessionModule::create(string lobbyname){
 
 
 bool SessionModule::enter(int sid,int fd){
-    if (!isFull(sid)) {
+    if (!isFull(sid) && !isEmpty(sid)) {
         for (int i = 0;i < 2; ++i) {
             if (_session_bucket[sid]._players[i] == 0) {
                 _session_bucket[sid]._players[i] = fd;
