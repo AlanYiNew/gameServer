@@ -2,6 +2,7 @@
 // Created by alan on 10/21/17.
 //
 #include "Game.h"
+#include <iostream>
 
 
 bool GameModule::validGame(int sid){
@@ -29,7 +30,8 @@ bool GameModule::count(int sid,int pid){
 
 
 bool GameModule::lost_count(int sid,int pid){
-    return _map.find(sid)->second._lost_count[pid]++ >= 3;
+    std::cout << "Debug==" <<_map.find(sid)->second._lost_count[pid] << std::endl;
+    return ++_map.find(sid)->second._lost_count[pid] >= 3;
 }
 
 bool GameModule::reset_lcount(int sid,int pid){
