@@ -24,6 +24,8 @@
 #include <exception>
 #include "logsys/gs_log.h"
 #include <cassert>
+#include "utils.h"
+#include "modules/Map.h"
 
 class SCChecker{
 private:
@@ -52,6 +54,7 @@ private:
     int _tcp_port;
     PlayerModule _player_module;
     SessionModule _session_module;
+    MapModule _map_module;
     GS_LOG log;
     int send_respond(int fd, const unordered_map<string,string>& map);
     int send_respond(int fd, const std::map<int,std::string>& map);
