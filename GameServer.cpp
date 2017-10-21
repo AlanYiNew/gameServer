@@ -55,7 +55,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
-        std::string cmd = "cmd exit";
+        std::string cmd = "cmd exit sid "+ to_string(p->_session);
         onRead(fd,cmd.c_str(),cmd.size());
         _player_module.clear(fd);
     }
