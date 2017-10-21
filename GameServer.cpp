@@ -19,9 +19,7 @@ string res_parse(const std::map<string, string> &map);
 int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::message_t &message_out) {
     GameServer *server = reinterpret_cast<GameServer *>(userptr);
     chunk recv = *reinterpret_cast<chunk *>(message.content);
-
-
-s
+    
     if (server->_game_module.validGame(recv.sid)) {
         bool active = true;
         int opponent_fd;
