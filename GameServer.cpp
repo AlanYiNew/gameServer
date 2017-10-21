@@ -19,9 +19,13 @@ string res_parse(const std::map<string, string> &map);
 int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::message_t &message_out) {
     GameServer *server = reinterpret_cast<GameServer *>(userptr);
     chunk recv = *reinterpret_cast<chunk *>(message.content);
-    server->_game_module.updateGame(recv.sid,recv.pid, message.content, message.len);
-    message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
-    message_out.len = message.len;
+    if (server->_game_module.validGame(recv.sid)) {
+        server->_game_module.updateGame(recv.sid, recv.pid, message.content, message.len);
+        message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
+        message_out.len = message.len;
+    }   else{
+        message_out.len = 0;
+    }
 #if SERVER_DEBUG
     //server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
 #endif

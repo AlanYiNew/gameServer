@@ -58,8 +58,8 @@ int UDPServer::starts() {
                 if (_callback_func) {
                     message_t res;
                     _callback_func(_callback_arg,recv,res);
-
-                    sendto(fd,res.content,res.len,0,reinterpret_cast<sockaddr*>(&cliaddr),cliaddrlen);
+                    if (res.len > 0)
+                        sendto(fd,res.content,res.len,0,reinterpret_cast<sockaddr*>(&cliaddr),cliaddrlen);
                 }
             }
         }
