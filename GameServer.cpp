@@ -238,18 +238,18 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         auto result = _game_module.dead(sid,fd);
         res["success"] = "0";
         res["cmd"] = "score";
-        res["score"] = to_string(result.begin()->second[opponent_fd]);
+        res["score"] = to_string(result[opponent_fd]);
         send_respond(opponent_fd, res);
 
         res["cmd"] = "dead";
         res["playerspawnpoint"] = std::to_string(_map_module.randomSpawn(_game_module.getLid(sid)));
         send_respond(fd,res);
 
-        if (result.find(true) != result.end()) {
+        if (result[opponent_fd]>=3) {
             std::unordered_map<string, string> res2;
             _session_module.clear(sid);
-            res2["opponentscore"] = to_string(result.find(true)->second[opponent_fd]);
-            res2["playerscore"] = to_string(result.find(true)->second[fd]);
+            res2["opponentscore"] = to_string(result[opponent_fd]);
+            res2["playerscore"] = to_string(result[fd]);
             res2["cmd"] = "gameover";
             res2["success"] = "0";
             send_respond(fd,res2);

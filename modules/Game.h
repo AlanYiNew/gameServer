@@ -46,7 +46,7 @@ public:
     bool reset_lcount(int sid, int pid);
     std::vector<int> getPlayerPids(int sid);
 
-    std::unordered_map<bool,std::unordered_map<int,int>> dead(int sid,int pid);
+    std::unordered_map<int,int> dead(int sid,int pid);
 };
 
 #endif //GAMESERVER_GAME_H

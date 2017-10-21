@@ -48,8 +48,7 @@ vector<int> GameModule::getPlayerPids(int sid){
 }
 
 
-std::unordered_map<bool,std::unordered_map<int,int>> GameModule::dead(int sid,int pid){
-    std::unordered_map<bool,std::unordered_map<int,int>> result;
+std::unordered_map<int,int> GameModule::dead(int sid,int pid){
     auto &g = _map.find(sid)->second;
     auto iter = g._score.begin();
     for (; iter != g._score.end(); ++iter){
@@ -59,11 +58,7 @@ std::unordered_map<bool,std::unordered_map<int,int>> GameModule::dead(int sid,in
         }
     }
 
-    if (iter->second >=3)
-        result[true] = g._score;
-    else
-        result[false] = g._score;
-    return result;
+    return g._score;
 
 }
 
