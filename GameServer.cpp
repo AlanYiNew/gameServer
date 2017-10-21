@@ -165,7 +165,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
 
             res["success"] = "0";
 
-            if (opponent_fd > 0) {
+            if (_player_module.validPid(opponent_fd)) {
                 send_respond(opponent_fd, res);
             }
             send_respond(fd, res);

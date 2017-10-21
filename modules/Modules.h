@@ -63,6 +63,8 @@ public:
 
     bool confirm(int fd,int wid, int cid);
 
+    inline bool validPid(int fd);
+
 private:
 	map<int,Player> _map;
     size_t _player_buffer_size = 128;
@@ -123,4 +125,7 @@ inline bool SessionModule::validSid(int sid){
     return sid >= 0 && sid < MAX_SESSION;
 }
 
+inline bool PlayerModule::validPid(int fd){
+    return _map.find(fd) != _map.end();
+}
 #endif
