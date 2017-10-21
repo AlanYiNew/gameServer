@@ -274,9 +274,15 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
 //TODO
 void GameServer::onAcceptConnection(int fd) {
     std::cout << "accept connection" << std::endl;
+    std::unordered_map<string, string> res;
+    res["success"] = "0";
+    res["cmd"] = "connected";
+    send_respond(fd, res);
+
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
-        _session_module.exit(p->_session, fd);
+        std::string cmd = "cmd exit";
+        onRead(fd,cmd.c_str(),cmd.size());
         _player_module.clear(fd);
     }
 }
