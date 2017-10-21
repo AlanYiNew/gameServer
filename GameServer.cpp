@@ -58,7 +58,7 @@ void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
         log.LOG("DEBUG===Calling FORCEQUITHANLDER");
-        userForceQuitHandler(fd);
+        userForceQuitHandler(fd, true);
     }
 }
 
@@ -294,7 +294,7 @@ void GameServer::onAcceptConnection(int fd) {
 
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
-        userForceQuitHandler(fd);
+        userForceQuitHandler(fd,false);
     }
 }
 
@@ -343,7 +343,7 @@ string res_parse(const std::map<int, std::string> &map) {
     return result;
 };
 
-void GameServer::userForceQuitHandler(int fd){
+void GameServer::userForceQuitHandler(int fd,bool send){
     Player *p = _player_module.getPlayer(fd);
 
     if (_game_module.validGame(p->_session) ||
@@ -356,11 +356,13 @@ void GameServer::userForceQuitHandler(int fd){
             oppnent_fd = _session_module.getOpponent(p->_session,fd);
         }
 
-        std::unordered_map<string,string> res;
-        res["cmd"] = res["exit"];
-        res["pid"] = to_string(fd);
-        res["success"] = "0";
-        send_respond(oppnent_fd,res);
+        if (send) {
+            std::unordered_map<string, string> res;
+            res["cmd"] = res["exit"];
+            res["pid"] = to_string(fd);
+            res["success"] = "0";
+            send_respond(oppnent_fd, res);
+        }
         _game_module.clear(p->_session);
     }
 
