@@ -44,7 +44,7 @@ public:
     //int init(ostream st);
     void starts();
     virtual void onShutDownConnection(int fd);
-    virtual void onRead(int fd, char *, int readsize);
+    virtual void onRead(int fd,const char *, int readsize);
     virtual void onAcceptConnection(int fd);
 
 

@@ -55,12 +55,13 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
-        _session_module.exit(p->_session, fd);
+        std::string cmd = "cmd exit";
+        onRead(fd,cmd.c_str(),cmd.size());
         _player_module.clear(fd);
     }
 }
 
-void GameServer::onRead(int fd, char *mess, int readsize) {
+void GameServer::onRead(int fd,const char *mess, int readsize) {
 
     std::string request_mess(mess, readsize);
 

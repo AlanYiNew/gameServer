@@ -48,7 +48,7 @@ public :
 
         /** pure event driven virtual function **/
         virtual void onShutDownConnection(int fd)=0;
-        virtual void onRead(int fd, char *, int readsize)=0;
+        virtual void onRead(int fd,const char *, int readsize)=0;
         virtual void onAcceptConnection(int fd)= 0;
         int sendPacket(int fd,packet_t* packet);
  
