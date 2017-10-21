@@ -17,6 +17,40 @@ int GameModule::getLid(int sid) {
     return _map.find(sid)->second._lid;
 }
 
+bool GameModule::count(int sid){
+    //around 5 secs
+    if (_map.find(sid)->second._count++ == 300){
+        _map.find(sid)->second._count = 0;
+        return true;
+    }
+    return false;
+}
+
+void GameModule::lost(int sid, int pid){
+    //disconnected after lost for three times
+    _map.find(sid)->second._lost_count[pid]++;
+}
+
+bool GameModule::lost_count(int sid,int pid){
+
+    return _map.find(sid)->second._count >= 3;
+}
+
+bool GameModule::reset_lcount(int sid,int pid){
+    //disconnected after lost for three times
+    _map.find(sid)->second._lost_count[pid] = 0;
+}
+
+vector<int> GameModule::getPlayerPids(int sid){
+    vector<int> result;
+    auto &g = _map.find(sid)->second;
+    for (auto iter = g._data.begin(); iter != g._data.end(); ++iter){
+        result.push_back(iter->first);
+    }
+    return result;
+}
+
+
 std::unordered_map<int,int> GameModule::dead(int sid,int pid){
     auto &g = _map.find(sid)->second;
     auto iter = g._score.begin();

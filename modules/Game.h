@@ -14,13 +14,19 @@ private:
     struct Game{
         std::unordered_map<int,std::unique_ptr<char[]>> _data;
         std::unordered_map<int,int> _score;
+        std::unordered_map<int,int> _lost_count;
         int _lid;
+        int _count;
+
         Game(size_t buf_size,int fd1, int fd2, int lid){
             _data.emplace(fd1,std::make_unique<char[]>(buf_size));
             _data.emplace(fd2,std::make_unique<char[]>(buf_size));
             _score[fd1] = 0;
             _score[fd2] = 0;
             _lid = lid;
+            _count = 0;
+            _lost_count[fd1] = 0;
+            _lost_count[fd2] = 0;
         };
 
     };
@@ -34,6 +40,11 @@ public:
     bool validGame(int sid);
     void clear(int sid);
     int getOpponent(int sid, int fd);
+    bool count(int sid);
+    void lost(int sid,int pid);
+    bool lost_count(int sid, int pid);
+    bool reset_lcount(int sid, int pid);
+    std::vector<int> getPlayerPids(int sid);
 
     std::unordered_map<int,int> dead(int sid,int pid);
 };

@@ -19,10 +19,29 @@ string res_parse(const std::map<string, string> &map);
 int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::message_t &message_out) {
     GameServer *server = reinterpret_cast<GameServer *>(userptr);
     chunk recv = *reinterpret_cast<chunk *>(message.content);
+
+
+
     if (server->_game_module.validGame(recv.sid)) {
-        server->_game_module.updateGame(recv.sid, recv.pid, message.content, message.len);
-        message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
-        message_out.len = message.len;
+        bool active = true;
+        int opponent_fd;
+        if (server->_game_module.count(recv.sid)){
+            //heart beat message
+            opponent_fd = server->_game_module.getOpponent(recv.sid,recv.pid);
+            active = server->is_alive(opponent_fd);
+        }
+
+        if (active) {
+            server->_game_module.updateGame(recv.sid, recv.pid, message.content, message.len);
+            message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
+            message_out.len = message.len;
+        }   else{
+            message_out.len = 0;
+            server->_game_module.lost(recv.sid,opponent_fd);
+            if (server->_game_module.lost_count(recv.sid,opponent_fd))
+                server->userForceQuitHandler(opponent_fd,true);
+        }
+
     }   else{
         message_out.len = 0;
     }
