@@ -10,3 +10,4 @@ nohup.out
 .idea/
 CMakeFiles/
 cmake-build-debug/
+gameServer
