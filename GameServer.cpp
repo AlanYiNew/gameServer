@@ -56,8 +56,7 @@ void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
         std::string cmd = "cmd exit sid "+ to_string(p->_session);
-        if (_session_module.isStarted(p->_session))
-            _session_module.exit(p->_session,_session_module.getOpponent(p->_session,fd));
+
         onRead(fd,cmd.c_str(),cmd.size());
         _player_module.clear(fd);
     }
@@ -146,6 +145,9 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         }
 
         send_respond(fd, res);
+        if (_session_module.isStarted(p->_session)){
+            _session_module.exit(p->_session,opponenet_fd);
+        }
 
         if (_player_module.validPid(opponenet_fd))
             send_respond(opponenet_fd, res);
@@ -290,9 +292,8 @@ void GameServer::onAcceptConnection(int fd) {
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
         std::string cmd = "cmd exit sid " + to_string(p->_session);
-        if (_session_module.isStarted(p->_session))
-            _session_module.exit(p->_session,_session_module.getOpponent(p->_session,fd));
         onRead(fd,cmd.c_str(),cmd.size());
+
         _player_module.clear(fd);
     }
 }

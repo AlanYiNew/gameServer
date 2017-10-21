@@ -139,6 +139,6 @@ inline bool SessionModule::validSid(int sid){
 }
 
 inline bool PlayerModule::validPid(int fd){
-    return _map.find(fd) != _map.end();
+    return fd > 2;
 }
 #endif
