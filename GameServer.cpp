@@ -19,10 +19,8 @@ string res_parse(const std::map<string, string> &map);
 int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::message_t &message_out) {
     GameServer *server = reinterpret_cast<GameServer *>(userptr);
     chunk recv = *reinterpret_cast<chunk *>(message.content);
-    server->_session_module.update(recv.sid,recv.pid, message.content, message.len);
-    int opponent_fd = server->_session_module.getOpponent(recv.sid, recv.pid);
-
-    message_out.content = server->_session_module.getOpponentData(recv.sid,recv.pid);
+    server->_game_module.updateGame(recv.sid,recv.pid, message.content, message.len);
+    message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
     message_out.len = message.len;
 #if SERVER_DEBUG
     //server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
@@ -31,7 +29,7 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
 }
 
 void GameServer::starts() {
-    UDPServer us(_udp_port, 128);
+    UDPServer us(_udp_port, _buf_size);
     us.init();//buffer size
     us.register_cb(udp_callback, this);
     std::thread thread([&us]() {
@@ -55,9 +53,14 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
-        std::string cmd = "cmd exit sid "+ to_string(p->_session);
-
-        onRead(fd,cmd.c_str(),cmd.size());
+        if (_game_module.validGame(p->_session)) {
+            int oppnent_fd = _game_module.getOpponentData(p->_session, fd);
+            std::unordered_map <string, string> res;
+            res["cmd"] = res["exit"];
+            res["pid"] = fd;
+            res["success"] = "0";
+            send_respond(oppnent_fd, res);
+        }
         _player_module.clear(fd);
     }
 }
@@ -131,9 +134,6 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
 
         int sid = std::stoi(req["sid"]);
         int opponenet_fd = _session_module.getOpponent(sid, fd);
-        if (_session_module.isStarted(sid)){
-            _session_module.exit(sid,opponenet_fd);
-        }
 
         int result = _session_module.exit(sid, fd);
         std::unordered_map<string, string> res;
@@ -192,7 +192,8 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["opponentcid"] = to_string(opponent->_cid);
                 res["opponentwid"] = to_string(opponent->_wid);
                 res["success"] = "0";
-                _session_module.start(sid,lid);
+                _session_module.clear(sid);
+                _game_module.newGame(_buf_size,fd,opponent_fd,lid);
                 send_respond(fd, res);
                 send_respond(opponent_fd, res);
             }
@@ -211,26 +212,25 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         int opponent_fd = _session_module.getOpponent(sid, fd);
         Player *opponent = _player_module.getPlayer(opponent_fd);
 
-        opponent->_score++;
+        auto result = _game_module.dead(sid,fd);
         res["success"] = "0";
         res["cmd"] = "score";
-        res["score"] = to_string(opponent->_score);
+        res["score"] = to_string(result[opponent_fd]);
         send_respond(opponent_fd, res);
 
         res["cmd"] = "dead";
         res["playerspawnpoint"] = std::to_string(_map_module.randomSpawn(_session_module.getLid(sid)));
         send_respond(fd,res);
 
-        if (opponent->_score >= 3) {
-
+        if (result.size()!=0) {
             std::unordered_map<string, string> res2;
-            res2["opponentscore"] = to_string(opponent->_score);
-            res2["playerscore"] = to_string(player->_score);
+            _session_module.clear(sid);
+            res2["opponentscore"] = to_string(result[opponent_fd]);
+            res2["playerscore"] = to_string(result[fd]);
             res2["cmd"] = "gameover";
             res2["success"] = "0";
             send_respond(fd,res2);
             send_respond(opponent_fd,res2);
-            _session_module.end(sid);
             opponent->reset();
             player->reset();
         }
@@ -297,8 +297,15 @@ void GameServer::onAcceptConnection(int fd) {
 
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
-        std::string cmd = "cmd exit sid " + to_string(p->_session);
-        onRead(fd,cmd.c_str(),cmd.size());
+        if (_game_module.validGame(p->_session)){
+            int oppnent_fd = _game_module.getOpponentData(p->_session,fd);
+            std::unordered_map<string,string> res;
+            res["cmd"] = res["exit"];
+            res["pid"] = fd;
+            res["success"] = "0";
+            send_respond(oppnent_fd,res);
+            _game_module.clear(p->_session);
+        }
 
         _player_module.clear(fd);
     }
@@ -332,7 +339,7 @@ string res_parse(const std::unordered_map<string, string> &map) {
 };
 
 //specialize for list
-string res_parse(const std::map<int, string> &map) {
+string res_parse(const std::map<int, std::string> &map) {
     string result = "";
 
     for (auto iter = map.begin(); iter != map.end(); ++iter) {
@@ -396,6 +403,7 @@ SCChecker::SCChecker(const string& str){
         std::cout << ex.what() << std::endl;
     }
 }
+
 bool SCChecker::isValid(const std::unordered_map<string,string> &req){
     auto const_iter = req.find("cmd");
     if (const_iter != req.end()) {

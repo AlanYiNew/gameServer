@@ -6,6 +6,7 @@
 #include <cstring>
 #include <utility>
 #include <memory>
+#include <unordered_map>
 
 
 
@@ -13,12 +14,9 @@ using namespace std;
 
 #define MAX_SESSION 256
 struct Player{
-
-
 	int _len;
 	int _fd;//file descriptor
     int _session;
-	int _score;
     int _wid; //Weapon id
     int _cid; //character id
 	string _username;
@@ -29,12 +27,13 @@ struct Player{
     };
 
     void reset(){
-        _score = 0;
         _wid = 0;
         _cid = 0;
         _confirmed = 0;
     }
 };
+
+
 
 
 struct chunk{
@@ -45,16 +44,12 @@ struct chunk{
 struct session{
 	int _players[2];
 	//TODO isolate data with Player object
-	std::unique_ptr<char[]> _data[2];
 
-    bool _starts;
 	int _lid;
 	int _occupied;
 	string _lobbyname;
-    session():_occupied(0),_starts(false),_lobbyname(""){
+    session():_occupied(0),_lobbyname(""){
 		_players[0]=0;_players[1]=0;
-		_data[0] = std::make_unique<char[]>(128);
-		_data[1] = std::make_unique<char[]>(128);
 	};
 };
 
@@ -89,10 +84,6 @@ public:
 
     vector<int> getPlayerPids(int sid);
 
-    int start(int sid,int mapid);
-
-    int end(int sid);
-
 	const string& getLobbyName(int sid);
 
     const int getOpponent(int sid, int fd);
@@ -101,15 +92,9 @@ public:
 
     int clear(int sid);
 
-	int update(int sid, int fd, void * data, int length);
-
-	void *getOpponentData(int sid, int fd);
-
     inline bool isFull(int sid);
 
     inline bool isEmpty(int sid);
-
-    inline bool isStarted(int sid);
 
     inline bool validSid(int sid);
 
@@ -130,9 +115,7 @@ inline bool SessionModule::isEmpty(int sid){
     return sid >= 0 && sid < MAX_SESSION && _session_bucket[sid]._occupied == 0;
 }
 
-inline bool SessionModule::isStarted(int sid){
-    return _session_bucket[sid]._starts;
-}
+
 
 inline bool SessionModule::validSid(int sid){
     return sid >= 0 && sid < MAX_SESSION;

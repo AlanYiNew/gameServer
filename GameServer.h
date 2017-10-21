@@ -26,6 +26,7 @@
 #include <cassert>
 #include "utils.h"
 #include "modules/Map.h"
+#include "modules/Game.h"
 
 class SCChecker{
 private:
@@ -54,10 +55,20 @@ private:
     int _tcp_port;
     PlayerModule _player_module;
     SessionModule _session_module;
+    GameModule _game_module;
     MapModule _map_module;
+    int _buf_size = 128;
     GS_LOG log;
     int send_respond(int fd, const unordered_map<string,string>& map);
     int send_respond(int fd, const std::map<int,std::string>& map);
+
+    /*void createHandler(int fd,std::unordered_map<string,string>& req);
+    void enterHandler(int fd,std::unordered_map<string,string>& req);
+    void exitHandler(int fd,std::unordered_map<string,string>& req);
+    void listlobbyHandler(int fd,std::unordered_map<string,string>& req);
+    void loginHandler(int fd,std::unordered_map<string,string>& req);
+    void deadHandler(int fd,std::unordered_map<string,string>& req);
+    void confirmHandler(int fd,std::unordered_map<string,string>& req);*/
     bool is_alive(int fd);
     SCChecker _sanity_check;
 

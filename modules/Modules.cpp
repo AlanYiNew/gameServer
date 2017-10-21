@@ -25,14 +25,6 @@ Player * PlayerModule::getPlayer(int fd){
         return nullptr;
 }
 
-int SessionModule::start(int sid,int mapid){
-    _session_bucket[sid]._starts = true;
-    _session_bucket[sid]._lid = mapid;
-}
-
-int SessionModule::end(int sid){
-    _session_bucket[sid]._starts = false;
-}
 
 int SessionModule::getLid(int sid){
     return _session_bucket[sid]._lid;
@@ -54,24 +46,6 @@ int SessionModule::create(string lobbyname){
     return result;
 }
 
-int SessionModule::update(int sid, int fd, void * data, int length){
-
-    for (int i = 0 ; i < 2 ;++i) {
-        if (_session_bucket[sid]._players[i] == fd) {
-            memcpy(_session_bucket[sid]._data[i].get(), data, length);
-        }
-    }
-
-	return 0;
-}
-
-void *SessionModule::getOpponentData(int sid, int fd){
-    for (int i = 0 ; i < 2 ;++i) {
-        if (_session_bucket[sid]._players[i] != fd) {
-            return _session_bucket[sid]._data[i].get();
-        }
-    }
-}
 
 bool SessionModule::enter(int sid,int fd){
     if (!isFull(sid)) {
@@ -90,14 +64,13 @@ bool SessionModule::enter(int sid,int fd){
 
 int SessionModule::exit(int sid, int fd){
     if (validSid(sid)) {
-        _session_bucket[sid]._starts = false;
         _session_bucket[sid]._occupied--;
         for (int i = 0; i < 2 ;++i)
             if (_session_bucket[sid]._players[i] == fd)
                 _session_bucket[sid]._players[i] = 0;
 
         if (isEmpty(sid))
-            _activated_session.erase(sid);
+            clear(sid);
         return sid;
     }   else
         return -1;
@@ -107,13 +80,11 @@ map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     auto iter = _activated_session.begin();
     map<int,string>result;
     for (int i = 0; i < pagesize*(pageno-1) && iter != _activated_session.end(); ) {
-        if (!isStarted(i)) ++i;
         ++iter;
     }
 
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
-        if (!iter->second->_starts)
-            result[iter->first] = iter->second->_lobbyname;
+        result[iter->first] = iter->second->_lobbyname;
     }
     return result;
 }

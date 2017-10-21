@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alan/gameServer
+CMAKE_SOURCE_DIR = /home/alan/CLionProjects/gameServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alan/gameServer
+CMAKE_BINARY_DIR = /home/alan/CLionProjects/gameServer
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -78,11 +67,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/gameServer/CMakeFiles /home/alan/gameServer/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/CMakeFiles /home/alan/CLionProjects/gameServer/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/gameServer/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alan/CLionProjects/gameServer/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -204,6 +204,33 @@ UDPServer.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
+logsys/gs_log.o: logsys/gs_log.cpp.o
+
+.PHONY : logsys/gs_log.o
+
+# target to build an object file
+logsys/gs_log.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/logsys/gs_log.cpp.o
+.PHONY : logsys/gs_log.cpp.o
+
+logsys/gs_log.i: logsys/gs_log.cpp.i
+
+.PHONY : logsys/gs_log.i
+
+# target to preprocess a source file
+logsys/gs_log.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/logsys/gs_log.cpp.i
+.PHONY : logsys/gs_log.cpp.i
+
+logsys/gs_log.s: logsys/gs_log.cpp.s
+
+.PHONY : logsys/gs_log.s
+
+# target to generate assembly for a file
+logsys/gs_log.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/logsys/gs_log.cpp.s
+.PHONY : logsys/gs_log.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -231,14 +258,122 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+modules/Game.o: modules/Game.cpp.o
+
+.PHONY : modules/Game.o
+
+# target to build an object file
+modules/Game.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Game.cpp.o
+.PHONY : modules/Game.cpp.o
+
+modules/Game.i: modules/Game.cpp.i
+
+.PHONY : modules/Game.i
+
+# target to preprocess a source file
+modules/Game.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Game.cpp.i
+.PHONY : modules/Game.cpp.i
+
+modules/Game.s: modules/Game.cpp.s
+
+.PHONY : modules/Game.s
+
+# target to generate assembly for a file
+modules/Game.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Game.cpp.s
+.PHONY : modules/Game.cpp.s
+
+modules/Map.o: modules/Map.cpp.o
+
+.PHONY : modules/Map.o
+
+# target to build an object file
+modules/Map.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Map.cpp.o
+.PHONY : modules/Map.cpp.o
+
+modules/Map.i: modules/Map.cpp.i
+
+.PHONY : modules/Map.i
+
+# target to preprocess a source file
+modules/Map.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Map.cpp.i
+.PHONY : modules/Map.cpp.i
+
+modules/Map.s: modules/Map.cpp.s
+
+.PHONY : modules/Map.s
+
+# target to generate assembly for a file
+modules/Map.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Map.cpp.s
+.PHONY : modules/Map.cpp.s
+
+modules/Modules.o: modules/Modules.cpp.o
+
+.PHONY : modules/Modules.o
+
+# target to build an object file
+modules/Modules.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.o
+.PHONY : modules/Modules.cpp.o
+
+modules/Modules.i: modules/Modules.cpp.i
+
+.PHONY : modules/Modules.i
+
+# target to preprocess a source file
+modules/Modules.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.i
+.PHONY : modules/Modules.cpp.i
+
+modules/Modules.s: modules/Modules.cpp.s
+
+.PHONY : modules/Modules.s
+
+# target to generate assembly for a file
+modules/Modules.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.s
+.PHONY : modules/Modules.cpp.s
+
+utils.o: utils.cpp.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.o
+.PHONY : utils.cpp.o
+
+utils.i: utils.cpp.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.i
+.PHONY : utils.cpp.i
+
+utils.s: utils.cpp.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.s
+.PHONY : utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... rebuild_cache"
 	@echo "... gameServer"
 	@echo "... GameServer.o"
 	@echo "... GameServer.i"
@@ -249,9 +384,24 @@ help:
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
+	@echo "... logsys/gs_log.o"
+	@echo "... logsys/gs_log.i"
+	@echo "... logsys/gs_log.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... modules/Game.o"
+	@echo "... modules/Game.i"
+	@echo "... modules/Game.s"
+	@echo "... modules/Map.o"
+	@echo "... modules/Map.i"
+	@echo "... modules/Map.s"
+	@echo "... modules/Modules.o"
+	@echo "... modules/Modules.i"
+	@echo "... modules/Modules.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 
