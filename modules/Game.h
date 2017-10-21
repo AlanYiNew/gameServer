@@ -33,7 +33,7 @@ public:
     int getLid(int);
     bool validGame(int sid);
     void clear(int sid);
-    int getOpponentData(int sid, int fd);
+    int getOpponent(int sid, int fd);
 
     std::unordered_map<int,int> dead(int sid,int pid);
 };

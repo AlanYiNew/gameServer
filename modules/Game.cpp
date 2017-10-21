@@ -10,7 +10,7 @@ bool GameModule::validGame(int sid){
 
 void GameModule::newGame(int sid,size_t bufsize,int f1, int f2, int lid){
     _map.emplace(sid,Game(bufsize,f1,f2,lid));
-  
+
 }
 
 int GameModule::getLid(int sid) {
@@ -49,7 +49,7 @@ void* GameModule::opponentData(int sid, int fd){
     return 0;
 }
 
-int GameModule::getOpponentData(int sid, int fd){
+int GameModule::getOpponent(int sid, int fd){
     auto &g = _map.find(sid)->second;
     for (auto iter = g._data.begin(); iter != g._data.end(); ++iter){
         if (iter->first != fd){

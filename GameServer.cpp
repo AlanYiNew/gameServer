@@ -57,6 +57,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
+        log.LOG("DEBUG===Calling FORCEQUITHANLDER");
         userForceQuitHandler(fd);
     }
 }
@@ -347,10 +348,17 @@ void GameServer::userForceQuitHandler(int fd){
 
     if (_game_module.validGame(p->_session) ||
         _session_module.exit(p->_session,fd)){
-        int oppnent_fd = _game_module.getOpponentData(p->_session,fd);
+        log.LOG("DEBUG===INSIDE if statement FORCEQUITHANLDER");
+        int oppnent_fd;
+        if (_game_module.validGame(p->_session)){
+            oppnent_fd = _game_module.getOpponent(p->_session,fd);
+        }   else{
+            oppnent_fd = _session_module.getOpponent(p->_session,fd);
+        }
+
         std::unordered_map<string,string> res;
         res["cmd"] = res["exit"];
-        res["pid"] = fd;
+        res["pid"] = to_string(fd);
         res["success"] = "0";
         send_respond(oppnent_fd,res);
         _game_module.clear(p->_session);
