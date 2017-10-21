@@ -123,6 +123,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res["cmd"] = "enter";
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
+            res["success"] = "0";
             if (host_player == nullptr) {
                 res["hostpid"] = to_string(host_player_fd);
                 res["hostname"] = host_player->_username;
@@ -133,12 +134,13 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["hostname"] = "-1";
                 res["hostcid"] = "-1";
                 res["hostwid"] = "-1";
+                res["success"] = "1";
             }
             res["enterpid"] = to_string(fd);
             res["entername"] = entered_player->_username;
             res["entercid"] = to_string(entered_player->_cid);
             res["enterwid"] = to_string(entered_player->_wid);
-            res["success"] = "0";
+
 
 
             send_respond(fd, res);
