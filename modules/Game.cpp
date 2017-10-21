@@ -51,7 +51,6 @@ vector<int> GameModule::getPlayerPids(int sid){
 std::unordered_map<int,int> GameModule::dead(int sid,int pid){
     auto &g = _map.find(sid)->second;
     int opponent_fd = getOpponent(sid,pid);
-    std::cout << "DEBUG====" << opponent_fd << g._score[opponent_fd] << std::endl;
     g._score[opponent_fd]++;
 
     return g._score;
