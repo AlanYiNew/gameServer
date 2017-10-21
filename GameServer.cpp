@@ -294,7 +294,6 @@ void GameServer::onAcceptConnection(int fd) {
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
         userForceQuitHandler(fd);
-
     }
 }
 
@@ -346,7 +345,7 @@ string res_parse(const std::map<int, std::string> &map) {
 void GameServer::userForceQuitHandler(int fd){
     Player *p = _player_module.getPlayer(fd);
 
-    if (_game_module.validGame(p->_session) &&
+    if (_game_module.validGame(p->_session) ||
         _session_module.exit(p->_session,fd)){
         int oppnent_fd = _game_module.getOpponentData(p->_session,fd);
         std::unordered_map<string,string> res;
