@@ -88,7 +88,6 @@ public:
 
     const int getOpponent(int sid, int fd);
 
-	int getLid(int sid);
 
     int clear(int sid);
 

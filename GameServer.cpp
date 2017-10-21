@@ -55,7 +55,11 @@ void GameServer::starts() {
     us.init();//buffer size
     us.register_cb(udp_callback, this);
     std::thread thread([&us]() {
-        us.starts();
+        try {
+            us.starts();
+        }   catch(exception &ex){
+            log.LOG(string("### exception ### ")+ex.what());
+        }
     });
 
     TCPServer::init();
@@ -248,7 +252,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         if (result[opponent_fd]>=3) {
             std::unordered_map<string, string> res2;
             std::unordered_map<string, string> res3;
-            _session_module.clear(sid);
+            _game_module.clear(sid);
             res2["opponentscore"] = to_string(result[opponent_fd]);
             res2["playerscore"] = to_string(result[fd]);
             res2["cmd"] = "gameover";
@@ -386,8 +390,10 @@ void GameServer::userForceQuitHandler(int fd,bool send){
         int oppnent_fd;
         if (_game_module.validGame(p->_session)){
             oppnent_fd = _game_module.getOpponent(p->_session,fd);
+            _game_module.clear(p->_session);
         }   else{
             oppnent_fd = _session_module.getOpponent(p->_session,fd);
+            _game_module.clear(p->_session);
         }
 
         if (send) {
@@ -397,7 +403,7 @@ void GameServer::userForceQuitHandler(int fd,bool send){
             res["success"] = "0";
             send_respond(oppnent_fd, res);
         }
-        _game_module.clear(p->_session);
+
     }
 
     _player_module.clear(fd);

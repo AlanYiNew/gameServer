@@ -121,7 +121,8 @@ int SessionModule::clear(int sid){
     _session_bucket[sid]._players[0] = 0;
     _session_bucket[sid]._players[1] = 0;
     _session_bucket[sid]._lobbyname = "";
-    _activated_session.erase(sid);
+    if (_activated_session.find(sid) != _activated_session.end())
+        _activated_session.erase(sid);
 }
 
 
