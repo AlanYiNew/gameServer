@@ -222,12 +222,15 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         send_respond(fd,res);
 
         if (opponent->_score >= 3) {
+
+            std::unordered_map<string, string> res2;
+            res2["opponentscore"] = to_string(opponent->_score);
+            res2["playerscore"] = to_string(player->_score);
+            res2["cmd"] = "gameover";
+            res2["success"] = "0";
+            send_respond(fd,res2);
+            send_respond(opponent_fd,res2);
             _session_module.end(sid);
-            res["opponentscore"] = to_string(opponent->_score);
-            res["playerscore"] = to_string(player->_score);
-            res["cmd"] = "gameover";
-            send_respond(fd,res);
-            send_respond(opponent_fd,res);
             opponent->reset();
             player->reset();
         }
