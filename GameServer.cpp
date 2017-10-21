@@ -131,6 +131,10 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
 
         int sid = std::stoi(req["sid"]);
         int opponenet_fd = _session_module.getOpponent(sid, fd);
+        if (_session_module.isStarted(sid)){
+            _session_module.exit(sid,opponenet_fd);
+        }
+
         int result = _session_module.exit(sid, fd);
         std::unordered_map<string, string> res;
 
@@ -145,9 +149,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         }
 
         send_respond(fd, res);
-        if (_session_module.isStarted(p->_session)){
-            _session_module.exit(p->_session,opponenet_fd);
-        }
+
 
         if (_player_module.validPid(opponenet_fd))
             send_respond(opponenet_fd, res);
