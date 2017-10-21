@@ -54,13 +54,23 @@ int SessionModule::create(string lobbyname){
     return result;
 }
 
-int PlayerModule::update(int fd, void * data, int length){
-    auto iter =_map.find(fd);
-    if (iter != _map.end()) {
-        memcpy(iter->second._data.get(),data, length);
+int SessionModule::update(int sid, int fd, void * data, int length){
+
+    for (int i = 0 ; i < 2 ;++i) {
+        if (_session_bucket[sid]._players[i] == fd) {
+            memcpy(_session_bucket[sid]._data[i].get(), data, length);
+        }
     }
 
 	return 0;
+}
+
+void *SessionModule::getOpponentData(int sid, int fd){
+    for (int i = 0 ; i < 2 ;++i) {
+        if (_session_bucket[sid]._players[i] != fd) {
+            return _session_bucket[sid]._data[i].get();
+        }
+    }
 }
 
 bool SessionModule::enter(int sid,int fd){
