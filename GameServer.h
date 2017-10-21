@@ -69,6 +69,7 @@ private:
     void loginHandler(int fd,std::unordered_map<string,string>& req);
     void deadHandler(int fd,std::unordered_map<string,string>& req);
     void confirmHandler(int fd,std::unordered_map<string,string>& req);*/
+    void userForceQuitHandler(int fd);
     bool is_alive(int fd);
     SCChecker _sanity_check;
 

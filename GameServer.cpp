@@ -53,15 +53,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
     if (p!= nullptr) {
-        if (_game_module.validGame(p->_session)) {
-            int oppnent_fd = _game_module.getOpponentData(p->_session, fd);
-            std::unordered_map <string, string> res;
-            res["cmd"] = res["exit"];
-            res["pid"] = fd;
-            res["success"] = "0";
-            send_respond(oppnent_fd, res);
-        }
-        _player_module.clear(fd);
+        userForceQuitHandler(fd);
     }
 }
 
@@ -193,7 +185,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["opponentwid"] = to_string(opponent->_wid);
                 res["success"] = "0";
                 _session_module.clear(sid);
-                _game_module.newGame(_buf_size,fd,opponent_fd,lid);
+                _game_module.newGame(sid,_buf_size,fd,opponent_fd,lid);
                 send_respond(fd, res);
                 send_respond(opponent_fd, res);
             }
@@ -297,17 +289,8 @@ void GameServer::onAcceptConnection(int fd) {
 
     Player *p = _player_module.getPlayer(fd);
     if (p != nullptr) {
-        if (_game_module.validGame(p->_session)){
-            int oppnent_fd = _game_module.getOpponentData(p->_session,fd);
-            std::unordered_map<string,string> res;
-            res["cmd"] = res["exit"];
-            res["pid"] = fd;
-            res["success"] = "0";
-            send_respond(oppnent_fd,res);
-            _game_module.clear(p->_session);
-        }
+        userForceQuitHandler(fd);
 
-        _player_module.clear(fd);
     }
 }
 
@@ -355,6 +338,23 @@ string res_parse(const std::map<int, std::string> &map) {
         result += " cmd listlobby";
     return result;
 };
+
+void GameServer::userForceQuitHandler(int fd){
+    Player *p = _player_module.getPlayer(fd);
+
+    if (_game_module.validGame(p->_session) &&
+        _session_module.exit(p->_session,fd)){
+        int oppnent_fd = _game_module.getOpponentData(p->_session,fd);
+        std::unordered_map<string,string> res;
+        res["cmd"] = res["exit"];
+        res["pid"] = fd;
+        res["success"] = "0";
+        send_respond(oppnent_fd,res);
+        _game_module.clear(p->_session);
+    }
+
+    _player_module.clear(fd);
+}
 
 int GameServer::send_respond(int fd, const std::unordered_map<string, string> &map) {
     assert(!_sanity_check.isValid(map) && "invalid respond");

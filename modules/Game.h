@@ -27,7 +27,7 @@ private:
     std::unordered_map<int,Game> _map;
     int _next = 0;
 public:
-    void newGame(size_t bufsize,int f1, int f2, int lid);
+    void newGame(int sid,size_t bufsize,int f1, int f2, int lid);
     int updateGame(int sid, int fd, void * data, int length);
     void* opponentData(int sid, int fd);
     int getLid(int);

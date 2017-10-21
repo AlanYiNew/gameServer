@@ -8,13 +8,9 @@ bool GameModule::validGame(int sid){
     return _map.find(sid) != _map.end();
 }
 
-void GameModule::newGame(size_t bufsize,int f1, int f2, int lid){
-    _map.emplace(_next,Game(bufsize,f1,f2,lid));
-    if (_map.size() < MAX_SESSION){
-        while (_map.find(_next) != _map.end()){
-            _next = (_next+1)%MAX_SESSION;
-        }
-    }
+void GameModule::newGame(int sid,size_t bufsize,int f1, int f2, int lid){
+    _map.emplace(sid,Game(bufsize,f1,f2,lid));
+  
 }
 
 int GameModule::getLid(int sid) {
