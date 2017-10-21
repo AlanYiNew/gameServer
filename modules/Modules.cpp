@@ -86,6 +86,7 @@ map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     for (int i = 0; i < pagesize && iter != _activated_session.end() ;++iter){
         result[iter->first] = iter->second->_lobbyname;
     }
+    std::cout << "listsize "<< result.size() << std::endl;
     return result;
 }
 
