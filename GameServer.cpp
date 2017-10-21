@@ -207,7 +207,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         opponent->_score++;
         res["success"] = "0";
         res["cmd"] = "score";
-        res["score"] = opponent->_score;
+        res["score"] = to_string(opponent->_score);
         send_respond(opponent_fd, res);
 
         res["cmd"] = "dead";
