@@ -232,7 +232,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         std::unordered_map<string, string> res;
         Player *player = _player_module.getPlayer(fd);
         int sid = player->_session;
-        int opponent_fd = _session_module.getOpponent(sid, fd);
+        int opponent_fd = _game_module.getOpponent(sid, fd);
         Player *opponent = _player_module.getPlayer(opponent_fd);
 
         auto result = _game_module.dead(sid,fd);
