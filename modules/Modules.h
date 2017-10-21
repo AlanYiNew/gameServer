@@ -13,7 +13,8 @@ using namespace std;
 
 #define MAX_SESSION 256
 struct Player{
-	std::unique_ptr<char[]> _data;
+
+
 	int _len;
 	int _fd;//file descriptor
     int _session;
@@ -23,11 +24,8 @@ struct Player{
 	string _username;
     bool _confirmed;
 	Player(int fd,size_t buffer_size):_len(0),_username("Noob"),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){
-        _data = make_unique<char[]>(buffer_size);
-
     };
 	Player(string u,int fd,size_t buffer_size):_len(0),_username(u),_fd(fd),_confirmed(0),_wid(0),_cid(0),_session(-1){
-        _data = make_unique<char[]>(buffer_size);
     };
 
     void reset(){
@@ -38,6 +36,7 @@ struct Player{
     }
 };
 
+
 struct chunk{
 	int sid;
 	int pid;
@@ -45,11 +44,18 @@ struct chunk{
 
 struct session{
 	int _players[2];
+	//TODO isolate data with Player object
+	std::unique_ptr<char[]> _data[2];
+
     bool _starts;
 	int _lid;
 	int _occupied;
 	string _lobbyname;
-    session():_occupied(0),_starts(false),_lobbyname(""){_players[0]=0;_players[1]=0;};
+    session():_occupied(0),_starts(false),_lobbyname(""){
+		_players[0]=0;_players[1]=0;
+		_data[0] = std::make_unique<char[]>(128);
+		_data[1] = std::make_unique<char[]>(128);
+	};
 };
 
 class PlayerModule{
@@ -58,7 +64,7 @@ public:
 
 	int clear(int fd);
 
-    int update(int fd, void * data, int length);
+
 
 	Player * getPlayer(int fd);
 
@@ -94,6 +100,10 @@ public:
 	int getLid(int sid);
 
     int clear(int sid);
+
+	int update(int sid, int fd, void * data, int length);
+
+	void *getOpponentData(int sid, int fd);
 
     inline bool isFull(int sid);
 

@@ -19,10 +19,10 @@ string res_parse(const std::map<string, string> &map);
 int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::message_t &message_out) {
     GameServer *server = reinterpret_cast<GameServer *>(userptr);
     chunk recv = *reinterpret_cast<chunk *>(message.content);
-    server->_player_module.update(recv.pid, message.content, message.len);
+    server->_session_module.update(recv.sid,recv.pid, message.content, message.len);
     int opponent_fd = server->_session_module.getOpponent(recv.sid, recv.pid);
 
-    message_out.content = server->_player_module.getPlayer(opponent_fd)->_data.get();
+    message_out.content = server->_session_module.getOpponentData(recv.sid,recv.pid);
     message_out.len = message.len;
 #if SERVER_DEBUG
     //server->log.LOG("recving " + std::to_string(message.len) +" from " +  std::to_string(recv.pid));
@@ -139,7 +139,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         if (result >= 0) {
             res["success"] = "0";
             p->_session = -1;
-        } else {
+        }   else {
             res["success"] = "-1";
         }
 
