@@ -255,10 +255,10 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res2["success"] = "0";
             send_respond(fd,res2);
 
-            res2["opponentscore"] = to_string(result[fd]);
-            res2["playerscore"] = to_string(result[opponent_fd]);
-            res2["cmd"] = "gameover";
-            res2["success"] = "0";
+            res3["opponentscore"] = to_string(result[fd]);
+            res3["playerscore"] = to_string(result[opponent_fd]);
+            res3["cmd"] = "gameover";
+            res3["success"] = "0";
             send_respond(opponent_fd,res3);
             if (opponent != nullptr)
                 opponent->reset();
