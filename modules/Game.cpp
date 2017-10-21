@@ -29,7 +29,7 @@ bool GameModule::count(int sid,int pid){
 
 
 bool GameModule::lost_count(int sid,int pid){
-    return _map.find(sid)->second._lost_count[pid] >= 3;
+    return _map.find(sid)->second._lost_count[pid]++ >= 3;
 }
 
 bool GameModule::reset_lcount(int sid,int pid){
