@@ -124,7 +124,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res["sid"] = std::to_string(sid);
             res["lobbyname"] = lobbyname;
             res["success"] = "0";
-            if (host_player == nullptr) {
+            if (host_player != nullptr) {
                 res["hostpid"] = to_string(host_player_fd);
                 res["hostname"] = host_player->_username;
                 res["hostcid"] = to_string(host_player->_cid);
