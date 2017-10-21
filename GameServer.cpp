@@ -132,13 +132,13 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         int sid = std::stoi(req["sid"]);
         int opponenet_fd = _session_module.getOpponent(sid, fd);
 
-        int result = _session_module.exit(sid, fd);
+        bool result = _session_module.exit(sid, fd);
         std::unordered_map<string, string> res;
 
         Player *p = _player_module.getPlayer(fd);
         res["pid"] = to_string(fd);
         res["cmd"] = "exit";
-        if (result >= 0) {
+        if (result) {
             res["success"] = "0";
             p->_session = -1;
         }   else {

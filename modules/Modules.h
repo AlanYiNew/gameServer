@@ -78,7 +78,7 @@ public:
 
 	bool enter(int sid,int fd);
 
-	int exit(int sid, int index);
+	bool exit(int sid, int index);
 
     map<int,string> activatedList(int pagesize, int pageno);
 

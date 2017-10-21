@@ -62,7 +62,7 @@ bool SessionModule::enter(int sid,int fd){
     }
 }
 
-int SessionModule::exit(int sid, int fd){
+bool SessionModule::exit(int sid, int fd){
     if (validSid(sid)) {
         _session_bucket[sid]._occupied--;
         for (int i = 0; i < 2 ;++i)
@@ -71,9 +71,9 @@ int SessionModule::exit(int sid, int fd){
 
         if (isEmpty(sid))
             clear(sid);
-        return sid;
+        return true;
     }   else
-        return -1;
+        return false;
 }
 
 map<int,string> SessionModule::activatedList(int pagesize, int pageno){
