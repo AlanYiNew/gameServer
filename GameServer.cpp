@@ -29,12 +29,12 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
             active = server->is_alive(opponent_fd);
         }
 
-        if (active) {
-            server->_game_module.updateGame(recv.sid, recv.pid, message.content, message.len);
-            message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
-            message_out.len = message.len;
-        }   else{
-            message_out.len = 0;
+
+        server->_game_module.updateGame(recv.sid, recv.pid, message.content, message.len);
+        message_out.content = server->_game_module.opponentData(recv.sid, recv.pid);;
+        message_out.len = message.len;
+
+        if (!active){
             if (server->_game_module.lost_count(recv.sid,opponent_fd))
                 server->userForceQuitHandler(opponent_fd,true);
         }
