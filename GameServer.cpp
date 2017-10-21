@@ -260,7 +260,9 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             for (auto iter = result.begin(); iter != result.end(); ++iter) {
                 if (prev.find(iter->first) == prev.end()) {
                     bool active = false;
-                    for (int fd:_session_module.getPlayerPids(iter->first)) {
+                    auto pidlist = _session_module.getPlayerPids(iter->first);
+                    log.LOG("DEBUG===pidlistsize "+to_string(pidlist.size()));
+                    for (int fd:pidlist) {
                         active = is_alive(fd);
                         if (active) break;
                     }
