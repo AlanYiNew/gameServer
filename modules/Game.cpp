@@ -17,23 +17,19 @@ int GameModule::getLid(int sid) {
     return _map.find(sid)->second._lid;
 }
 
-bool GameModule::count(int sid){
+bool GameModule::count(int sid,int pid){
     //around 5 secs
-    if (_map.find(sid)->second._count++ == 300){
-        _map.find(sid)->second._count = 0;
+    if (_map.find(sid)->second._count[pid]++ == 300){
+        _map.find(sid)->second._count[pid] = 0;
         return true;
     }
     return false;
 }
 
-void GameModule::lost(int sid, int pid){
-    //disconnected after lost for three times
-    _map.find(sid)->second._lost_count[pid]++;
-}
+
 
 bool GameModule::lost_count(int sid,int pid){
-
-    return _map.find(sid)->second._count >= 3;
+    return _map.find(sid)->second._lost_count[pid] >= 3;
 }
 
 bool GameModule::reset_lcount(int sid,int pid){

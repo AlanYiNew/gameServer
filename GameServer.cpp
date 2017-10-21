@@ -37,7 +37,6 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
             message_out.len = message.len;
         }   else{
             message_out.len = 0;
-            server->_game_module.lost(recv.sid,opponent_fd);
             if (server->_game_module.lost_count(recv.sid,opponent_fd))
                 server->userForceQuitHandler(opponent_fd,true);
         }

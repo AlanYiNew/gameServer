@@ -16,7 +16,7 @@ private:
         std::unordered_map<int,int> _score;
         std::unordered_map<int,int> _lost_count;
         int _lid;
-        int _count;
+        std::unordered_map<int,int> _count;
 
         Game(size_t buf_size,int fd1, int fd2, int lid){
             _data.emplace(fd1,std::make_unique<char[]>(buf_size));
@@ -24,7 +24,8 @@ private:
             _score[fd1] = 0;
             _score[fd2] = 0;
             _lid = lid;
-            _count = 0;
+            _count[fd1] = 0;
+            _count[fd2] = 0;
             _lost_count[fd1] = 0;
             _lost_count[fd2] = 0;
         };
@@ -40,8 +41,7 @@ public:
     bool validGame(int sid);
     void clear(int sid);
     int getOpponent(int sid, int fd);
-    bool count(int sid);
-    void lost(int sid,int pid);
+    bool count(int sid,int fd);
     bool lost_count(int sid, int pid);
     bool reset_lcount(int sid, int pid);
     std::vector<int> getPlayerPids(int sid);
