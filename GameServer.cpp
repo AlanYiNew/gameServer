@@ -58,7 +58,7 @@ void GameServer::starts() {
         try {
             us.starts();
         }   catch(exception &ex){
-            log.LOG(string("### exception ### ")+ex.what());
+            std::cout << string("### exception ### ")+ex.what() << std::endl;
         }
     });
 
