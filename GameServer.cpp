@@ -35,8 +35,11 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
         message_out.len = message.len;
 
         if (!active){
+            std::cout << "DEBUG===inside not active" << std::endl;
             if (server->_game_module.lost_count(recv.sid,opponent_fd))
                 server->userForceQuitHandler(opponent_fd,true);
+        }   else{
+            server->_game_module.reset_lcount(recv.sid,opponent_fd);
         }
 
     }   else{
