@@ -380,6 +380,7 @@ bool SCChecker::isValid(const std::unordered_map<string,string> &req){
         if (iter != sc.end()) {
             for (const string &key: iter->second) {
                 if (req.find(key) == req.end()) {
+                    std::cout << "lack " << key << std::endl;
                     return false;
                 }
             }
