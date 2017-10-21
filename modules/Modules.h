@@ -45,7 +45,7 @@ struct session{
 	int _players[2];
 	//TODO isolate data with Player object
 
-	int _lid;
+
 	int _occupied;
 	string _lobbyname;
     session():_occupied(0),_lobbyname(""){

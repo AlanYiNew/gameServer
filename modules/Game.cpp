@@ -20,7 +20,7 @@ int GameModule::getLid(int sid) {
 
 bool GameModule::count(int sid,int pid){
     //around 5 secs
-    if (_map.find(sid)->second._count[pid]++ == 300){
+    if (_map.find(sid)->second._count[pid]++ == 200){
         _map.find(sid)->second._count[pid] = 0;
         return true;
     }
@@ -30,8 +30,7 @@ bool GameModule::count(int sid,int pid){
 
 
 bool GameModule::lost_count(int sid,int pid){
-    std::cout << "Debug==" <<_map.find(sid)->second._lost_count[pid] << std::endl;
-    return ++_map.find(sid)->second._lost_count[pid] >= 3;
+    return ++_map.find(sid)->second._lost_count[pid] >= 2;
 }
 
 bool GameModule::reset_lcount(int sid,int pid){

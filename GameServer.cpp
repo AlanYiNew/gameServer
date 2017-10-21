@@ -35,7 +35,6 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
         message_out.len = message.len;
 
         if (!active){
-            std::cout << "DEBUG===inside not active" << std::endl;
             if (server->_game_module.lost_count(recv.sid,opponent_fd))
                 server->userForceQuitHandler(opponent_fd,true);
         }   else{
@@ -75,9 +74,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 
 void GameServer::onShutDownConnection(int fd) {
     const Player *p = _player_module.getPlayer(fd);
-    std::cout << "shutDownConnection" << std::endl;
     if (p!= nullptr) {
-        log.LOG("DEBUG===Calling FORCEQUITHANLDER");
         userForceQuitHandler(fd, true);
     }
 }
@@ -245,7 +242,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         send_respond(opponent_fd, res);
 
         res["cmd"] = "dead";
-        res["playerspawnpoint"] = std::to_string(_map_module.randomSpawn(_session_module.getLid(sid)));
+        res["playerspawnpoint"] = std::to_string(_map_module.randomSpawn(_game_module.getLid(sid)));
         send_respond(fd,res);
 
         if (result.size()!=0) {
