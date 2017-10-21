@@ -165,6 +165,8 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         if (_session_module.validSid(sid)) {
             const int opponent_fd = _session_module.getOpponent(sid, fd);
             bool ready_state = _player_module.confirm(fd, wid, cid);
+            Player *p = _player_module.getPlayer(fd)
+            Player *opponent = _player_module.getPlayer(opponent_fd);
 
             res["cmd"] = "confirm";
             res["pid"] = to_string(fd);
@@ -177,8 +179,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             }
             send_respond(fd, res);
 
-            if (_player_module.getPlayer(fd)->_confirmed
-                && _player_module.getPlayer(opponent_fd)->_confirmed) {
+            if (p->_confirmed && opponent != nullptr && opponent->_confirmed) {
                 Player * opponent = _player_module.getPlayer(opponent_fd);
                 res["cmd"] = "gamestart";
                 int lid = _map_module.getRandomMap();
