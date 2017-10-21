@@ -21,11 +21,11 @@ int udp_callback(void *userptr, const UDPServer::message_t &message, UDPServer::
     chunk recv = *reinterpret_cast<chunk *>(message.content);
 
 
-
+s
     if (server->_game_module.validGame(recv.sid)) {
         bool active = true;
         int opponent_fd;
-        if (server->_game_module.count(recv.sid)){
+        if (server->_game_module.count(recv.sid,recv.pid)){
             //heart beat message
             opponent_fd = server->_game_module.getOpponent(recv.sid,recv.pid);
             active = server->is_alive(opponent_fd);
