@@ -161,8 +161,7 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
             res["cmd"] = "confirm";
             res["pid"] = to_string(fd);
             res["readystate"] = to_string(ready_state);
-            res["cid"] = to_string(wid);
-            res["wid"] = to_string(cid);
+
             res["success"] = "0";
 
             if (opponent_fd > 0) {
@@ -172,7 +171,17 @@ void GameServer::onRead(int fd, char *mess, int readsize) {
 
             if (_player_module.getPlayer(fd)->_confirmed
                 && _player_module.getPlayer(opponent_fd)->_confirmed) {
+                Player * opponent = _player_module.getPlayer(opponent_fd);
                 res["cmd"] = "gamestart";
+                int lid = _map_module.getRandomMap();
+                res["lid"] = to_string(lid);
+                auto pair = _map_module.randomSpawns(lid);
+                res["playerspawnpoint"] = to_string(pair.first);
+                res["opponentspawnpoint"] = to_string(pair.second);
+                res["playercid"] = to_string(wid);
+                res["playerwid"] = to_string(cid);
+                res["opponentcid"] = to_string(opponent->_cid);
+                res["opponentwid"] = to_string(opponent->_wid);
                 res["success"] = "0";
                 _session_module.start(sid);
                 send_respond(fd, res);
