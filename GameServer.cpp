@@ -290,7 +290,6 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 if (prev.find(iter->first) == prev.end()) {
                     bool active = false;
                     auto pidlist = _session_module.getPlayerPids(iter->first);
-                    log.LOG("DEBUG===pidlistsize "+to_string(pidlist.size()));
                     for (int fd:pidlist) {
                         active = is_alive(fd);
                         if (active) break;
@@ -413,7 +412,7 @@ int GameServer::send_respond(int fd, const std::map<int, string> &map) {
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);
-    log.LOG("### respond ### " + res_str + " " + to_string(len));
+    log.LOG("### respond to " +to_string(fd)+" ### " + res_str + " " + to_string(len));
     return len;
 }
 
