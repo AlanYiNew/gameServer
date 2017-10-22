@@ -3,7 +3,8 @@
 //
 #include "utils.h"
 int Util::randomRange(int begin, int end){
-    std::default_random_engine generator;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
     std::uniform_int_distribution<int> distribution(begin,end);
     return distribution(generator);
 }
