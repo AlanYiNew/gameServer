@@ -3,11 +3,6 @@
 //
 
 #include "GameServer.h"
-
-
-using namespace std;
-
-
 #define SERVER_DEBUG 1
 
 std::unordered_map<string, string> req_parse(const string &mess);
@@ -302,8 +297,8 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         int pageno = std::stoi(req["pageno"]);
 
         int count = 0;
-        std::map<int, string> result;
-        std::map<int, string> prev;
+        std::map<int, std::string> result;
+        std::map<int, std::string> prev;
         while (result.size() < 10) {
             result = _session_module.activatedList(10, pageno);
             if (result.size() == prev.size()) break;
@@ -330,20 +325,19 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
     }   else if (req["cmd"] == "backtolobby"){
         //Does not have to reply at the moment
         //It should be cleaned up when game is over
-        int sid = std::stoi(req["sid"]);
-        int opponent_fd = _game_module.getOpponent(fd);
-        
-		Player * opponent = _player_module.getPlayer(opponent_fd);
-		p->_status = INLOBBY;
-		opponent->_status = INLOBBY;
-		_game_module.clear(p->_session);
-		p->_session = -1;
-		opponent->_session = -1;
-		
-        bool result = _session_module.exit(sid, fd);
-        std::unordered_map<string, string> res;
 
         Player *p = _player_module.getPlayer(fd);
+        int sid = p->_session;
+        int opponent_fd = _game_module.getOpponent(sid,fd);
+        Player * opponent = _player_module.getPlayer(opponent_fd);
+
+        p->_status = INLOBBY;
+        opponent->_status = INLOBBY;
+        _game_module.clear(p->_session);
+        p->_session = -1;
+        opponent->_session = -1;
+
+        std::unordered_map<string, string> res;
         res["pid"] = to_string(fd);
         res["cmd"] = "exit";
         res["success"] = "0";
@@ -466,7 +460,7 @@ int GameServer::send_respond(int fd, const std::unordered_map<string, string> &m
     return len;
 }
 
-int GameServer::send_respond(int fd, const std::map<int, string> &map) {
+int GameServer::send_respond(int fd, const std::map<int,std::string> &map) {
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);

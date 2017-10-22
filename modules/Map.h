@@ -4,7 +4,7 @@
 
 #ifndef GAMESERVER_MAP_H
 #define GAMESERVER_MAP_H
-#include "../utils.h"
+#include "../utils/utils.h"
 #include <utility>
 #include <vector>
 

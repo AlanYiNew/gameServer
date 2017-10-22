@@ -5,9 +5,9 @@
 #ifndef HELLLOWORLD_GAMESERVER_H
 #define HELLLOWORLD_GAMESERVER_H
 
-#include "UDPServer.h"
+#include "network/UDPServer.h"
 #include <string>
-#include "TCPServer.h"
+#include "network/TCPServer.h"
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -24,7 +24,7 @@
 #include <exception>
 #include "logsys/gs_log.h"
 #include <cassert>
-#include "utils.h"
+#include "utils/utils.h"
 #include "modules/Map.h"
 #include "modules/Game.h"
 #include "modules/Session.h"
