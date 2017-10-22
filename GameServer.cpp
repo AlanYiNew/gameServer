@@ -64,7 +64,11 @@ void GameServer::starts() {
 
     TCPServer::init();
 
-    TCPServer::starts();
+    try {
+        TCPServer::starts();
+    }   catch (exception &ex){
+        std::cout << string("### exception ### ")+ex.what() << std::endl;
+    }
     thread.join();
 }
 

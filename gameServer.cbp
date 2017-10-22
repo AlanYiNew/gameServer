@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="gameServer" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/alan/CLionProjects/gameServer" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/alan/CLionProjects/gameServer" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/alan/CLionProjects/gameServer" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="gameServer">
+         <Option output="/home/alan/CLionProjects/gameServer/gameServer" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/alan/CLionProjects/gameServer" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 gameServer" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="gameServer/fast">
+         <Option output="/home/alan/CLionProjects/gameServer/gameServer" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/alan/CLionProjects/gameServer" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 gameServer/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/alan/CLionProjects/gameServer/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/logsys/gs_log.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/logsys/gs_log.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/main.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Game.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Game.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Map.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Map.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Modules.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Player.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Player.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Session.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/modules/Session.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/utils.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/utils.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
