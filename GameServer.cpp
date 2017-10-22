@@ -224,6 +224,8 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 opponent-> _session = sid;
                 p->_session = sid;
                 send_respond(fd, res);
+                res["playerspawnpoint"] = to_string(pair.second);
+                res["opponentspawnpoint"] = to_string(pair.first);
                 send_respond(opponent_fd, res);
             }
         } else {
