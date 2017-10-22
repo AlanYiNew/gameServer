@@ -414,7 +414,7 @@ string res_parse(const std::map<int, std::string> &map) {
 
 void GameServer::userForceQuitHandler(int fd,bool send){
     Player *p = _player_module.getPlayer(fd);
-
+    if (p == nullptr) return;
     switch (p->_status){
         case INGAME:{
             if (_game_module.validGame(p->_session)){
