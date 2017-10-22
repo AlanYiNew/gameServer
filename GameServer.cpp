@@ -458,7 +458,9 @@ int GameServer::send_respond(int fd, const std::unordered_map<string, string> &m
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);
+#if SERVER_DEBUG
     log.LOG("### respond to " +to_string(fd)+" ### " + res_str + " " + to_string(len));
+#endif
     return len;
 }
 
@@ -466,7 +468,9 @@ int GameServer::send_respond(int fd, const std::map<int,std::string> &map) {
     auto res_str = res_parse(map);
     TCPServer::packet_t respond{res_str.length(), res_str.c_str()};
     int len = sendPacket(fd, &respond);
+#if SERVER_DEBUG
     log.LOG("### respond to " +to_string(fd)+" ### " + res_str + " " + to_string(len));
+#endif
     return len;
 }
 
