@@ -150,60 +150,6 @@ GameServer.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/GameServer.cpp.s
 .PHONY : GameServer.cpp.s
 
-TCPServer.o: TCPServer.cpp.o
-
-.PHONY : TCPServer.o
-
-# target to build an object file
-TCPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.o
-.PHONY : TCPServer.cpp.o
-
-TCPServer.i: TCPServer.cpp.i
-
-.PHONY : TCPServer.i
-
-# target to preprocess a source file
-TCPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.i
-.PHONY : TCPServer.cpp.i
-
-TCPServer.s: TCPServer.cpp.s
-
-.PHONY : TCPServer.s
-
-# target to generate assembly for a file
-TCPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/TCPServer.cpp.s
-.PHONY : TCPServer.cpp.s
-
-UDPServer.o: UDPServer.cpp.o
-
-.PHONY : UDPServer.o
-
-# target to build an object file
-UDPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.o
-.PHONY : UDPServer.cpp.o
-
-UDPServer.i: UDPServer.cpp.i
-
-.PHONY : UDPServer.i
-
-# target to preprocess a source file
-UDPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.i
-.PHONY : UDPServer.cpp.i
-
-UDPServer.s: UDPServer.cpp.s
-
-.PHONY : UDPServer.s
-
-# target to generate assembly for a file
-UDPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/UDPServer.cpp.s
-.PHONY : UDPServer.cpp.s
-
 logsys/gs_log.o: logsys/gs_log.cpp.o
 
 .PHONY : logsys/gs_log.o
@@ -366,32 +312,86 @@ modules/Session.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Session.cpp.s
 .PHONY : modules/Session.cpp.s
 
-utils.o: utils.cpp.o
+network/TCPServer.o: network/TCPServer.cpp.o
 
-.PHONY : utils.o
+.PHONY : network/TCPServer.o
 
 # target to build an object file
-utils.cpp.o:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.o
-.PHONY : utils.cpp.o
+network/TCPServer.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/TCPServer.cpp.o
+.PHONY : network/TCPServer.cpp.o
 
-utils.i: utils.cpp.i
+network/TCPServer.i: network/TCPServer.cpp.i
 
-.PHONY : utils.i
+.PHONY : network/TCPServer.i
 
 # target to preprocess a source file
-utils.cpp.i:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.i
-.PHONY : utils.cpp.i
+network/TCPServer.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/TCPServer.cpp.i
+.PHONY : network/TCPServer.cpp.i
 
-utils.s: utils.cpp.s
+network/TCPServer.s: network/TCPServer.cpp.s
 
-.PHONY : utils.s
+.PHONY : network/TCPServer.s
 
 # target to generate assembly for a file
-utils.cpp.s:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils.cpp.s
-.PHONY : utils.cpp.s
+network/TCPServer.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/TCPServer.cpp.s
+.PHONY : network/TCPServer.cpp.s
+
+network/UDPServer.o: network/UDPServer.cpp.o
+
+.PHONY : network/UDPServer.o
+
+# target to build an object file
+network/UDPServer.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/UDPServer.cpp.o
+.PHONY : network/UDPServer.cpp.o
+
+network/UDPServer.i: network/UDPServer.cpp.i
+
+.PHONY : network/UDPServer.i
+
+# target to preprocess a source file
+network/UDPServer.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/UDPServer.cpp.i
+.PHONY : network/UDPServer.cpp.i
+
+network/UDPServer.s: network/UDPServer.cpp.s
+
+.PHONY : network/UDPServer.s
+
+# target to generate assembly for a file
+network/UDPServer.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/network/UDPServer.cpp.s
+.PHONY : network/UDPServer.cpp.s
+
+utils/utils.o: utils/utils.cpp.o
+
+.PHONY : utils/utils.o
+
+# target to build an object file
+utils/utils.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils/utils.cpp.o
+.PHONY : utils/utils.cpp.o
+
+utils/utils.i: utils/utils.cpp.i
+
+.PHONY : utils/utils.i
+
+# target to preprocess a source file
+utils/utils.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils/utils.cpp.i
+.PHONY : utils/utils.cpp.i
+
+utils/utils.s: utils/utils.cpp.s
+
+.PHONY : utils/utils.s
+
+# target to generate assembly for a file
+utils/utils.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/utils/utils.cpp.s
+.PHONY : utils/utils.cpp.s
 
 # Help Target
 help:
@@ -405,12 +405,6 @@ help:
 	@echo "... GameServer.o"
 	@echo "... GameServer.i"
 	@echo "... GameServer.s"
-	@echo "... TCPServer.o"
-	@echo "... TCPServer.i"
-	@echo "... TCPServer.s"
-	@echo "... UDPServer.o"
-	@echo "... UDPServer.i"
-	@echo "... UDPServer.s"
 	@echo "... logsys/gs_log.o"
 	@echo "... logsys/gs_log.i"
 	@echo "... logsys/gs_log.s"
@@ -429,9 +423,15 @@ help:
 	@echo "... modules/Session.o"
 	@echo "... modules/Session.i"
 	@echo "... modules/Session.s"
-	@echo "... utils.o"
-	@echo "... utils.i"
-	@echo "... utils.s"
+	@echo "... network/TCPServer.o"
+	@echo "... network/TCPServer.i"
+	@echo "... network/TCPServer.s"
+	@echo "... network/UDPServer.o"
+	@echo "... network/UDPServer.i"
+	@echo "... network/UDPServer.s"
+	@echo "... utils/utils.o"
+	@echo "... utils/utils.i"
+	@echo "... utils/utils.s"
 .PHONY : help
 
 

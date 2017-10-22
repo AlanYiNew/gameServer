@@ -90,18 +90,6 @@
       <Unit filename="/home/alan/CLionProjects/gameServer/GameServer.h">
          <Option target="gameServer"/>
       </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.cpp">
-         <Option target="gameServer"/>
-      </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/TCPServer.h">
-         <Option target="gameServer"/>
-      </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.cpp">
-         <Option target="gameServer"/>
-      </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/UDPServer.h">
-         <Option target="gameServer"/>
-      </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/logsys/gs_log.cpp">
          <Option target="gameServer"/>
       </Unit>
@@ -138,10 +126,22 @@
       <Unit filename="/home/alan/CLionProjects/gameServer/modules/Session.h">
          <Option target="gameServer"/>
       </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/utils.cpp">
+      <Unit filename="/home/alan/CLionProjects/gameServer/network/TCPServer.cpp">
          <Option target="gameServer"/>
       </Unit>
-      <Unit filename="/home/alan/CLionProjects/gameServer/utils.h">
+      <Unit filename="/home/alan/CLionProjects/gameServer/network/TCPServer.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/network/UDPServer.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/network/UDPServer.h">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/utils/utils.cpp">
+         <Option target="gameServer"/>
+      </Unit>
+      <Unit filename="/home/alan/CLionProjects/gameServer/utils/utils.h">
          <Option target="gameServer"/>
       </Unit>
       <Unit filename="/home/alan/CLionProjects/gameServer/CMakeLists.txt">

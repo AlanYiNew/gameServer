@@ -25,7 +25,7 @@ int GameModule::getLid(int sid) {
 
 bool GameModule::count(int sid,int pid){
     //around 5 secs
-    if (_map.find(sid)->second._count[pid]++ == 200){
+    if (_map.find(sid)->second._count[pid]++ == 500){
         _map.find(sid)->second._count[pid] = 0;
         return true;
     }
