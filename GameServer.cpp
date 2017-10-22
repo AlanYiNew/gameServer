@@ -327,14 +327,17 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
 
         Player *p = _player_module.getPlayer(fd);
         int sid = p->_session;
+
         int opponent_fd = _game_module.getOpponent(sid,fd);
         Player * opponent = _player_module.getPlayer(opponent_fd);
+        if (opponent != nullptr) {
+            opponent->_status = INLOBBY;
+            opponent->_session = -1;
+        }
 
         p->_status = INLOBBY;
-        opponent->_status = INLOBBY;
         _game_module.clear(p->_session);
         p->_session = -1;
-        opponent->_session = -1;
 
         std::unordered_map<string, string> res;
         res["pid"] = to_string(fd);
