@@ -65,6 +65,7 @@ void GameServer::starts() {
     TCPServer::init();
 
     TCPServer::starts();
+    thread.join();
 }
 
 GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
@@ -415,7 +416,7 @@ void GameServer::userForceQuitHandler(int fd,bool send){
             if (_session_module.exit(p->_session,fd)){
                 int oppnent_fd = _session_module.getOpponent(p->_session,fd);
                 _session_module.clear(p->_session);
-                
+
                 if (send) {
                     std::unordered_map<string, string> res;
                     res["cmd"] = res["exit"];
