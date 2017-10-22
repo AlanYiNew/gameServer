@@ -224,7 +224,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["success"] = "0";
                 _session_module.clear(sid);
                 int sid = _game_module.newGame(_buf_size,fd,opponent_fd,lid);
-                res["sid"] = sid;
+                res["sid"] = to_string(sid);
                 opponent-> _session = sid;
                 p->_session = sid;
                 send_respond(fd, res);
