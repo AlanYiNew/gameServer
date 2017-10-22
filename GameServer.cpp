@@ -77,10 +77,7 @@ GameServer::GameServer(int udp_port, int tcp_port,const string& sc_path) :
 };
 
 void GameServer::onShutDownConnection(int fd) {
-    const Player *p = _player_module.getPlayer(fd);
-    if (p!= nullptr) {
-        userForceQuitHandler(fd, true);
-    }
+    userForceQuitHandler(fd, true);
 }
 
 void GameServer::onRead(int fd,const char *mess, int readsize) {
