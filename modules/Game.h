@@ -32,7 +32,7 @@ private:
 
     };
     std::unordered_map<int,Game> _map;
-    int _next_free;
+    int _next_free = 0;
 
 public:
     int newGame(size_t bufsize,int f1, int f2, int lid);
