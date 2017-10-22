@@ -104,6 +104,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         if (_session_module.validSid(sid)) {
             _session_module.enter(sid, fd);
             p->_session = sid;
+            p->_status = INROOM;
             res["success"] = "0";
 
         } else {
@@ -145,7 +146,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res["entercid"] = to_string(entered_player->_cid);
             res["enterwid"] = to_string(entered_player->_wid);
 
-
+            entered_player->_status = INROOM;
 
             send_respond(fd, res);
             send_respond(host_player_fd, res);
@@ -171,6 +172,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         if (result) {
             res["success"] = "0";
             p->_session = -1;
+            p->_status = INLOBBY;
         }   else {
             res["success"] = "-1";
         }
@@ -220,7 +222,9 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["opponentwid"] = to_string(opponent->_wid);
                 res["success"] = "0";
                 _session_module.clear(sid);
-                _game_module.newGame(sid,_buf_size,fd,opponent_fd,lid);
+                int sid = _game_module.newGame(_buf_size,fd,opponent_fd,lid);
+                opponent-> _session = sid;
+                p->_session = sid;
                 send_respond(fd, res);
                 send_respond(opponent_fd, res);
             }
@@ -257,6 +261,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res2["playerscore"] = to_string(result[fd]);
             res2["cmd"] = "gameover";
             res2["success"] = "0";
+            player->_status = INLOBBY;
             send_respond(fd,res2);
 
             res3["opponentscore"] = to_string(result[fd]);
@@ -264,8 +269,10 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
             res3["cmd"] = "gameover";
             res3["success"] = "0";
             send_respond(opponent_fd,res3);
-            if (opponent != nullptr)
+            if (opponent != nullptr) {
                 opponent->reset();
+                opponent->_status = INLOBBY;
+            }
             player->reset();
         }
 
@@ -314,6 +321,9 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
         }
 
         send_respond(fd, result);
+    }   else if (req["cmd"] == "backtolobby"){
+        //Does not have to reply at the moment
+        //It should be cleaned up when game is over
     }   else{
         std::unordered_map<string, string> res;
         res["success"] = "-1";
@@ -384,26 +394,38 @@ string res_parse(const std::map<int, std::string> &map) {
 void GameServer::userForceQuitHandler(int fd,bool send){
     Player *p = _player_module.getPlayer(fd);
 
-    if (_game_module.validGame(p->_session) ||
-        _session_module.exit(p->_session,fd)){
-        log.LOG("DEBUG===INSIDE if statement FORCEQUITHANLDER");
-        int oppnent_fd;
-        if (_game_module.validGame(p->_session)){
-            oppnent_fd = _game_module.getOpponent(p->_session,fd);
-            _game_module.clear(p->_session);
-        }   else{
-            oppnent_fd = _session_module.getOpponent(p->_session,fd);
-            _game_module.clear(p->_session);
-        }
 
-        if (send) {
-            std::unordered_map<string, string> res;
-            res["cmd"] = res["exit"];
-            res["pid"] = to_string(fd);
-            res["success"] = "0";
-            send_respond(oppnent_fd, res);
-        }
+    switch (p->_status){
+        case INGAME:{
+            if (_game_module.validGame(p->_session)){
+                int oppnent_fd = _game_module.getOpponent(p->_session,fd);
+                _game_module.clear(p->_session);
 
+                if (send) {
+                    std::unordered_map<string, string> res;
+                    res["cmd"] = res["exit"];
+                    res["pid"] = to_string(fd);
+                    res["success"] = "0";
+                    send_respond(oppnent_fd, res);
+                }
+            }
+        };break;
+
+        case INROOM:{
+            if (_session_module.exit(p->_session,fd)){
+                int oppnent_fd = _session_module.getOpponent(p->_session,fd);
+                _session_module.clear(p->_session);
+                
+                if (send) {
+                    std::unordered_map<string, string> res;
+                    res["cmd"] = res["exit"];
+                    res["pid"] = to_string(fd);
+                    res["success"] = "0";
+                    send_respond(oppnent_fd, res);
+                }
+            }
+        }
+        default:;
     }
 
     _player_module.clear(fd);

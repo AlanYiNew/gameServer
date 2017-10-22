@@ -32,9 +32,10 @@ private:
 
     };
     std::unordered_map<int,Game> _map;
+    int _next_free;
 
 public:
-    void newGame(int sid,size_t bufsize,int f1, int f2, int lid);
+    int newGame(size_t bufsize,int f1, int f2, int lid);
     int updateGame(int sid, int fd, void * data, int length);
     void* opponentData(int sid, int fd);
     int getLid(int);
@@ -44,7 +45,6 @@ public:
     bool count(int sid,int fd);
     bool lost_count(int sid, int pid);
     bool reset_lcount(int sid, int pid);
-    std::vector<int> getPlayerPids(int sid);
 
     std::unordered_map<int,int> dead(int sid,int pid);
 };

@@ -312,32 +312,59 @@ modules/Map.cpp.s:
 	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Map.cpp.s
 .PHONY : modules/Map.cpp.s
 
-modules/Modules.o: modules/Modules.cpp.o
+modules/Player.o: modules/Player.cpp.o
 
-.PHONY : modules/Modules.o
+.PHONY : modules/Player.o
 
 # target to build an object file
-modules/Modules.cpp.o:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.o
-.PHONY : modules/Modules.cpp.o
+modules/Player.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Player.cpp.o
+.PHONY : modules/Player.cpp.o
 
-modules/Modules.i: modules/Modules.cpp.i
+modules/Player.i: modules/Player.cpp.i
 
-.PHONY : modules/Modules.i
+.PHONY : modules/Player.i
 
 # target to preprocess a source file
-modules/Modules.cpp.i:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.i
-.PHONY : modules/Modules.cpp.i
+modules/Player.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Player.cpp.i
+.PHONY : modules/Player.cpp.i
 
-modules/Modules.s: modules/Modules.cpp.s
+modules/Player.s: modules/Player.cpp.s
 
-.PHONY : modules/Modules.s
+.PHONY : modules/Player.s
 
 # target to generate assembly for a file
-modules/Modules.cpp.s:
-	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Modules.cpp.s
-.PHONY : modules/Modules.cpp.s
+modules/Player.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Player.cpp.s
+.PHONY : modules/Player.cpp.s
+
+modules/Session.o: modules/Session.cpp.o
+
+.PHONY : modules/Session.o
+
+# target to build an object file
+modules/Session.cpp.o:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Session.cpp.o
+.PHONY : modules/Session.cpp.o
+
+modules/Session.i: modules/Session.cpp.i
+
+.PHONY : modules/Session.i
+
+# target to preprocess a source file
+modules/Session.cpp.i:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Session.cpp.i
+.PHONY : modules/Session.cpp.i
+
+modules/Session.s: modules/Session.cpp.s
+
+.PHONY : modules/Session.s
+
+# target to generate assembly for a file
+modules/Session.cpp.s:
+	$(MAKE) -f CMakeFiles/gameServer.dir/build.make CMakeFiles/gameServer.dir/modules/Session.cpp.s
+.PHONY : modules/Session.cpp.s
 
 utils.o: utils.cpp.o
 
@@ -396,9 +423,12 @@ help:
 	@echo "... modules/Map.o"
 	@echo "... modules/Map.i"
 	@echo "... modules/Map.s"
-	@echo "... modules/Modules.o"
-	@echo "... modules/Modules.i"
-	@echo "... modules/Modules.s"
+	@echo "... modules/Player.o"
+	@echo "... modules/Player.i"
+	@echo "... modules/Player.s"
+	@echo "... modules/Session.o"
+	@echo "... modules/Session.i"
+	@echo "... modules/Session.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

@@ -1,30 +1,7 @@
-#include "Modules.h"
-#include <iostream>
-
-
-
-int PlayerModule::record(int fd, string u){
-    if (_map.find(fd) == _map.end())
-	    _map.emplace(fd,Player(u,fd,_player_buffer_size));
-    return 0;
-}
-
-int PlayerModule::clear(int fd){
-    auto iter = _map.find(fd);
-    if (iter != _map.end()) {
-        _map.erase(iter);
-        return 0;
-    }
-    return -1;
-};
-
-Player * PlayerModule::getPlayer(int fd){
-    if (_map.find(fd) != _map.end())
-        return &_map.find(fd)->second;
-    else
-        return nullptr;
-}
-
+//
+// Created by alan on 10/21/17.
+//
+#include "Session.h"
 
 int SessionModule::create(string lobbyname){
     if (!_available) return -1;
@@ -72,6 +49,26 @@ bool SessionModule::exit(int sid, int fd){
         return false;
 }
 
+
+vector<int> SessionModule::getPlayerPids(int sid){
+    vector<int> result;
+    for (int i = 0 ; i < 2; i++){
+        if (_session_bucket[sid]._players[i] > 2)
+            result.push_back(_session_bucket[sid]._players[i]);
+    }
+    return result;
+}
+
+int SessionModule::clear(int sid){
+    _session_bucket[sid]._occupied = 0;
+    _session_bucket[sid]._players[0] = 0;
+    _session_bucket[sid]._players[1] = 0;
+    _session_bucket[sid]._lobbyname = "";
+    if (_activated_session.find(sid) != _activated_session.end())
+        _activated_session.erase(sid);
+}
+
+
 map<int,string> SessionModule::activatedList(int pagesize, int pageno){
     auto iter = _activated_session.begin();
     map<int,string>result;
@@ -95,34 +92,3 @@ const int SessionModule::getOpponent(int sid, int fd){
 const string& SessionModule::getLobbyName(int sid){
     return _session_bucket[sid]._lobbyname;
 }
-
-bool PlayerModule::confirm(int fd, int wid, int cid){
-    auto iter = _map.find(fd);
-    if (iter != _map.end()) {
-        iter->second._confirmed = !iter->second._confirmed;
-        iter->second._cid = cid;
-        iter->second._wid = wid;
-        return iter->second._confirmed;
-    }   else
-        return false;
-}
-
-vector<int> SessionModule::getPlayerPids(int sid){
-    vector<int> result;
-    for (int i = 0 ; i < 2; i++){
-        if (_session_bucket[sid]._players[i] > 2)
-            result.push_back(_session_bucket[sid]._players[i]);
-    }
-    return result;
-}
-
-int SessionModule::clear(int sid){
-    _session_bucket[sid]._occupied = 0;
-    _session_bucket[sid]._players[0] = 0;
-    _session_bucket[sid]._players[1] = 0;
-    _session_bucket[sid]._lobbyname = "";
-    if (_activated_session.find(sid) != _activated_session.end())
-        _activated_session.erase(sid);
-}
-
-

@@ -9,9 +9,14 @@ bool GameModule::validGame(int sid){
     return _map.find(sid) != _map.end();
 }
 
-void GameModule::newGame(int sid,size_t bufsize,int f1, int f2, int lid){
-    _map.emplace(sid,Game(bufsize,f1,f2,lid));
+int GameModule::newGame(size_t bufsize,int f1, int f2, int lid){
 
+    _map.emplace(_next_free,Game(bufsize,f1,f2,lid));
+    int result = _next_free;
+    while (_map.size() != MAX_SESSION && _map.find(_next_free) != _map.end()){
+        _next_free = (_next_free+1)%MAX_SESSION;
+    }
+    return _next_free;
 }
 
 int GameModule::getLid(int sid) {
@@ -27,8 +32,6 @@ bool GameModule::count(int sid,int pid){
     return false;
 }
 
-
-
 bool GameModule::lost_count(int sid,int pid){
     return ++_map.find(sid)->second._lost_count[pid] >= 2;
 }
@@ -36,15 +39,6 @@ bool GameModule::lost_count(int sid,int pid){
 bool GameModule::reset_lcount(int sid,int pid){
     //disconnected after lost for three times
     _map.find(sid)->second._lost_count[pid] = 0;
-}
-
-vector<int> GameModule::getPlayerPids(int sid){
-    vector<int> result;
-    auto &g = _map.find(sid)->second;
-    for (auto iter = g._data.begin(); iter != g._data.end(); ++iter){
-        result.push_back(iter->first);
-    }
-    return result;
 }
 
 

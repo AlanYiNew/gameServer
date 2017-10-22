@@ -27,6 +27,8 @@
 #include "utils.h"
 #include "modules/Map.h"
 #include "modules/Game.h"
+#include "modules/Session.h"
+#include "modules/Player.h"
 
 class SCChecker{
 private:
