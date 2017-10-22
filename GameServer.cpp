@@ -330,6 +330,27 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
     }   else if (req["cmd"] == "backtolobby"){
         //Does not have to reply at the moment
         //It should be cleaned up when game is over
+        int sid = std::stoi(req["sid"]);
+        int opponent_fd = _game_module.getOpponent(fd);
+        
+		Player * opponent = _player_module.getPlayer(opponent_fd);
+		p->_status = INLOBBY;
+		opponent->_status = INLOBBY;
+		_game_module.clear(p->_session);
+		p->_session = -1;
+		opponent->_session = -1;
+		
+        bool result = _session_module.exit(sid, fd);
+        std::unordered_map<string, string> res;
+
+        Player *p = _player_module.getPlayer(fd);
+        res["pid"] = to_string(fd);
+        res["cmd"] = "exit";
+        res["success"] = "0";
+
+        if (_player_module.validPid(opponent_fd))
+            send_respond(opponent_fd, res);
+            
     }   else{
         std::unordered_map<string, string> res;
         res["success"] = "-1";
