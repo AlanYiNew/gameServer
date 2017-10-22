@@ -224,6 +224,7 @@ void GameServer::onRead(int fd,const char *mess, int readsize) {
                 res["success"] = "0";
                 _session_module.clear(sid);
                 int sid = _game_module.newGame(_buf_size,fd,opponent_fd,lid);
+                res["sid"] = sid;
                 opponent-> _session = sid;
                 p->_session = sid;
                 send_respond(fd, res);
@@ -394,7 +395,6 @@ string res_parse(const std::map<int, std::string> &map) {
 
 void GameServer::userForceQuitHandler(int fd,bool send){
     Player *p = _player_module.getPlayer(fd);
-
 
     switch (p->_status){
         case INGAME:{
